@@ -1,0 +1,73 @@
+# Output of verification/stats_xgb.py, run 2026-10-07 on xgboost-autoresearch-minimal3-runs @ b2841ab
+
+model  n  mean  sd  min  p10  median  p90  max  ci95  range  impr  caveats  exp_mean  exp_min  exp_max  eval_mean  gap_mean  gap_sd
+gpt-6-luna 20 0.6806 0.0019 0.6773 0.6789 0.6800 0.6831 0.6844 [0.6798,0.6815] 0.0071 0.0081 4 30.1 24 38 0.6825 -0.0018 0.0006
+gpt-6-sol 20 0.6842 0.0018 0.6803 0.6821 0.6844 0.6864 0.6871 [0.6833,0.6850] 0.0068 0.0117 3 45.1 29 70 0.6860 -0.0018 0.0007
+gpt-6-astra 20 0.6866 0.0022 0.6815 0.6845 0.6871 0.6888 0.6906 [0.6855,0.6876] 0.0091 0.0141 3 47.1 36 62 0.6893 -0.0028 0.0005
+
+all 60 beat starter on holdout: True
+
+pairwise (model1 better on average):
+  gpt-6-astra vs gpt-6-sol: P(win)=0.801 [0.656,0.925] mean diff=+0.0024 welch_t p=6.11e-04 MWU p=1.16e-03
+  gpt-6-astra vs gpt-6-luna: P(win)=0.978 [0.927,1.000] mean diff=+0.0059 welch_t p=4.27e-11 MWU p=2.54e-07
+  gpt-6-sol vs gpt-6-luna: P(win)=0.911 [0.810,0.983] mean diff=+0.0035 welch_t p=6.43e-07 MWU p=9.09e-06
+
+Luna best beats how many Sol runs: 10 ties: 0 ; beats how many Astra runs: 2
+Sol best beats how many Astra runs: 10 ties: 0
+gpt-6-astra: range/improvement = 0.65
+gpt-6-sol: range/improvement = 0.58
+gpt-6-luna: range/improvement = 0.87
+best-worst model mean diff: 0.0059
+runs/arm to detect gpt-6-astra vs gpt-6-sol gap 0.0024 with sd 0.0019: 10
+runs/arm to detect gpt-6-astra vs gpt-6-luna gap 0.0059 with sd 0.0019: 2
+runs/arm to detect gpt-6-sol vs gpt-6-luna gap 0.0035 with sd 0.0019: 5
+
+best-of-k (choose by eval AUC, report holdout): k -> median, mean, p5, p95
+  gpt-6-astra k=1: median 0.6870 mean 0.6865 p5 0.6815 p95 0.6906
+  gpt-6-astra k=2: median 0.6878 mean 0.6877 p5 0.6846 p95 0.6906
+  gpt-6-astra k=3: median 0.6881 mean 0.6882 p5 0.6856 p95 0.6906
+  gpt-6-astra k=5: median 0.6886 mean 0.6887 p5 0.6873 p95 0.6906
+  gpt-6-astra k=10: median 0.6888 mean 0.6893 p5 0.6876 p95 0.6906
+  gpt-6-sol k=1: median 0.6841 mean 0.6842 p5 0.6803 p95 0.6871
+  gpt-6-sol k=2: median 0.6854 mean 0.6851 p5 0.6834 p95 0.6871
+  gpt-6-sol k=3: median 0.6856 mean 0.6855 p5 0.6837 p95 0.6871
+  gpt-6-sol k=5: median 0.6857 mean 0.6858 p5 0.6838 p95 0.6871
+  gpt-6-sol k=10: median 0.6857 mean 0.6860 p5 0.6854 p95 0.6871
+  gpt-6-luna k=1: median 0.6800 mean 0.6806 p5 0.6773 p95 0.6844
+  gpt-6-luna k=2: median 0.6819 mean 0.6817 p5 0.6795 p95 0.6844
+  gpt-6-luna k=3: median 0.6820 mean 0.6823 p5 0.6797 p95 0.6844
+  gpt-6-luna k=5: median 0.6831 mean 0.6829 p5 0.6800 p95 0.6844
+  gpt-6-luna k=10: median 0.6844 mean 0.6837 p5 0.6817 p95 0.6844
+gpt-6-astra: spearman(eval,holdout) = 0.94; spearman(experiments,holdout) = 0.40
+gpt-6-sol: spearman(eval,holdout) = 0.91; spearman(experiments,holdout) = 0.45
+gpt-6-luna: spearman(eval,holdout) = 0.96; spearman(experiments,holdout) = 0.36
+one-way ANOVA p=1.64e-12; Kruskal p=9.40e-09
+
+=== time course (per model medians) ===
+gpt-6-luna: keeps mean 8.7 discards 21.0 crashes 0.3; harness runs mean 30.2; AI share mean 67.7% (xgb 32.3%)
+   first gain (>+0.0005 holdout) median 5.4 min; holdout median at 15/30/45/60 min: 0.6784/0.6790/0.6797/0.6800
+   median longest plateau 19.6 min (max 50.6); runs with >=20 min plateau: 9; mean downward holdout steps per run 0.90; runs whose final kept model is below their best kept model on holdout: 3
+   time to within 0.002 of final: median 14.6 min
+gpt-6-sol: keeps mean 13.0 discards 31.8 crashes 0.3; harness runs mean 45.1; AI share mean 53.6% (xgb 46.4%)
+   first gain (>+0.0005 holdout) median 2.9 min; holdout median at 15/30/45/60 min: 0.6826/0.6833/0.6837/0.6844
+   median longest plateau 14.2 min (max 41.0); runs with >=20 min plateau: 3; mean downward holdout steps per run 1.55; runs whose final kept model is below their best kept model on holdout: 6
+   time to within 0.002 of final: median 15.2 min
+gpt-6-astra: keeps mean 19.2 discards 27.6 crashes 0.2; harness runs mean 47.1; AI share mean 71.5% (xgb 28.5%)
+   first gain (>+0.0005 holdout) median 2.4 min; holdout median at 15/30/45/60 min: 0.6819/0.6836/0.6849/0.6871
+   median longest plateau 10.7 min (max 26.1); runs with >=20 min plateau: 2; mean downward holdout steps per run 2.25; runs whose final kept model is below their best kept model on holdout: 4
+   time to within 0.002 of final: median 34.9 min
+
+# Output of verification/audit_cal.py (heuristic calendar audit of the 60 final train.py files)
+
+== luna6_n20: n=20; DayofMonth still a category in cat_cols: 16; dropped: 4; Month category: 15; holiday: 2; day-of-year-ish: 5
+   mean holdout kept 0.6800 vs dropped 0.6834 (diff +0.0034)
+   runs keeping DayofMonth cat: ['1', '2', '3', '4', '5', '6', '7', '8', '10', '11', '12', '13', '14', '15', '16', '19']
+   no cat_cols list found in: []
+== sol6_n20: n=20; DayofMonth still a category in cat_cols: 7; dropped: 13; Month category: 11; holiday: 3; day-of-year-ish: 16
+   mean holdout kept 0.6823 vs dropped 0.6852 (diff +0.0028)
+   runs keeping DayofMonth cat: ['2', '4', '5', '6', '9', '16', '17']
+   no cat_cols list found in: []
+== astra6_n20: n=20; DayofMonth still a category in cat_cols: 1; dropped: 19; Month category: 8; holiday: 15; day-of-year-ish: 11
+   mean holdout kept 0.6836 vs dropped 0.6867 (diff +0.0031)
+   runs keeping DayofMonth cat: ['2']
+   no cat_cols list found in: []

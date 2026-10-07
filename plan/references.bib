@@ -1,0 +1,800 @@
+% Starter bibliography for the paper "One Run Is Not Enough" (plan of 2026-10-07).
+%
+% Provenance:
+%   [V-HB]  copied verbatim from harness_benchmark/paper/refs.bib, where each entry was opened at
+%           its primary source on 2026-09-18 (see harness_benchmark/docs/literature/verification.md).
+%           Only the bibliographic record is reused; nothing else from that repo is.
+%   [V-PLAN] opened at the arXiv abstract page or the primary URL on 2026-10-07 while preparing
+%           this plan (title, authors, date confirmed; venue where stated).
+%   [TO VERIFY] from memory or secondary sources; open before citing and complete or drop.
+%
+% Keys follow the companion paper's convention (firstauthorYEARword) so that the two papers'
+% reference lists stay comparable.
+
+% ---------------------------------------------------------------- our own work and data
+
+@misc{pafka2026autoresearch,
+  title  = {Automating Data Science: Optimizing {XGBoost} Machine Learning Models with {AI} Agents},
+  author = {Pafka, Szilard and Ari{\~n}o de la Rubia, Eduardo},
+  year   = {2026},
+  month  = apr,
+  url    = {https://szilard.github.io/xgboost-autoresearch/},
+  note   = {[V-HB] Blog post; the date is the authors' own}
+}
+
+@misc{pafka2026onerun,
+  title  = {One Run Is Not Enough: How Much {AI} Agent Results Vary in Data Science, an {XGBoost} Optimization Study},
+  author = {Pafka, Szilard and Ari{\~n}o de la Rubia, Eduardo},
+  year   = {2026},
+  month  = oct,
+  url    = {https://szilard.github.io/xgboost-autoresearch3/},
+  note   = {[V-PLAN] Blog post, CC BY 4.0; the source of this paper's main points}
+}
+
+@misc{pafka2026minimal3,
+  title        = {xgboost-autoresearch-minimal3: a minimal, self-contained setup for one autonomous {XGBoost} tuning run},
+  author       = {Pafka, Szilard},
+  year         = {2026},
+  howpublished = {GitHub repository},
+  url          = {https://github.com/szilard/xgboost-autoresearch-minimal3},
+  note         = {[V-PLAN] Commit 5fb023a is the version the agents edited}
+}
+
+@misc{pafka2026minimal3runs,
+  title        = {xgboost-autoresearch-minimal3-runs: orchestrator and archived runs},
+  author       = {Pafka, Szilard},
+  year         = {2026},
+  howpublished = {GitHub repository},
+  url          = {https://github.com/szilard/xgboost-autoresearch-minimal3-runs},
+  note         = {[V-PLAN] Commit b2841ab holds the 60 runs of this paper}
+}
+
+@misc{arino2026identicalruns,
+  title         = {Identical Runs, Different Results: Benchmarking {AI} Coding Agents on Open-Weight Models},
+  author        = {Ari{\~n}o de la Rubia, Eduardo and Pafka, Szilard},
+  year          = {2026},
+  month         = sep,
+  eprint        = {2609.33812},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2609.33812},
+  note          = {[TO VERIFY] arXiv id taken from the minimal3-runs README; cite by design only, no results}
+}
+
+@misc{dataexpo2009,
+  title     = {Data Expo 2009: Airline on Time Data},
+  publisher = {Harvard Dataverse},
+  year      = {2008},
+  doi       = {10.7910/DVN/HG7NV7},
+  url       = {https://doi.org/10.7910/DVN/HG7NV7},
+  note      = {[V-HB]}
+}
+
+@misc{pafka2015benchmml,
+  title        = {benchm-ml: A minimal benchmark for scalability, speed and accuracy of commonly used open source implementations of the top machine learning algorithms for binary classification},
+  author       = {Pafka, Szilard},
+  year         = {2015},
+  howpublished = {GitHub repository},
+  url          = {https://github.com/szilard/benchm-ml},
+  note         = {[TO VERIFY] origin of the airline-delay benchmark slices; confirm wording and year}
+}
+
+@misc{karpathy2026autoresearch,
+  title        = {autoresearch: {AI} agents running research on single-{GPU} nanochat training automatically},
+  author       = {Karpathy, Andrej},
+  year         = {2026},
+  month        = mar,
+  howpublished = {GitHub repository},
+  url          = {https://github.com/karpathy/autoresearch},
+  note         = {[V-PLAN] MIT licence; program.md and a fixed 5-minute budget per experiment; release date (7 March 2026) from secondary sources, TO VERIFY}
+}
+
+% ---------------------------------------------------------------- the agent and the LLMs
+
+@misc{openai2026codex,
+  title        = {Codex {CLI}},
+  author       = {{OpenAI}},
+  year         = {2026},
+  howpublished = {GitHub repository},
+  url          = {https://github.com/openai/codex},
+  note         = {[TO VERIFY] version 0.160.0 used in every run; cite the release or the docs page for model\_reasoning\_effort}
+}
+
+@misc{openai2026gpt6,
+  title        = {{GPT-6} model family: {Astra}, {Sol} and {Luna}},
+  author       = {{OpenAI}},
+  year         = {2026},
+  howpublished = {Model documentation},
+  note         = {[TO VERIFY] official URL not found during planning; press coverage dates Astra to 3 September 2026 and Sol and Luna to 22 September 2026}
+}
+
+% ---------------------------------------------------------------- agents for ML engineering and HPO
+
+@misc{ferreira2026autoresearch,
+  title         = {Can {LLMs} Beat Classical Hyperparameter Optimization Algorithms? A Study on autoresearch},
+  author        = {Ferreira, Fabio and Wobbe, Lucca and Krishnakumar, Arjun and Hutter, Frank and Zela, Arber},
+  year          = {2026},
+  eprint        = {2603.24647},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2603.24647},
+  note          = {[V-HB]}
+}
+
+@misc{rodrigues2026llmhpo,
+  title         = {When Is an {LLM} Worth It for Hyperparameter Optimization? A Budget-Matched Study on Tabular Data Finds the Warm-Start Is a Default Configuration, Not the Model},
+  author        = {Rodrigues, Carson and Vas, Oysturn and DCosta, Isaiah Abner and Prabhakaran, Nithish Kumar},
+  year          = {2026},
+  eprint        = {2606.21641},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2606.21641},
+  note          = {[V-HB]}
+}
+
+@misc{zhang2023llmhpo,
+  title         = {Using Large Language Models for Hyperparameter Optimization},
+  author        = {Zhang, Michael R. and Desai, Nishkrit and Bae, Juhan and Lorraine, Jonathan and Ba, Jimmy},
+  year          = {2023},
+  eprint        = {2312.04528},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2312.04528},
+  note          = {[V-PLAN] v2 11 November 2024; workshop venue TO VERIFY}
+}
+
+@inproceedings{liu2024llambo,
+  title         = {Large Language Models to Enhance {Bayesian} Optimization},
+  author        = {Liu, Tennison and Astorga, Nicol{\'a}s and Seedat, Nabeel and van der Schaar, Mihaela},
+  booktitle     = {International Conference on Learning Representations (ICLR)},
+  year          = {2024},
+  eprint        = {2402.03921},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2402.03921},
+  note          = {[V-PLAN] LLAMBO; ICLR 2024 poster per the arXiv comment}
+}
+
+@misc{liu2024agenthpo,
+  title         = {Large Language Model Agent for Hyper-Parameter Optimization},
+  author        = {Liu, Siyi and Gao, Chen and Li, Yong},
+  year          = {2024},
+  eprint        = {2402.01881},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2402.01881},
+  note          = {[V-PLAN] AgentHPO}
+}
+
+@inproceedings{huang2024mlagentbench,
+  title         = {{MLAgentBench}: Evaluating Language Agents on Machine Learning Experimentation},
+  author        = {Huang, Qian and Vora, Jian and Liang, Percy and Leskovec, Jure},
+  booktitle     = {Proceedings of the 41st International Conference on Machine Learning},
+  year          = {2024},
+  eprint        = {2310.03302},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2310.03302},
+  note          = {[V-PLAN] title and authors; ICML 2024 venue TO VERIFY}
+}
+
+@inproceedings{guo2024dsagent,
+  title         = {{DS-Agent}: Automated Data Science by Empowering Large Language Models with Case-Based Reasoning},
+  author        = {Guo, Siyuan and Deng, Cheng and Wen, Ying and Chen, Hechang and Chang, Yi and Wang, Jun},
+  booktitle     = {Proceedings of the 41st International Conference on Machine Learning},
+  year          = {2024},
+  eprint        = {2402.17453},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2402.17453},
+  note          = {[V-PLAN] accepted at ICML 2024 per the arXiv comment}
+}
+
+@misc{jiang2025aide,
+  title         = {{AIDE}: {AI}-Driven Exploration in the Space of Code},
+  author        = {Jiang, Zhengyao and Schmidt, Dominik and Srikanth, Dhruv and Xu, Dixing and Kaplan, Ian and Jacenko, Deniss and Wu, Yuxiang},
+  year          = {2025},
+  eprint        = {2502.13138},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2502.13138},
+  note          = {[V-PLAN]}
+}
+
+@inproceedings{chan2024mlebench,
+  title         = {{MLE}-bench: Evaluating Machine Learning Agents on Machine Learning Engineering},
+  author        = {Chan, Jun Shern and Chowdhury, Neil and Jaffe, Oliver and Aung, James and Sherburn, Dane and Mays, Evan and Starace, Giulio and Liu, Kevin and Maksin, Leon and Patwardhan, Tejal and Madry, Aleksander and Weng, Lilian},
+  booktitle     = {International Conference on Learning Representations (ICLR)},
+  pages         = {50466--50494},
+  year          = {2025},
+  eprint        = {2410.07095},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  doi           = {10.48550/arXiv.2410.07095},
+  url           = {https://proceedings.iclr.cc/paper_files/paper/2025/hash/7e3767db483c942b883eb4f8cfb74e31-Abstract-Conference.html},
+  note          = {[V-HB] the README's "at least 3 seeds" guidance is at https://github.com/openai/mle-bench}
+}
+
+@inproceedings{wijk2025rebench,
+  title         = {{RE}-Bench: Evaluating Frontier {AI} {R\&D} Capabilities of Language Model Agents against Human Experts},
+  author        = {Wijk, Hjalmar and Lin, Tao Roa and Becker, Joel and Jawhar, Sami and Parikh, Neev and Broadley, Thomas and Chan, Lawrence and Chen, Michael and Clymer, Joshua M and Dhyani, Jai and Ericheva, Elena and Garcia, Katharyn and Goodrich, Brian and Jurkovic, Nikola and Kinniment, Megan and Lajko, Aron and Nix, Seraphina and Koba Sato, Lucas Jun and Saunders, William and Taran, Maksym and West, Ben and Barnes, Elizabeth},
+  booktitle     = {Proceedings of the 42nd International Conference on Machine Learning},
+  series        = {Proceedings of Machine Learning Research},
+  volume        = {267},
+  pages         = {66772--66832},
+  publisher     = {PMLR},
+  year          = {2025},
+  eprint        = {2411.15114},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG},
+  url           = {https://proceedings.mlr.press/v267/wijk25a.html},
+  note          = {[V-HB]}
+}
+
+@inproceedings{jing2025dsbench,
+  title         = {{DSBench}: How Far Are Data Science Agents from Becoming Data Science Experts?},
+  author        = {Jing, Liqiang and Huang, Zhehui and Wang, Xiaoyang and Yao, Wenlin and Yu, Wenhao and Ma, Kaixin and Zhang, Hongming and Du, Xinya and Yu, Dong},
+  booktitle     = {International Conference on Learning Representations (ICLR)},
+  year          = {2025},
+  eprint        = {2409.07703},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2409.07703},
+  note          = {[V-PLAN] title and authors; ICLR 2025 venue from the ICLR virtual site, TO VERIFY pages}
+}
+
+@misc{li2024autokaggle,
+  title         = {{AutoKaggle}: A Multi-Agent Framework for Autonomous Data Science Competitions},
+  author        = {Li, Ziming and Zang, Qianbo and Ma, David and Guo, Jiawei and Zheng, Tuney and Liu, Minghao and Niu, Xinyao and Wang, Yue and Yang, Jian and Liu, Jiaheng and Zhong, Wanjun and Zhou, Wangchunshu and Huang, Wenhao and Zhang, Ge},
+  year          = {2024},
+  eprint        = {2410.20424},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2410.20424},
+  note          = {[V-PLAN]}
+}
+
+@misc{grosnit2024agentk,
+  title         = {Kolb-Based Experiential Learning for Generalist Agents with Human-Level {Kaggle} Data Science Performance},
+  author        = {Grosnit, Antoine and Maraval, Alexandre and S N, Refinath and Zhao, Zichao and Doran, James and Paolo, Giuseppe and Thomas, Albert and Gonzalez, Jonas and Kumar, Abhineet and Khandelwal, Khyati and Benechehab, Abdelhakim and Cherkaoui, Hamza and Attia El-Hili, Youssef and Shao, Kun and Hao, Jianye and Yao, Jun and K{\'e}gl, Bal{\'a}zs and Bou-Ammar, Haitham and Wang, Jun},
+  year          = {2024},
+  eprint        = {2411.03562},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2411.03562},
+  note          = {[V-PLAN] Agent K; v1 was titled "Large Language Models Orchestrating Structured Reasoning Achieve Kaggle Grandmaster Level"}
+}
+
+@misc{nam2025mlestar,
+  title         = {{MLE-STAR}: Machine Learning Engineering Agent via Search and Targeted Refinement},
+  author        = {Nam, Jaehyun and Yoon, Jinsung and Chen, Jiefeng and Shin, Jinwoo and Ar{\i}k, Sercan {\"O}. and Pfister, Tomas},
+  year          = {2025},
+  eprint        = {2506.15692},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2506.15692},
+  note          = {[V-PLAN]}
+}
+
+@misc{rahman2026dsagentbench,
+  title         = {{DSAgentBench}: Can Agents Automate End-to-End Data-Science Workflows in Real Computer Environments?},
+  author        = {Rahman, Mizanur and Islam, Mohammed Saidul and Mahbub, Ridwan and Laskar, Md Tahmid Rahman and Joty, Shafiq and Hoque Prince, Enamul},
+  year          = {2026},
+  eprint        = {2608.10366},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2608.10366},
+  note          = {[V-PLAN]}
+}
+
+@misc{moukpe2026deltaml,
+  title         = {{DeltaML-Bench}: Evaluating Machine Learning Agents on Real-World Research Repositories},
+  author        = {Moukpe, Josias and Aryal, Priyanka and Kenney, Matthew},
+  year          = {2026},
+  eprint        = {2608.19653},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2608.19653},
+  note          = {[V-HB]}
+}
+
+% ---------------------------------------------------------------- nondeterminism and variation of LLMs and agents
+
+@article{ouyang2024nondeterminism,
+  title         = {An Empirical Study of the Non-determinism of {ChatGPT} in Code Generation},
+  author        = {Ouyang, Shuyin and Zhang, Jie M. and Harman, Mark and Wang, Meng},
+  journal       = {ACM Transactions on Software Engineering and Methodology},
+  year          = {2025},
+  doi           = {10.1145/3697010},
+  eprint        = {2308.02828},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2308.02828},
+  note          = {[V-PLAN] title, authors, DOI from the arXiv page; volume, issue and pages TO VERIFY}
+}
+
+@misc{atil2025nondeterminism,
+  title         = {Non-Determinism of ``Deterministic'' {LLM} Settings},
+  author        = {Atil, Berk and Aykent, Sarp and Chittams, Alexa and Fu, Lisheng and Passonneau, Rebecca J. and Radcliffe, Evan and Rajagopal, Guru Rajan and Sloan, Adam and Tudrej, Tomasz and Ture, Ferhan and Wu, Zhe and Xu, Lixinyu and Baldwin, Breck},
+  year          = {2025},
+  eprint        = {2408.04667},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2408.04667},
+  note          = {[V-PLAN] v1 August 2024, v5 April 2025}
+}
+
+@misc{he2025defeating,
+  title        = {Defeating Nondeterminism in {LLM} Inference},
+  author       = {He, Horace and {Thinking Machines Lab}},
+  year         = {2025},
+  month        = sep,
+  howpublished = {Thinking Machines Lab: Connectionism (blog)},
+  url          = {https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/},
+  note         = {[TO VERIFY] author list as printed on the page; published 10 September 2025}
+}
+
+@inproceedings{yao2024taubench,
+  title         = {{$\tau$}-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains},
+  author        = {Yao, Shunyu and Shinn, Noah and Razavi, Pedram and Narasimhan, Karthik},
+  booktitle     = {International Conference on Learning Representations (ICLR)},
+  pages         = {9965--10017},
+  year          = {2025},
+  eprint        = {2406.12045},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  doi           = {10.48550/arXiv.2406.12045},
+  url           = {https://arxiv.org/abs/2406.12045},
+  note          = {[V-HB]}
+}
+
+@inproceedings{rabanser2026reliability,
+  title         = {Towards a Science of {AI} Agent Reliability},
+  author        = {Rabanser, Stephan and Kapoor, Sayash and Kirgis, Peter and Liu, Kangheng and Utpala, Saiteja and Narayanan, Arvind},
+  booktitle     = {International Conference on Machine Learning (ICML)},
+  year          = {2026},
+  eprint        = {2602.16666},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  doi           = {10.48550/arXiv.2602.16666},
+  url           = {https://arxiv.org/abs/2602.16666},
+  note          = {[V-HB] arXiv v3 (camera-ready), 2 Jun 2026}
+}
+
+@misc{bjarnason2026randomness,
+  title         = {On Randomness in Agentic Evals},
+  author        = {Bjarnason, Bjarni Haukur and Silva, Andr{\'e} and Monperrus, Martin},
+  year          = {2026},
+  eprint        = {2602.07150},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG},
+  doi           = {10.48550/arXiv.2602.07150},
+  url           = {https://arxiv.org/abs/2602.07150},
+  note          = {[V-HB] v3, 25 Mar 2026}
+}
+
+@misc{mehta2026disagree,
+  title         = {When Agents Disagree With Themselves: Behavioral Consistency as an Uncertainty Signal for {LLM} Agents},
+  author        = {Mehta, Aman},
+  year          = {2026},
+  eprint        = {2602.11619},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2602.11619},
+  note          = {[V-PLAN] ICML 2026 Workshop on Statistical Frameworks for Uncertainty in Agentic Systems; v2 15 July 2026}
+}
+
+@misc{madaan2024variance,
+  title         = {Quantifying Variance in Evaluation Benchmarks},
+  author        = {Madaan, Lovish and Singh, Aaditya K. and Schaeffer, Rylan and Poulton, Andrew and Koyejo, Sanmi and Stenetorp, Pontus and Narang, Sharan and Hupkes, Dieuwke},
+  year          = {2024},
+  eprint        = {2406.10229},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2406.10229},
+  note          = {[V-PLAN]}
+}
+
+@misc{wang2025noises,
+  title         = {Measuring all the noises of {LLM} Evals},
+  author        = {Wang, Sida},
+  year          = {2025},
+  eprint        = {2512.21326},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2512.21326},
+  note          = {[V-PLAN] v2 29 March 2026}
+}
+
+@inproceedings{bowyer2025clt,
+  title         = {Position: Don't Use the {CLT} in {LLM} Evals With Fewer Than a Few Hundred Datapoints},
+  author        = {Bowyer, Sam and Aitchison, Laurence and Ivanova, Desi R.},
+  booktitle     = {Proceedings of the 42nd International Conference on Machine Learning},
+  series        = {Proceedings of Machine Learning Research},
+  volume        = {267},
+  publisher     = {PMLR},
+  year          = {2025},
+  eprint        = {2503.01747},
+  archivePrefix = {arXiv},
+  url           = {https://proceedings.mlr.press/v267/bowyer25a.html},
+  note          = {[V-PLAN] ICML 2025 spotlight position paper; pages TO VERIFY}
+}
+
+@inproceedings{hariri2026dontpassk,
+  title         = {Don't {Pass@k}: A {Bayesian} Framework for Large Language Model Evaluation},
+  author        = {Hariri, Mohsen and Samandar, Amirhossein and Hinczewski, Michael and Chaudhary, Vipin},
+  booktitle     = {International Conference on Learning Representations (ICLR)},
+  year          = {2026},
+  eprint        = {2510.04265},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2510.04265},
+  note          = {[V-PLAN] ICLR 2026 per the arXiv page}
+}
+
+@misc{miller2024errorbars,
+  author        = {Miller, Evan},
+  title         = {Adding Error Bars to Evals: A Statistical Approach to Language Model Evaluations},
+  year          = {2024},
+  eprint        = {2411.00640},
+  archivePrefix = {arXiv},
+  primaryClass  = {stat.AP},
+  doi           = {10.48550/arXiv.2411.00640},
+  url           = {https://arxiv.org/abs/2411.00640},
+  note          = {[V-HB]}
+}
+
+@misc{kapoor2024agents,
+  title         = {{AI} Agents That Matter},
+  author        = {Kapoor, Sayash and Stroebl, Benedikt and Siegel, Zachary S. and Nadgir, Nitya and Narayanan, Arvind},
+  year          = {2025},
+  month         = jun,
+  publisher     = {Transactions on Machine Learning Research},
+  eprint        = {2407.01502},
+  archivePrefix = {arXiv},
+  url           = {https://openreview.net/forum?id=Zy4uFzMviZ},
+  note          = {[V-HB]}
+}
+
+% ---------------------------------------------------------------- seed variance in ML and RL
+
+@inproceedings{henderson2018deep,
+  author    = {Henderson, Peter and Islam, Riashat and Bachman, Philip and Pineau, Joelle and Precup, Doina and Meger, David},
+  title     = {Deep Reinforcement Learning That Matters},
+  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume    = {32},
+  number    = {1},
+  pages     = {3207--3214},
+  year      = {2018},
+  doi       = {10.1609/aaai.v32i1.11694},
+  eprint    = {1709.06560},
+  archivePrefix = {arXiv},
+  url       = {https://ojs.aaai.org/index.php/AAAI/article/view/11694},
+  note      = {[V-HB]}
+}
+
+@misc{colas2018seeds,
+  title         = {How Many Random Seeds? Statistical Power Analysis in Deep Reinforcement Learning Experiments},
+  author        = {Colas, C{\'e}dric and Sigaud, Olivier and Oudeyer, Pierre-Yves},
+  year          = {2018},
+  eprint        = {1806.08295},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/1806.08295},
+  note          = {[V-PLAN]}
+}
+
+@inproceedings{agarwal2021precipice,
+  title     = {Deep Reinforcement Learning at the Edge of the Statistical Precipice},
+  author    = {Agarwal, Rishabh and Schwarzer, Max and Castro, Pablo Samuel and Courville, Aaron and Bellemare, Marc G.},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2021},
+  eprint    = {2108.13264},
+  url       = {https://arxiv.org/abs/2108.13264},
+  note      = {[V-HB]}
+}
+
+@inproceedings{bouthillier2021variance,
+  author    = {Bouthillier, Xavier and Delaunay, Pierre and Bronzi, Mirko and Trofimov, Assya and Nichyporuk, Brennan and Szeto, Justin and Sepah, Naz and Raff, Edward and Madan, Kanika and Voleti, Vikram and Ebrahimi Kahou, Samira and Michalski, Vincent and Serdyuk, Dmitriy and Arbel, Tal and Pal, Chris and Varoquaux, Ga{\"e}l and Vincent, Pascal},
+  title     = {Accounting for Variance in Machine Learning Benchmarks},
+  booktitle = {Proceedings of Machine Learning and Systems},
+  editor    = {Smola, A. and Dimakis, A. and Stoica, I.},
+  volume    = {3},
+  pages     = {747--769},
+  year      = {2021},
+  eprint    = {2103.03098},
+  archivePrefix = {arXiv},
+  doi       = {10.48550/arXiv.2103.03098},
+  url       = {https://proceedings.mlsys.org/paper_files/paper/2021/hash/0184b0cd3cfb185989f858a1d9f5c1eb-Abstract.html},
+  note      = {[V-HB]}
+}
+
+@misc{dodge2020finetuning,
+  author        = {Dodge, Jesse and Ilharco, Gabriel and Schwartz, Roy and Farhadi, Ali and Hajishirzi, Hannaneh and Smith, Noah},
+  title         = {Fine-Tuning Pretrained Language Models: Weight Initializations, Data Orders, and Early Stopping},
+  year          = {2020},
+  eprint        = {2002.06305},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  doi           = {10.48550/arXiv.2002.06305},
+  url           = {https://arxiv.org/abs/2002.06305},
+  note          = {[V-HB]}
+}
+
+% ---------------------------------------------------------------- statistics used
+
+@article{mann1947test,
+  title   = {On a Test of Whether one of Two Random Variables is Stochastically Larger than the Other},
+  author  = {Mann, H. B. and Whitney, D. R.},
+  journal = {The Annals of Mathematical Statistics},
+  volume  = {18},
+  number  = {1},
+  pages   = {50--60},
+  year    = {1947},
+  doi     = {10.1214/aoms/1177730491},
+  note    = {[TO VERIFY] classic; confirm pages}
+}
+
+@article{mcgraw1992cl,
+  title   = {A Common Language Effect Size Statistic},
+  author  = {McGraw, Kenneth O. and Wong, S. P.},
+  journal = {Psychological Bulletin},
+  volume  = {111},
+  number  = {2},
+  pages   = {361--365},
+  year    = {1992},
+  doi     = {10.1037/0033-2909.111.2.361},
+  note    = {[TO VERIFY] confirm pages and DOI}
+}
+
+@article{vargha2000a,
+  title   = {A Critique and Improvement of the {CL} Common Language Effect Size Statistics of {McGraw} and {Wong}},
+  author  = {Vargha, Andr{\'a}s and Delaney, Harold D.},
+  journal = {Journal of Educational and Behavioral Statistics},
+  volume  = {25},
+  number  = {2},
+  pages   = {101--132},
+  year    = {2000},
+  doi     = {10.3102/10769986025002101},
+  note    = {[V-PLAN] volume, issue and pages from the journal and IDEAS records found in search; the A measure counts ties half}
+}
+
+@article{efron1979bootstrap,
+  title   = {Bootstrap Methods: Another Look at the Jackknife},
+  author  = {Efron, B.},
+  journal = {The Annals of Statistics},
+  volume  = {7},
+  number  = {1},
+  pages   = {1--26},
+  year    = {1979},
+  doi     = {10.1214/aos/1176344552},
+  note    = {[TO VERIFY] classic; confirm}
+}
+
+@article{welch1947,
+  title   = {The Generalization of `Student's' Problem when Several Different Population Variances are Involved},
+  author  = {Welch, B. L.},
+  journal = {Biometrika},
+  volume  = {34},
+  number  = {1/2},
+  pages   = {28--35},
+  year    = {1947},
+  doi     = {10.1093/biomet/34.1-2.28},
+  note    = {[TO VERIFY] only if Welch p-values are reported}
+}
+
+@article{hanley1982meaning,
+  author  = {Hanley, James A. and McNeil, Barbara J.},
+  title   = {The Meaning and Use of the Area under a Receiver Operating Characteristic ({ROC}) Curve},
+  journal = {Radiology},
+  year    = {1982},
+  volume  = {143},
+  number  = {1},
+  pages   = {29--36},
+  doi     = {10.1148/radiology.143.1.7063747},
+  url     = {https://doi.org/10.1148/radiology.143.1.7063747},
+  note    = {[V-HB]}
+}
+
+@article{delong1988comparing,
+  author  = {DeLong, Elizabeth R. and DeLong, David M. and Clarke-Pearson, Daniel L.},
+  title   = {Comparing the Areas under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach},
+  journal = {Biometrics},
+  year    = {1988},
+  volume  = {44},
+  number  = {3},
+  pages   = {837--845},
+  doi     = {10.2307/2531595},
+  url     = {https://doi.org/10.2307/2531595},
+  note    = {[V-HB]}
+}
+
+% ---------------------------------------------------------------- selection, repeated sampling, holdout reuse
+
+@misc{chen2021codex,
+  title         = {Evaluating Large Language Models Trained on Code},
+  author        = {Chen, Mark and Tworek, Jerry and Jun, Heewoo and Yuan, Qiming and Pinto, Henrique Ponde de Oliveira and Kaplan, Jared and others},
+  year          = {2021},
+  eprint        = {2107.03374},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2107.03374},
+  note          = {[V-HB]}
+}
+
+@misc{brown2024monkeys,
+  title         = {Large Language Monkeys: Scaling Inference Compute with Repeated Sampling},
+  author        = {Brown, Bradley and Juravsky, Jordan and Ehrlich, Ryan and Clark, Ronald and Le, Quoc V. and R{\'e}, Christopher and Mirhoseini, Azalia},
+  year          = {2024},
+  eprint        = {2407.21787},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2407.21787},
+  note          = {[V-PLAN]}
+}
+
+@article{cawley2010overfitting,
+  author  = {Cawley, Gavin C. and Talbot, Nicola L. C.},
+  title   = {On Over-fitting in Model Selection and Subsequent Selection Bias in Performance Evaluation},
+  journal = {Journal of Machine Learning Research},
+  year    = {2010},
+  volume  = {11},
+  number  = {70},
+  pages   = {2079--2107},
+  url     = {https://www.jmlr.org/papers/v11/cawley10a.html},
+  note    = {[V-HB]}
+}
+
+@article{dwork2015reusable,
+  author  = {Dwork, Cynthia and Feldman, Vitaly and Hardt, Moritz and Pitassi, Toniann and Reingold, Omer and Roth, Aaron},
+  title   = {The reusable holdout: Preserving validity in adaptive data analysis},
+  journal = {Science},
+  year    = {2015},
+  volume  = {349},
+  number  = {6248},
+  pages   = {636--638},
+  doi     = {10.1126/science.aaa9375},
+  url     = {https://doi.org/10.1126/science.aaa9375},
+  note    = {[V-HB]}
+}
+
+@inproceedings{dwork2015generalization,
+  author    = {Dwork, Cynthia and Feldman, Vitaly and Hardt, Moritz and Pitassi, Toniann and Reingold, Omer and Roth, Aaron},
+  title     = {Generalization in Adaptive Data Analysis and Holdout Reuse},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {28},
+  year      = {2015},
+  eprint    = {1506.02629},
+  archivePrefix = {arXiv},
+  doi       = {10.48550/arXiv.1506.02629},
+  url       = {https://papers.nips.cc/paper_files/paper/2015/hash/bad5f33780c42f2588878a9d07405083-Abstract.html},
+  note      = {[V-HB]}
+}
+
+@inproceedings{roelofs2019meta,
+  author    = {Roelofs, Rebecca and Shankar, Vaishaal and Recht, Benjamin and Fridovich-Keil, Sara and Hardt, Moritz and Miller, John and Schmidt, Ludwig},
+  title     = {A Meta-Analysis of Overfitting in Machine Learning},
+  booktitle = {Advances in Neural Information Processing Systems},
+  editor    = {Wallach, H. and Larochelle, H. and Beygelzimer, A. and d'Alch{\'e}-Buc, F. and Fox, E. and Garnett, R.},
+  volume    = {32},
+  publisher = {Curran Associates, Inc.},
+  year      = {2019},
+  url       = {https://proceedings.neurips.cc/paper/2019/hash/ee39e503b6bedf0c98c388b7e8589aca-Abstract.html},
+  note      = {[V-HB]}
+}
+
+% ---------------------------------------------------------------- harness and model as a system; rule-following
+
+@misc{lewis2026same,
+  title         = {Same Model, Different Harness: Different Coding-Agent Results},
+  author        = {Lewis, Sydney},
+  year          = {2026},
+  eprint        = {2608.26218},
+  archiveprefix = {arXiv},
+  url           = {https://arxiv.org/abs/2608.26218},
+  note          = {[V-HB]}
+}
+
+@misc{fan2026harness,
+  title         = {An Empirical Study of Harness Design for Coding Agents},
+  author        = {Fan, Run-Ze and Zhang, Zihao and Ma, Simin and Hu, Yebowen and Wang, Shouju and Song, Kaiqiang and Liu, Fei and Zamani, Hamed and Wang, Xiaoyang},
+  year          = {2026},
+  eprint        = {2609.20804},
+  archiveprefix = {arXiv},
+  url           = {https://arxiv.org/abs/2609.20804},
+  note          = {[V-HB]}
+}
+
+@misc{pan2026harnesstax,
+  title  = {{HarnessTax}: How Much Does Harness Matter for Coding Agents?},
+  author = {Pan, Melissa Z. and Yang, Shuo and Arabzadeh, Negar and Chiang, Wei-Lin and Stoica, Ion and Zaharia, Matei},
+  year   = {2026},
+  url    = {https://harnesstax.github.io/},
+  note   = {[V-HB]}
+}
+
+@misc{metr2025o3,
+  title        = {Details about {METR}'s preliminary evaluation of {OpenAI}'s {o3} and {o4-mini}},
+  author       = {{METR}},
+  year         = {2025},
+  month        = apr,
+  url          = {https://metr.org/evaluations/openai-o3-report/},
+  note         = {[V-HB] Published 16 April 2025}
+}
+
+@misc{zhao2026specbench,
+  title         = {{SpecBench}: Measuring Reward Hacking in Long-Horizon Coding Agents},
+  author        = {Zhao, Bingchen and Srikanth, Dhruv and Wu, Yuxiang and Jiang, Zhengyao},
+  year          = {2026},
+  eprint        = {2605.21384},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.SE},
+  doi           = {10.48550/arXiv.2605.21384},
+  url           = {https://arxiv.org/abs/2605.21384},
+  note          = {[V-HB] v2, 9 Sep 2026}
+}
+
+@misc{chen2026publicscore,
+  title         = {Chasing the Public Score: User Pressure and Evaluation Exploitation in Coding Agent Workflows},
+  author        = {Chen, Hardy and Lau, Nancy and Tu, Haoqin and Yan, Shuo and Liu, Xiangyan and Wang, Zijun and Wu, Juncheng and Shieh, Michael Qizhe and Cardenas, Alvaro A. and Xie, Cihang and Zhou, Yuyin},
+  year          = {2026},
+  eprint        = {2604.20200},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  doi           = {10.48550/arXiv.2604.20200},
+  url           = {https://arxiv.org/abs/2604.20200},
+  note          = {[V-HB] v1, 22 Apr 2026}
+}
+
+@inproceedings{zhu2025abc,
+  title     = {Establishing Best Practices in Building Rigorous Agentic Benchmarks},
+  author    = {Zhu, Yuxuan and Jin, Tengjun and Pruksachatkun, Yada and Zhang, Andy and Liu, Shu and Cui, Sasha and Kapoor, Sayash and Longpre, Shayne and Meng, Kevin and Weiss, Rebecca and Barez, Fazl and Gupta, Rahul and Dhamala, Jwala and Merizian, Jacob and Giulianelli, Mario and Coppock, Harry and Ududec, Cozmin and Sekhon, Jasjeet and Steinhardt, Jacob and Kellermann, Antony and Schwettmann, Sarah and Zaharia, Matei and Stoica, Ion and Liang, Percy and Kang, Daniel},
+  booktitle = {Advances in Neural Information Processing Systems, Datasets and Benchmarks Track},
+  year      = {2025},
+  eprint    = {2507.02825},
+  url       = {https://arxiv.org/abs/2507.02825},
+  note      = {[V-HB]}
+}
+
+% ---------------------------------------------------------------- tabular learning and temporal shift
+
+@inproceedings{chen2016xgboost,
+  title     = {{XGBoost}: A Scalable Tree Boosting System},
+  author    = {Chen, Tianqi and Guestrin, Carlos},
+  booktitle = {Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+  pages     = {785--794},
+  year      = {2016},
+  doi       = {10.1145/2939672.2939785},
+  note      = {[TO VERIFY] classic; confirm pages}
+}
+
+@inproceedings{grinsztajn2022tabular,
+  title     = {Why do tree-based models still outperform deep learning on typical tabular data?},
+  author    = {Grinsztajn, L{\'e}o and Oyallon, Edouard and Varoquaux, Ga{\"e}l},
+  booktitle = {Advances in Neural Information Processing Systems, Datasets and Benchmarks Track},
+  volume    = {35},
+  year      = {2022},
+  eprint    = {2207.08815},
+  archivePrefix = {arXiv},
+  url       = {https://arxiv.org/abs/2207.08815},
+  note      = {[V-PLAN] title and authors from the NeurIPS page}
+}
+
+@article{shwartzziv2022tabular,
+  title   = {Tabular data: Deep learning is not all you need},
+  author  = {Shwartz-Ziv, Ravid and Armon, Amitai},
+  journal = {Information Fusion},
+  volume  = {81},
+  pages   = {84--90},
+  year    = {2022},
+  doi     = {10.1016/j.inffus.2021.11.011},
+  note    = {[TO VERIFY]}
+}
+
+@misc{rubachev2024tabred,
+  title         = {{TabReD}: Analyzing Pitfalls and Filling the Gaps in Tabular Deep Learning Benchmarks},
+  author        = {Rubachev, Ivan and Kartashev, Nikolay and Gorishniy, Yury and Babenko, Artem},
+  year          = {2024},
+  eprint        = {2406.19380},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2406.19380},
+  note          = {[V-PLAN] time-based splits; later conference version TO VERIFY}
+}
+
+@inproceedings{gardner2023tableshift,
+  title     = {Benchmarking Distribution Shift in Tabular Data with {TableShift}},
+  author    = {Gardner, Josh and Popovi{\'c}, Zoran and Schmidt, Ludwig},
+  booktitle = {Advances in Neural Information Processing Systems, Datasets and Benchmarks Track},
+  year      = {2023},
+  eprint    = {2312.07577},
+  archivePrefix = {arXiv},
+  url       = {https://arxiv.org/abs/2312.07577},
+  note      = {[V-PLAN]}
+}
+
+@inproceedings{cai2025temporal,
+  title     = {Understanding the Limits of Deep Tabular Methods with Temporal Shift},
+  author    = {Cai, Hao-Run and Ye, Han-Jia},
+  booktitle = {Proceedings of the 42nd International Conference on Machine Learning},
+  year      = {2025},
+  eprint    = {2502.20260},
+  archivePrefix = {arXiv},
+  url       = {https://arxiv.org/abs/2502.20260},
+  note      = {[V-PLAN] ICML 2025 per the arXiv page}
+}
