@@ -6,7 +6,9 @@
 %           Only the bibliographic record is reused; nothing else from that repo is.
 %   [V-PLAN] opened at the arXiv abstract page or the primary URL on 2026-10-07 while preparing
 %           this plan (title, authors, date confirmed; venue where stated).
-%   [TO VERIFY] from memory or secondary sources; open before citing and complete or drop.
+%   [V-SUB]  opened at the primary source on 2026-10-07 by a verification subagent; details and the
+%           corrected entries are in plan/verification/bib-verification.md.
+%   [TO VERIFY] from memory or secondary sources; open before citing (none left as of 2026-10-07).
 %
 % Keys follow the companion paper's convention (firstauthorYEARword) so that the two papers'
 % reference lists stay comparable.
@@ -56,8 +58,9 @@
   month         = sep,
   eprint        = {2609.33812},
   archivePrefix = {arXiv},
+  primaryClass  = {cs.SE},
   url           = {https://arxiv.org/abs/2609.33812},
-  note          = {[TO VERIFY] arXiv id taken from the minimal3-runs README; cite by design only, no results}
+  note          = {[V-SUB] 2026-10-07 arXiv abstract page (v1, 27 Sep 2026); cite by design only, no results}
 }
 
 @misc{dataexpo2009,
@@ -73,9 +76,10 @@
   title        = {benchm-ml: A minimal benchmark for scalability, speed and accuracy of commonly used open source implementations of the top machine learning algorithms for binary classification},
   author       = {Pafka, Szilard},
   year         = {2015},
+  month        = mar,
   howpublished = {GitHub repository},
   url          = {https://github.com/szilard/benchm-ml},
-  note         = {[TO VERIFY] origin of the airline-delay benchmark slices; confirm wording and year}
+  note         = {[V-SUB] 2026-10-07 GitHub repository page and API (created 28 Mar 2015, MIT); title is the About text without its parentheticals; origin of the airline-delay 0.1M/1M/10M slices}
 }
 
 @misc{karpathy2026autoresearch,
@@ -85,26 +89,37 @@
   month        = mar,
   howpublished = {GitHub repository},
   url          = {https://github.com/karpathy/autoresearch},
-  note         = {[V-PLAN] MIT licence; program.md and a fixed 5-minute budget per experiment; release date (7 March 2026) from secondary sources, TO VERIFY}
+  note         = {[V-SUB] 2026-10-07 GitHub repository, README and API; MIT per README; program.md and a fixed 5-minute budget per experiment; first commit 6 Mar 2026 (UTC), announced on X 7 Mar 2026}
 }
 
 % ---------------------------------------------------------------- the agent and the LLMs
 
 @misc{openai2026codex,
-  title        = {Codex {CLI}},
+  title        = {Codex {CLI}, version 0.160.0},
   author       = {{OpenAI}},
   year         = {2026},
-  howpublished = {GitHub repository},
-  url          = {https://github.com/openai/codex},
-  note         = {[TO VERIFY] version 0.160.0 used in every run; cite the release or the docs page for model\_reasoning\_effort}
+  month        = oct,
+  howpublished = {Software release rust-v0.160.0, GitHub},
+  url          = {https://github.com/openai/codex/releases/tag/rust-v0.160.0},
+  note         = {[V-SUB] 2026-10-07 GitHub release page and API (published 1 Oct 2026, Apache-2.0); the version used in every run}
+}
+
+@misc{openai2026codexconfig,
+  title        = {Codex Configuration Reference},
+  author       = {{OpenAI}},
+  year         = {2026},
+  howpublished = {Developer documentation, config.toml reference},
+  url          = {https://developers.openai.com/codex/config-reference},
+  note         = {[V-SUB] 2026-10-07 page (redirects to learn.chatgpt.com/docs/config-file/config-reference); model\_reasoning\_effort: ``low, medium, high, xhigh, max, or ultra''; accessed 7 Oct 2026}
 }
 
 @misc{openai2026gpt6,
-  title        = {{GPT-6} model family: {Astra}, {Sol} and {Luna}},
+  title        = {{GPT-6} model family: {GPT-6} {Astra}, {GPT-6} {Sol} and {GPT-6} {Luna}},
   author       = {{OpenAI}},
   year         = {2026},
-  howpublished = {Model documentation},
-  note         = {[TO VERIFY] official URL not found during planning; press coverage dates Astra to 3 September 2026 and Sol and Luna to 22 September 2026}
+  howpublished = {Model documentation, OpenAI API reference},
+  url          = {https://developers.openai.com/api/docs/models/gpt-6-astra},
+  note         = {[V-SUB] 2026-10-07 model pages gpt-6-astra, gpt-6-sol, gpt-6-luna (accessed 7 Oct 2026). List prices per 1M tokens (input / cached input / output): Astra \$10 / \$1 / \$50; Sol \$2 / \$0.20 / \$10; Luna \$0.10 / \$0.01 / \$0.50. reasoning.effort: Astra low, medium, high, xhigh, max; Sol and Luna none, low, medium (default), high, xhigh, max. Released 3 Sep 2026 (Astra) and 22 Sep 2026 (Sol, Luna) per the GPT-6 Astra System Card}
 }
 
 % ---------------------------------------------------------------- agents for ML engineering and HPO
@@ -129,14 +144,16 @@
   note          = {[V-HB]}
 }
 
-@misc{zhang2023llmhpo,
+@inproceedings{zhang2023llmhpo,
   title         = {Using Large Language Models for Hyperparameter Optimization},
   author        = {Zhang, Michael R. and Desai, Nishkrit and Bae, Juhan and Lorraine, Jonathan and Ba, Jimmy},
+  booktitle     = {NeurIPS 2023 Workshop on Foundation Models for Decision Making},
   year          = {2023},
   eprint        = {2312.04528},
   archivePrefix = {arXiv},
+  primaryClass  = {cs.LG},
   url           = {https://arxiv.org/abs/2312.04528},
-  note          = {[V-PLAN] v2 11 November 2024; workshop venue TO VERIFY}
+  note          = {[V-SUB] 2026-10-07 arXiv abstract page (v2 11 Nov 2024) and neurips.cc/virtual/2023/82901; OpenReview id FUdZ6HEOre}
 }
 
 @inproceedings{liu2024llambo,
@@ -164,11 +181,16 @@
   title         = {{MLAgentBench}: Evaluating Language Agents on Machine Learning Experimentation},
   author        = {Huang, Qian and Vora, Jian and Liang, Percy and Leskovec, Jure},
   booktitle     = {Proceedings of the 41st International Conference on Machine Learning},
+  series        = {Proceedings of Machine Learning Research},
+  volume        = {235},
+  pages         = {20271--20309},
+  publisher     = {PMLR},
   year          = {2024},
   eprint        = {2310.03302},
   archivePrefix = {arXiv},
-  url           = {https://arxiv.org/abs/2310.03302},
-  note          = {[V-PLAN] title and authors; ICML 2024 venue TO VERIFY}
+  primaryClass  = {cs.LG},
+  url           = {https://proceedings.mlr.press/v235/huang24y.html},
+  note          = {[V-SUB] 2026-10-07 PMLR v235 page (huang24y) and arXiv abstract page}
 }
 
 @inproceedings{guo2024dsagent,
@@ -226,11 +248,13 @@
   title         = {{DSBench}: How Far Are Data Science Agents from Becoming Data Science Experts?},
   author        = {Jing, Liqiang and Huang, Zhehui and Wang, Xiaoyang and Yao, Wenlin and Yu, Wenhao and Ma, Kaixin and Zhang, Hongming and Du, Xinya and Yu, Dong},
   booktitle     = {International Conference on Learning Representations (ICLR)},
+  pages         = {32597--32649},
   year          = {2025},
   eprint        = {2409.07703},
   archivePrefix = {arXiv},
-  url           = {https://arxiv.org/abs/2409.07703},
-  note          = {[V-PLAN] title and authors; ICLR 2025 venue from the ICLR virtual site, TO VERIFY pages}
+  primaryClass  = {cs.AI},
+  url           = {https://proceedings.iclr.cc/paper_files/paper/2025/hash/50e9ad960ae78b741a6b4fea533f2eaf-Abstract-Conference.html},
+  note          = {[V-SUB] 2026-10-07 ICLR 2025 proceedings page and BibTeX, iclr.cc poster page (OpenReview DSsSPr0RZJ), arXiv abstract page}
 }
 
 @misc{li2024autokaggle,
@@ -289,12 +313,17 @@
   title         = {An Empirical Study of the Non-determinism of {ChatGPT} in Code Generation},
   author        = {Ouyang, Shuyin and Zhang, Jie M. and Harman, Mark and Wang, Meng},
   journal       = {ACM Transactions on Software Engineering and Methodology},
+  volume        = {34},
+  number        = {2},
+  pages         = {1--28},
   year          = {2025},
+  month         = feb,
   doi           = {10.1145/3697010},
   eprint        = {2308.02828},
   archivePrefix = {arXiv},
-  url           = {https://arxiv.org/abs/2308.02828},
-  note          = {[V-PLAN] title, authors, DOI from the arXiv page; volume, issue and pages TO VERIFY}
+  primaryClass  = {cs.SE},
+  url           = {https://doi.org/10.1145/3697010},
+  note          = {[V-SUB] 2026-10-07 Crossref record for the DOI (online 22 Jan 2025, issue Feb 2025) and arXiv abstract page; ACM article number not confirmed (dl.acm.org returned 403)}
 }
 
 @misc{atil2025nondeterminism,
@@ -313,8 +342,9 @@
   year         = {2025},
   month        = sep,
   howpublished = {Thinking Machines Lab: Connectionism (blog)},
+  doi          = {10.64434/tml.20250910},
   url          = {https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/},
-  note         = {[TO VERIFY] author list as printed on the page; published 10 September 2025}
+  note         = {[V-SUB] 2026-10-07 blog page (author line ``Horace He in collaboration with others at Thinking Machines'', Sep 10, 2025) and Crossref record of the DOI}
 }
 
 @inproceedings{yao2024taubench,
@@ -392,12 +422,14 @@
   booktitle     = {Proceedings of the 42nd International Conference on Machine Learning},
   series        = {Proceedings of Machine Learning Research},
   volume        = {267},
+  pages         = {81143--81184},
   publisher     = {PMLR},
   year          = {2025},
   eprint        = {2503.01747},
   archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
   url           = {https://proceedings.mlr.press/v267/bowyer25a.html},
-  note          = {[V-PLAN] ICML 2025 spotlight position paper; pages TO VERIFY}
+  note          = {[V-SUB] 2026-10-07 PMLR v267 page (bowyer25a) and arXiv abstract page; ICML 2025 spotlight position paper}
 }
 
 @inproceedings{hariri2026dontpassk,
@@ -509,8 +541,10 @@
   number  = {1},
   pages   = {50--60},
   year    = {1947},
+  month   = mar,
   doi     = {10.1214/aoms/1177730491},
-  note    = {[TO VERIFY] classic; confirm pages}
+  url     = {https://doi.org/10.1214/aoms/1177730491},
+  note    = {[V-SUB] 2026-10-07 Crossref record and Project Euclid landing page}
 }
 
 @article{mcgraw1992cl,
@@ -522,7 +556,8 @@
   pages   = {361--365},
   year    = {1992},
   doi     = {10.1037/0033-2909.111.2.361},
-  note    = {[TO VERIFY] confirm pages and DOI}
+  url     = {https://doi.org/10.1037/0033-2909.111.2.361},
+  note    = {[V-SUB] 2026-10-07 Crossref record for the DOI}
 }
 
 @article{vargha2000a,
@@ -545,8 +580,10 @@
   number  = {1},
   pages   = {1--26},
   year    = {1979},
+  month   = jan,
   doi     = {10.1214/aos/1176344552},
-  note    = {[TO VERIFY] classic; confirm}
+  url     = {https://doi.org/10.1214/aos/1176344552},
+  note    = {[V-SUB] 2026-10-07 Project Euclid landing page (pages) and Crossref record}
 }
 
 @article{welch1947,
@@ -554,11 +591,13 @@
   author  = {Welch, B. L.},
   journal = {Biometrika},
   volume  = {34},
-  number  = {1/2},
+  number  = {1--2},
   pages   = {28--35},
   year    = {1947},
+  month   = jan,
   doi     = {10.1093/biomet/34.1-2.28},
-  note    = {[TO VERIFY] only if Welch p-values are reported}
+  url     = {https://doi.org/10.1093/biomet/34.1-2.28},
+  note    = {[V-SUB] 2026-10-07 Crossref record and OUP landing page; only if Welch p-values are reported}
 }
 
 @article{hanley1982meaning,
@@ -738,10 +777,14 @@
   title     = {{XGBoost}: A Scalable Tree Boosting System},
   author    = {Chen, Tianqi and Guestrin, Carlos},
   booktitle = {Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+  series    = {KDD '16},
   pages     = {785--794},
+  publisher = {ACM},
+  address   = {San Francisco, California, USA},
   year      = {2016},
   doi       = {10.1145/2939672.2939785},
-  note      = {[TO VERIFY] classic; confirm pages}
+  url       = {https://doi.org/10.1145/2939672.2939785},
+  note      = {[V-SUB] 2026-10-07 Crossref record for the DOI}
 }
 
 @inproceedings{grinsztajn2022tabular,
@@ -763,18 +806,23 @@
   volume  = {81},
   pages   = {84--90},
   year    = {2022},
+  month   = may,
   doi     = {10.1016/j.inffus.2021.11.011},
-  note    = {[TO VERIFY]}
+  url     = {https://doi.org/10.1016/j.inffus.2021.11.011},
+  note    = {[V-SUB] 2026-10-07 Crossref record for the DOI}
 }
 
-@misc{rubachev2024tabred,
+@inproceedings{rubachev2024tabred,
   title         = {{TabReD}: Analyzing Pitfalls and Filling the Gaps in Tabular Deep Learning Benchmarks},
   author        = {Rubachev, Ivan and Kartashev, Nikolay and Gorishniy, Yury and Babenko, Artem},
-  year          = {2024},
+  booktitle     = {International Conference on Learning Representations (ICLR)},
+  pages         = {35166--35202},
+  year          = {2025},
   eprint        = {2406.19380},
   archivePrefix = {arXiv},
-  url           = {https://arxiv.org/abs/2406.19380},
-  note          = {[V-PLAN] time-based splits; later conference version TO VERIFY}
+  primaryClass  = {cs.LG},
+  url           = {https://proceedings.iclr.cc/paper_files/paper/2025/hash/571799482291411607c54984153190b0-Abstract-Conference.html},
+  note          = {[V-SUB] 2026-10-07 ICLR 2025 proceedings page and BibTeX (OpenReview L14sqcrUC3), arXiv abstract page (v4 24 Oct 2024); time-based splits}
 }
 
 @inproceedings{gardner2023tableshift,
