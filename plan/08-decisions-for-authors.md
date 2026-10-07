@@ -27,6 +27,7 @@
 | 21 | No acknowledgments, funding or competing-interests section. |
 | 22 | Confirmed by the authors: they reviewed every run's review and committed the results; they designed the study and are responsible for the text and numbers; the disclosure of Claude Code's role (tools, blog post, paper) stands as written. |
 | 23 | Manual feature audit: later, before submission (Table 13 shows "pending" until then). |
+| 24 | Reasoning effort: one sentence in Section 5.3 citing OpenAI's o1 report (`openai2024o1`) that reasoning models do better when allowed to think longer, so results at "ultra" could differ. |
 
 Defaults applied without a separate decision: analysis scripts in this repo under `analysis/`; the runs repo pinned by commit hash, not a submodule; the agent described as "Codex CLI 0.160.0 on a ChatGPT subscription" without naming the tier; the disclosure names Claude Code's role in orchestration, run review and drafting, as the runs repo README does.
 
