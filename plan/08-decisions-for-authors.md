@@ -22,6 +22,11 @@
 | 16 | Machine: AWS m8i.2xlarge (8 vCPUs, 32 GB) for all 60 runs; runs sequential within a group, the groups partly at the same time on separate instances (confirmed by the authors 2026-10-07, matching the run timestamps). |
 | 17 | Example run in the appendix: astra6_n20-1 (holdout 0.6880, 6th of 20, above the median 0.6871). |
 | 18 | Length: no upper limit; a longer main text is welcome (authors, 2026-10-07). The draft's main text is about 20 pages and is not to be cut for length. |
+| 19 | License: MIT for the single-run repo, the runs repo and the paper repo (added 2026-10-07; the runs repo's README notes that web content quoted in the session logs stays with its owners). The blog repo keeps CC BY 4.0. |
+| 20 | Selection advice: keep the run with the best evaluation AUC, then confirm on untouched data; the blog post was updated to say the same. |
+| 21 | No acknowledgments, funding or competing-interests section. |
+| 22 | Confirmed by the authors: they reviewed every run's review and committed the results; they designed the study and are responsible for the text and numbers; the disclosure of Claude Code's role (tools, blog post, paper) stands as written. |
+| 23 | Manual feature audit: later, before submission (Table 13 shows "pending" until then). |
 
 Defaults applied without a separate decision: analysis scripts in this repo under `analysis/`; the runs repo pinned by commit hash, not a submodule; the agent described as "Codex CLI 0.160.0 on a ChatGPT subscription" without naming the tier; the disclosure names Claude Code's role in orchestration, run review and drafting, as the runs repo README does.
 

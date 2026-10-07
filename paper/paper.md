@@ -295,7 +295,7 @@ A script reads the final `train.py` of every run and records how it handles the 
 
 # Software, machines, dates and disclosure
 
-Software in the containers: Codex CLI 0.160.0; Python 3 with xgboost 3.4.1, pandas 3.0.6, scikit-learn 1.9.1, numpy 2.5.3 and cloudpickle 3.1.2; Ubuntu 26.04. The single-run repository [@pafka2026minimal3] at commit `5fb023a`; the orchestrator, the archived runs and the plotting tools [@pafka2026minimal3runs] at commit `b2841ab`; the analysis scripts of this paper at `github.com/szilard/xgboost-autoresearch3-paper`. A blog post with the main results preceded this paper [@pafka2026onerun]. The flight data are public [@dataexpo2009]; `human/make_data.py` rebuilds the three files from them with fixed seeds. The final `train.py` of every run is archived; the model artifacts were deleted with the containers.
+Software in the containers: Codex CLI 0.160.0; Python 3 with xgboost 3.4.1, pandas 3.0.6, scikit-learn 1.9.1, numpy 2.5.3 and cloudpickle 3.1.2; Ubuntu 26.04. The single-run repository [@pafka2026minimal3] at commit `5fb023a`; the orchestrator, the archived runs and the plotting tools [@pafka2026minimal3runs] at commit `b2841ab`; the analysis scripts of this paper at `github.com/szilard/xgboost-autoresearch3-paper`. All three repositories are released under the MIT license. A blog post with the main results preceded this paper [@pafka2026onerun]. The flight data are public [@dataexpo2009]; `human/make_data.py` rebuilds the three files from them with fixed seeds. The final `train.py` of every run is archived; the model artifacts were deleted with the containers.
 
 {{table:operations}}
 
