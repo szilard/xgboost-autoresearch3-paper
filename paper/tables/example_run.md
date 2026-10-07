@@ -1,5 +1,5 @@
 | minute | the agent's description of the kept commit | eval AUC | holdout AUC |
-|----------|--------------------------------------------------|-----------|-----------|
+|----------|--------------------------------------------------|----------|-----------|
 | 1 | baseline | 0.6743 | 0.6725 |
 | 2 | simplify prepare; same features and faster evaluation | 0.6743 | 0.6725 |
 | 3 | depth 4; 400 trees; stronger leaf and L2 regularization | 0.6800 | 0.6784 |

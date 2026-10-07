@@ -1,5 +1,5 @@
 | run | experiments | kept | eval AUC | holdout AUC | gap | clock | agent's share | caveat |
-|--------------------|----------------|-------|-----------|-----------|------------|-----------|-----------|-------------------|
+|----------------------|----------------|-------|----------|-----------|-----------|----------|-----------|---------------------|
 | astra6_n20-1 | 47 | 19 | 0.6900 | 0.6880 | -0.0020 | 59m34s | 85% |  |
 | astra6_n20-2 | 42 | 16 | 0.6863 | 0.6836 | -0.0027 | 60m34s | 51% |  |
 | astra6_n20-3 | 50 | 24 | 0.6918 | 0.6886 | -0.0032 | 59m38s | 73% |  |
@@ -61,4 +61,4 @@
 | luna6_n20-19 | 28 | 11 | 0.6826 | 0.6811 | -0.0015 | 58m45s | 65% |  |
 | luna6_n20-20 | 38 | 10 | 0.6850 | 0.6844 | -0.0006 | 58m52s | 64% |  |
 
-Table: The 60 runs. Experiments: rows of results.tsv, the baseline included. Kept: kept commits, the baseline included. Eval and holdout AUC: of the final model. Clock: from start to stop. Agent's share: time outside XGBoost runs.
+Table: The 60 runs. Experiments: rows of results.tsv, the baseline included. Kept: kept commits, the baseline included. Eval and holdout AUC: of the final model. Clock: from start to stop. Agent's share: time outside experiments.

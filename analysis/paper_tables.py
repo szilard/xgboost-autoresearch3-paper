@@ -13,6 +13,7 @@ from best_of_k import dist, quantile
 from time_course import course
 from appendix_tables import note
 import csv
+import math
 import re
 from decimal import Decimal, ROUND_HALF_UP
 
@@ -92,10 +93,10 @@ for m in MODELS:
     med = lambda k: st.median([c[k] for c in cs if c[k] is not None])
     rows.append([SHORT[m], f"{med('h15'):.4f}", f"{med('h30'):.4f}", f"{med('h45'):.4f}", f"{med('h60'):.4f}",
                  f"{st.mean(r['experiments'] for r in rr):.0f}", f1(st.mean(r['n_keep'] for r in rr)), str(rnd(st.mean(xgb_seconds(r) for r in rr))),
-                 f"{rnd(st.mean(r['ai_share_pct'] for r in rr))}%", str(rnd(med('plateau'))), sum(c["plateau"] >= 20 for c in cs), f1(st.mean(c['downs'] for c in cs))])
-save("time_course", ["LLM", "holdout at 15 min", "30 min", "45 min", "60 min", "experiments", "kept", "XGBoost run, s", "agent's share of the hour",
+                 f"{rnd(st.mean(r['ai_share_pct'] for r in rr))}%", f1(med('plateau')), sum(c["plateau"] >= 20 for c in cs), f1(st.mean(c['downs'] for c in cs))])
+save("time_course", ["LLM", "holdout at 15 min", "30 min", "45 min", "60 min", "experiments", "kept", "experiment duration, s", "agent's share of the hour",
                      "longest plateau, min", "runs with a plateau of 20 min or more", "steps down per run"], rows,
-     "The hour, per LLM. Holdout at t: median over runs of the holdout AUC of the model kept at minute t. Experiments and kept commits: means per run, the baseline counted as a kept commit. XGBoost run: mean duration of one experiment, training and evaluation, in seconds. Agent's share: time outside XGBoost runs. Plateau: longest interval without a kept commit (median over runs). Steps down: kept commits whose holdout AUC is below the previous kept commit's (mean per run).")
+     "The hour, per LLM. Holdout at t: median over runs of the holdout AUC of the model kept at minute t. Experiments and kept commits: means per run, the baseline counted as a kept commit. Experiment duration: mean time of one experiment, training and evaluation, in seconds. Agent's share: time outside experiments. Plateau: longest interval without a kept commit (median over runs). Steps down: kept commits whose holdout AUC is below the previous kept commit's (mean per run).")
 
 # Table: first kept depth change
 rows = []
@@ -104,7 +105,7 @@ for m in MODELS:
     fks = [C[r["run"]]["first_keep"] for r in model_runs(runs, m)]; fks = [x for x in fks if x]
     rows.append([SHORT[m], f1(st.median(x[0] for x in fks)), f"{st.median(x[1] for x in fks):.4f}", len(fds), f1(st.median(x[0] for x in fds)), f"{st.median(x[1] for x in fds):.4f}"])
 save("first_move", ["LLM", "first kept improvement, min", "holdout after it", "runs with a kept change to tree depth or leaves", "its minute", "holdout after it"], rows,
-     "The first moves, medians over runs. A kept improvement is a kept commit with a higher eval AUC than the baseline's; a depth change is one whose description mentions depth, leaves or shallower trees.")
+     "The first moves: medians over runs, except the count of runs with a depth change. A kept improvement is a kept commit with a higher eval AUC than the baseline's; a depth change is one whose description mentions depth, leaves or shallower trees.")
 
 # Table: calendar audit
 aud = {r["run"]: r for r in csv.DictReader(open(RESULTS / "feature_audit_per_run.csv"))}
@@ -113,9 +114,9 @@ for m in MODELS:
     rr = model_runs(runs, m); a = [aud[r["run"]] for r in rr]
     kept = [r["holdout_auc"] for r, x in zip(rr, a) if x["dom_cat"] == "1"]; dropped = [r["holdout_auc"] for r, x in zip(rr, a) if x["dom_cat"] == "0"]
     rows.append([SHORT[m], len(dropped), sum(x["doy"] == "1" for x in a), sum(x["holiday"] == "1" for x in a), sum(x["month_cat"] == "0" for x in a),
-                 f"{st.mean(dropped):.4f}" if dropped else "-", f"{st.mean(kept):.4f}" if kept else "-", f"{st.mean(dropped)-st.mean(kept):+.4f}" if kept and dropped else "-"])
-save("calendar", ["LLM", "dropped the day-of-month category", "numeric day of year", "holiday features", "dropped the month category", "mean holdout, dropped", "mean holdout, kept", "difference"], rows,
-     "How the 20 final models of each LLM handle the calendar, from an audit of their train.py. Means are holdout AUCs of the runs that dropped or kept the day-of-month category (Astra kept it in one run).")
+                 f"{st.mean(dropped):.4f}" if dropped else "-", f"{st.mean(kept):.4f}" if kept else "-", f"{float(f'{st.mean(dropped):.4f}') - float(f'{st.mean(kept):.4f}'):+.4f}" if kept and dropped else "-"])
+save("calendar", ["LLM", "dropped the day-of-month category", "numeric day-of-year-like feature", "holiday features", "dropped the month category", "mean holdout, dropped", "mean holdout, kept", "difference"], rows,
+     "How the 20 final models of each LLM handle the calendar, from an audit of their train.py. Day-of-year-like: day, week or fortnight of the year as a number. Means are holdout AUCs of the runs that dropped or kept the day-of-month category (Astra kept it in one run); the difference is that of the means shown.")
 
 # Table: eval-holdout gap
 rows = []
@@ -131,7 +132,7 @@ for m in MODELS:
     rr = model_runs(runs, m); e = np.array([r["best_eval_auc"] for r in rr]); h = np.array([r["holdout_auc"] for r in rr])
     rows.append([SHORT[m]] + [f"{quantile(dist(e, h, k), 0.5):.4f}" for k in KS] + [f"{quantile(dist(e, h, 3), 0.05):.4f}", f"{quantile(dist(h, h, 3), 0.5):.4f}"])
 save("best_of_k", ["LLM"] + [f"k = {k}" for k in KS] + ["k = 3, 5th percentile", "k = 3, chosen on holdout"], rows,
-     "Running the agent k times and keeping the run with the best eval AUC: median holdout AUC of the kept run, exact over the 20 observed runs with draws with replacement. The last two columns give, for k = 3, the 5th percentile of the kept run's holdout AUC and the median if the choice were made on the holdout set itself.")
+     "Running the agent k times and keeping the run with the best eval AUC: median holdout AUC of the kept run, exact over the 20 observed runs with draws with replacement (for k = 1, the median of Table 2). The last two columns give, for k = 3, the 5th percentile of the kept run's holdout AUC and the median if the choice were made on the holdout set itself.")
 
 # Appendix: tests
 rows = []
@@ -139,10 +140,10 @@ for a, b in itertools.combinations(MODELS, 2):
     A = [r["holdout_auc"] for r in model_runs(runs, a)]; B = [r["holdout_auc"] for r in model_runs(runs, b)]
     t = ss.ttest_ind(A, B, equal_var=False); u = ss.mannwhitneyu(A, B, alternative="two-sided")
     gap = abs(np.mean(A) - np.mean(B)); sd = np.sqrt((np.var(A, ddof=1) + np.var(B, ddof=1)) / 2)
-    rows.append([f"{SHORT[a]} vs {SHORT[b]}", f"{t.statistic:.1f}", f"{t.pvalue:.0e}", f"{u.statistic:.0f}", f"{u.pvalue:.0e}", str(rnd(16 * sd**2 / gap**2))])
+    rows.append([f"{SHORT[a]} vs {SHORT[b]}", f"{t.statistic:.1f}", f"{t.pvalue:.0e}", f"{u.statistic:.0f}", f"{u.pvalue:.0e}", str(math.ceil(16 * sd**2 / gap**2))])
 f = ss.f_oneway(*[[r["holdout_auc"] for r in model_runs(runs, m)] for m in MODELS]); kw = ss.kruskal(*[[r["holdout_auc"] for r in model_runs(runs, m)] for m in MODELS])
 save("tests", ["pair", "Welch t", "p", "Mann-Whitney U", "p", "runs per arm to detect the observed gap"], rows,
-     f"Two-sided tests between LLMs and, post hoc, the runs per arm that the approximation 16 sd^2^ / gap^2^ gives for 80% power at the 5% level with the observed gap and pooled sd. One-way ANOVA: F = {f.statistic:.1f}, p = {f.pvalue:.0e}; Kruskal-Wallis: H = {kw.statistic:.1f}, p = {kw.pvalue:.0e}.")
+     f"Two-sided tests between LLMs and, post hoc, the runs per arm, rounded up, that the approximation 16 sd^2^ / gap^2^ gives for 80% power at the 5% level with the observed gap and pooled sd. One-way ANOVA: F = {f.statistic:.1f}, p = {f.pvalue:.0e}; Kruskal-Wallis: H = {kw.statistic:.1f}, p = {kw.pvalue:.0e}.")
 
 # Appendix: sensitivity
 subsets = [("all 60 runs", runs), ("without the 10 caveat runs", [r for r in runs if r["valid"] == "yes"]),
@@ -153,7 +154,7 @@ for name, rs in subsets:
     ps = [pct(win([r['holdout_auc'] for r in model_runs(rs, a)], [r['holdout_auc'] for r in model_runs(rs, b)])[0]) for a, b in itertools.combinations(MODELS, 2)]
     rows.append([name, ", ".join(str(len(model_runs(rs, m))) for m in MODELS)] + means + ps)
 save("sensitivity", ["runs", "n (Astra, Sol, Luna)", "mean Astra", "mean Sol", "mean Luna", "P(Astra beats Sol)", "P(Astra beats Luna)", "P(Sol beats Luna)"], rows,
-     "The headline statistics without the runs with a protocol caveat and without the runs that used BTS documentation about the evaluation year (Astra 7 and 12, Sol 11).")
+     "The headline statistics without the runs with a protocol caveat and without the runs that used BTS documentation about the evaluation year (astra6_n20-7, astra6_n20-12 and sol6_n20-11).")
 
 # Appendix: flags and caveats
 rows = [[r["run"], r["integrity_flags"] if r["integrity_flags"] != "none" else "", r["flags"], note(r)]
@@ -169,7 +170,7 @@ for m in MODELS:
                  sum(r["clock_remaining_s"] < 0 for r in rr), f"{min(r['clock_elapsed_s'] for r in rr)//60}–{max(r['clock_elapsed_s'] for r in rr)//60} min",
                  sum(r["compactions"] > 0 for r in rr), f"{min(r['memory_peak_gib'] for r in rr)}–{max(r['memory_peak_gib'] for r in rr)}"])
 save("operations", ["LLM", "dates (UTC)", "failed turns", "runs with retry waits", "runs stopped after the budget", "clock, min to max", "runs with a context compaction", "peak memory, GiB"], rows,
-     "Operational summary. Failed turns ended with a service error (all but one with 'model at capacity') and were retried; the clock kept running. Every run's agent stopped the clock itself; the clock could exceed the hour when the agent's wrap-up came after its last status check. Nothing was killed at the 24 GB memory cap.")
+     "Operational summary. Failed turns ended with the service error 'model at capacity' and were retried; the clock kept running. Every run's agent stopped the clock itself; the clock could exceed the hour when the agent's wrap-up came after its last status check. Nothing was killed at the 24 GiB memory cap.")
 
 # Appendix: tokens
 rows = []
@@ -190,7 +191,7 @@ for m in MODELS:
         rows.append([r["run"], r["experiments"], r["n_keep"], f"{r['best_eval_auc']:.4f}", f"{r['holdout_auc']:.4f}", f"{r['gap']:+.4f}",
                      f"{r['clock_elapsed_s']//60}m{r['clock_elapsed_s']%60:02d}s", f"{rnd(r['ai_share_pct'])}%", r["flags"] or ""])
 save("per_run", ["run", "experiments", "kept", "eval AUC", "holdout AUC", "gap", "clock", "agent's share", "caveat"], rows,
-     "The 60 runs. Experiments: rows of results.tsv, the baseline included. Kept: kept commits, the baseline included. Eval and holdout AUC: of the final model. Clock: from start to stop. Agent's share: time outside XGBoost runs.")
+     "The 60 runs. Experiments: rows of results.tsv, the baseline included. Kept: kept commits, the baseline included. Eval and holdout AUC: of the final model. Clock: from start to stop. Agent's share: time outside experiments.")
 
 # Appendix: the example run's kept commits
 ex = next(r for r in runs if r["run"] == "astra6_n20-1")
@@ -228,8 +229,10 @@ for m in MODELS:
     for r in model_runs(runs, m):
         a = aud[r["run"]]
         yn = lambda k: "yes" if a[k] == "1" else ""
-        depth = f"{a['max_leaves']}\\ leaves" if a["max_leaves"] and a["max_depth"] in ("", "0") else ("lossguide" if a["max_depth"] == "0" else a["max_depth"])
-        rows.append([r["run"], f"{r['holdout_auc']:.4f}", yn("dom_cat"), yn("month_cat"), yn("doy"), yn("holiday"), depth, a["n_estimators"], a["learning_rate"],
+        leaves = a["max_leaves_all"].split("/")[-1] if a["max_leaves_all"] else ""
+        depth = ", ".join((f"{leaves}\\ leaves" if leaves else "lossguide") if d == "0" else d for d in a["max_depth_all"].split("/")) if a["max_depth_all"] else ""
+        several = lambda k: a[k].replace("/", ", ")  # a comma and a space, so that the cell can wrap
+        rows.append([r["run"], f"{r['holdout_auc']:.4f}", yn("dom_cat"), yn("month_cat"), yn("doy"), yn("holiday"), depth, several("n_estimators_all"), several("learning_rate_all"),
                      yn("ensemble"), a["verified"] or "pending"])
 save("audit_per_run", ["run", "holdout AUC", "day-of-month category", "month category", "day of year", "holiday features", "depth", "trees", "learning rate", "ensemble", "checked by hand"], rows,
-     "The final model of every run, from the scripted audit of its train.py. Depth: max_depth, or the leaf limit for lossguide trees (lossguide alone where the script could not read the limit); trees and learning rate as set in the file (the last assignment); ensemble: more than one model, seed averaging or a blend.")
+     "The final model of every run, from the scripted audit of its train.py. Depth: max_depth, or the leaf limit for lossguide trees (lossguide alone where the script could not read the limit). Where a file sets a value more than once, as ensembles of different models do, every value is listed in the order of the file. A blank means the file computes the value rather than setting a number. Ensemble: more than one model, seed averaging or a blend.")

@@ -31,8 +31,23 @@ def save_both(fig, name):
     plt.close(fig)
 
 
-pha.RUN_MULTI = repo / "run-multi"; pha.OUT_DIR = FIGURES; pha.save = save_both
-pwp.RUN_MULTI = pha.RUN_MULTI; pwp.save = save_both
+# the runs repo's tools say "model" for an LLM; the paper keeps "model" for the XGBoost model
+RELABEL = [("one run of each model", "one run of each LLM"), ("right-hand model wins", "right-hand LLM wins"),
+           ("resampled per model", "resampled per LLM"), ("one panel per model", "one panel per LLM"),
+           ("other models' runs", "other LLMs' runs"), (" (n >= 5)", "")]
+
+
+def save_relabelled(fig, name):
+    for t in fig.findobj(matplotlib.text.Text):
+        s = t.get_text()
+        for a, b in RELABEL:
+            s = s.replace(a, b)
+        t.set_text(s)
+    save_both(fig, name)
+
+
+pha.RUN_MULTI = repo / "run-multi"; pha.OUT_DIR = FIGURES; pha.save = save_relabelled
+pwp.RUN_MULTI = pha.RUN_MULTI; pwp.save = save_relabelled
 # F1, F3, F4
 pha.main()
 # F2 (the tool prints its table too)
@@ -54,7 +69,6 @@ ax.plot([lo, hi], [lo + BASE_HOLDOUT - BASE_EVAL, hi + BASE_HOLDOUT - BASE_EVAL]
 for m in MODELS:
     rr = [r for r in runs if r["model"] == m]
     ax.scatter([r["best_eval_auc"] for r in rr], [r["holdout_auc"] for r in rr], s=40, color=COLOUR[m], label=m, zorder=3, edgecolors=SURFACE, linewidths=0.6)
-ax.scatter([BASE_EVAL], [BASE_HOLDOUT], marker="x", s=60, color=INK, zorder=4, label="starter model")
 ax.set_xlabel("eval AUC of the final model", color=INK2); ax.set_ylabel("holdout AUC of the final model", color=INK2)
 ax.set_xlim(lo, hi); ax.set_ylim(lo, hi); ax.set_aspect("equal")
 style(ax, "Eval against holdout AUC, one dot per run")

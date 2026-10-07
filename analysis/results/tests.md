@@ -1,10 +1,10 @@
 <!-- analysis/stats.py -->
-<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ b2841ab; generated 2026-10-07 16:11Z -->
+<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-07 17:40Z -->
 
 ## Pairwise tests (two-sided)
 
 | pair | Welch t | p | Mann–Whitney U | p |
-|-------------|--------|------------|------------------|------------|
+|-------------|--------|-----------|------------------|-----------|
 | Astra vs Sol | 3.75 | 6.1e-04 | 320 | 1.2e-03 |
 | Astra vs Luna | 9.16 | 4.3e-11 | 391 | 2.5e-07 |
 | Sol vs Luna | 5.96 | 6.4e-07 | 364 | 9.1e-06 |

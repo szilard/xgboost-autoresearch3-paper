@@ -83,7 +83,7 @@ def md_table(headers, rows, min_width=4):
         col = [r[j] for r in cells if j < len(r)]
         body = max([len(c) for c in col] + [1])
         no_space = all(" " not in c.replace("\\ ", "") for c in col)  # "\ " is pandoc's non-breaking space
-        widths.append(max(min_width, need(longest_word), need(body) + 1 if no_space else min(body, 50)))
+        widths.append(max(min_width, need(longest_word), need(body) + (3 if body >= 10 else 0) if no_space else min(body, 50)))  # long unbreakable cells (run names) need a margin
     out = ["| " + " | ".join(str(h) for h in headers) + " |", "|" + "|".join("-" * w for w in widths) + "|"]
     out += ["| " + " | ".join(r) + " |" for r in cells]
     return "\n".join(out) + "\n"

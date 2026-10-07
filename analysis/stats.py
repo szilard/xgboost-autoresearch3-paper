@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Per-LLM statistics, head-to-head win probabilities, tests, runs-per-arm, sensitivity."""
 import itertools
+import math
 import numpy as np
 from scipy import stats as ss
 from common import BASE_HOLDOUT, BTS_INFORMED, MODELS, SHORT, by_model, f4, load_runs, md_table, runs_repo, write
@@ -76,9 +77,9 @@ rows = []
 for a, b in itertools.combinations(MODELS, 2):
     A_, B_ = np.array(hm[a]), np.array(hm[b]); gap = abs(A_.mean() - B_.mean())
     sd = np.sqrt((A_.var(ddof=1) + B_.var(ddof=1)) / 2)
-    rows.append([f"{SHORT[a]} vs {SHORT[b]}", f4(gap), f4(sd), f"{16*sd**2/gap**2:.0f}"])
+    rows.append([f"{SHORT[a]} vs {SHORT[b]}", f4(gap), f4(sd), f"{math.ceil(16*sd**2/gap**2)} ({16*sd**2/gap**2:.1f})"])
 write("table_runs_per_arm.md", "## Runs per arm to detect the observed gap (post hoc illustration)\n\n"
-      + md_table(["pair", "observed gap of means", "pooled sd", "runs per arm (16 sd² / gap²)"], rows)
+      + md_table(["pair", "observed gap of means", "pooled sd", "runs per arm, rounded up (16 sd² / gap²)"], rows)
       + "\nThe approximation 16 sd² / gap² gives the runs per arm for 80% power in a two-sided test at the 5% level. "
       "The gaps were observed, not fixed in advance, so these counts illustrate the scale and are not a design rule.\n", repo)
 

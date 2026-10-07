@@ -45,7 +45,9 @@ def audit(src):
     if src.count("DayofMonth") > 4: flags.append("dom_many_refs")
     return dict(dom_cat=int(incat("DayofMonth")), month_cat=int(incat("Month")), dom_numeric=int(num_dom), month_numeric=int(num_month),
                 holiday=int(holiday), doy=int(doy), max_depth=depth[-1] if depth else "", max_leaves=leaves[-1] if leaves else "",
-                n_estimators=trees[-1] if trees else "", learning_rate=lr[-1] if lr else "", n_models=n_models, ensemble=int(ensemble),
+                n_estimators=trees[-1] if trees else "", learning_rate=lr[-1] if lr else "",
+                max_depth_all="/".join(dict.fromkeys(depth)), max_leaves_all="/".join(dict.fromkeys(leaves)),
+                n_estimators_all="/".join(dict.fromkeys(trees)), learning_rate_all="/".join(dict.fromkeys(lr)), n_models=n_models, ensemble=int(ensemble),
                 dart=int(dart), constraints=int(inter), encodings=int(enc), flags=" ".join(flags), verified="")
 
 

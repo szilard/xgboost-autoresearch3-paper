@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Appendix tables: the 60 runs, and the validity flags and caveats."""
+import re
 from common import MODELS, SHORT, load_runs, md_table, runs_repo, write
 
 INTEGRITY_NOTES = {  # from the groups' results_summary.md and the runs' run.md
@@ -14,12 +15,29 @@ SPECIAL = {"astra6_n20-15": "explained: a read of `data/train.csv` written diffe
            "astra6_n20-8": "false match: the leak check matched a call to the harness's own artifact loader in the agent's final check"}
 
 
+# caveat notes written in the same form for every run (the group summaries word them differently)
+CAVEAT_NOTES = {
+    "sol6_n20-8": '`83775c5` (DART `rate_drop` 0.2) kept at a tie as "faster" by 1.0 s, within noise, not simpler; it is the final model',
+    "sol6_n20-19": '`f833740` (lossguide tree growth) kept at a tie as "faster" by 1.0 s, within noise, not simpler; lossguide stayed in the final model',
+    "sol6_n20-16": "7 failed turns, all 'model at capacity'; retry waits of 216 s",
+}
+
+
+def caveat_note(r):
+    """The review's caveat text without the flag name (the table has its own column), in the paper's terms."""
+    if r["run"] in CAVEAT_NOTES:
+        return CAVEAT_NOTES[r["run"]]
+    t = re.sub(r"^caveat:\s*(`?(keep_rule|turn_retries)`?:?\s*)?", "", r["caveat_text"])
+    t = t.replace("Eval and Holdout AUC", "eval and holdout AUC").replace("best model", "final model")
+    return t[:1].lower() + t[1:] if t[:1] != "`" else t
+
+
 def note(r):
     parts = []
     if r["integrity_flags"] != "none":
         parts.append(SPECIAL.get(r["run"]) or "; ".join(INTEGRITY_NOTES.get(f, f) for f in r["integrity_flags"].split()))
     if r["caveat_text"]:
-        parts.append(r["caveat_text"])
+        parts.append(caveat_note(r))
     return "; ".join(parts)
 
 def main():

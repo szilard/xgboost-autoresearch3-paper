@@ -1,10 +1,10 @@
 <!-- analysis/appendix_tables.py -->
-<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ b2841ab; generated 2026-10-07 16:11Z -->
+<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-07 17:40Z -->
 
 ## The 60 runs
 
 | run | experiments | kept | best eval AUC (commit) | holdout AUC | gap | clock | AI share | valid | caveat |
-|--------------------|----------------|-------|------------------|-----------|------------|-----------|--------|-----------|-------------------|
+|----------------------|----------------|-------|------------------|-----------|-----------|----------|--------|----------|---------------------|
 | astra6_n20-1 | 47 | 19 | 0.6900 (`50e74b8`) | 0.6880 | -0.0020 | 59m34s | 84% | yes |  |
 | astra6_n20-2 | 42 | 16 | 0.6863 (`6826f09`) | 0.6836 | -0.0027 | 60m34s | 51% | yes |  |
 | astra6_n20-3 | 50 | 24 | 0.6918 (`43097e4`) | 0.6886 | -0.0032 | 59m38s | 73% | yes |  |

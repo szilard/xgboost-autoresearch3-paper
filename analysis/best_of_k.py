@@ -31,10 +31,15 @@ def dist(score, holdout, k):
 
 
 def quantile(d, q):
-    c = 0
-    for hv in sorted(d):
+    """Smallest value whose cumulative probability reaches q (nearest rank). For the median, where the
+    cumulative probability is exactly one half at a value, the midpoint with the next value, as the
+    usual sample median does (so k = 1 gives the same median as the per-LLM table)."""
+    vals = sorted(d); c = 0
+    for i, hv in enumerate(vals):
         c += d[hv]
         if c >= q - 1e-12:
+            if q == 0.5 and abs(c - 0.5) < 1e-12 and i + 1 < len(vals):
+                return (hv + vals[i + 1]) / 2
             return hv
 
 
@@ -58,6 +63,8 @@ def main():
         rows.append([SHORT[m], "", f"Spearman(eval, holdout) = {rho:.2f}", "", "", "", "", ""])
         g = {k: quantile(dist(e, h, k), 0.5) - quantile(dist(e, h, 1), 0.5) for k in KS}
         rows.append([SHORT[m], "", "median gain over k = 1: " + ", ".join(f"k = {k}: {g[k]:+.4f}" for k in KS if k > 1), "", "", "", "", ""])
+        od = {k: quantile(dist(h, h, k), 0.5) - quantile(dist(e, h, k), 0.5) for k in KS}
+        rows.append([SHORT[m], "", "oracle median minus eval-chosen median: " + ", ".join(f"k = {k}: {od[k]:+.4f}" for k in KS), "", "", "", "", ""])
     out = "## Best of k attempts, chosen on eval AUC, holdout AUC of the chosen run (exact over the 20 observed runs per LLM)\n\n"
     out += md_table(["LLM", "k", "median", "mean", "5th percentile", "95th percentile", "oracle (chosen on holdout) median", "oracle mean − chosen mean"], rows)
     out += ("\nDraws are with replacement from the observed runs, so the ceiling is the best observed run. The oracle picks on holdout "
