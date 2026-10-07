@@ -1,7 +1,7 @@
 # Build the paper. `make tables` regenerates the included tables from the analysis; `make pdf` builds build/main.pdf.
 .PHONY: pdf tex tables arxiv clean
 pdf: tables
-	python3 build.py
+	python3 build.py && cp build/main.pdf main.pdf
 tex: tables
 	python3 build.py --tex-only
 tables:
