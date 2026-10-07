@@ -56,6 +56,8 @@ def main():
             sim_rows.append([SHORT[m], k, f"{np.median(hs):.4f}", f"{hs.mean():.4f}"])
         rho = ss.spearmanr(e, h).correlation
         rows.append([SHORT[m], "", f"Spearman(eval, holdout) = {rho:.2f}", "", "", "", "", ""])
+        g = {k: quantile(dist(e, h, k), 0.5) - quantile(dist(e, h, 1), 0.5) for k in KS}
+        rows.append([SHORT[m], "", "median gain over k = 1: " + ", ".join(f"k = {k}: {g[k]:+.4f}" for k in KS if k > 1), "", "", "", "", ""])
     out = "## Best of k attempts, chosen on eval AUC, holdout AUC of the chosen run (exact over the 20 observed runs per LLM)\n\n"
     out += md_table(["LLM", "k", "median", "mean", "5th percentile", "95th percentile", "oracle (chosen on holdout) median", "oracle mean − chosen mean"], rows)
     out += ("\nDraws are with replacement from the observed runs, so the ceiling is the best observed run. The oracle picks on holdout "
