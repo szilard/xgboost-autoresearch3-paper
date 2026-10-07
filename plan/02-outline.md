@@ -84,9 +84,9 @@ each run and an audit of what the runs actually changed.
     higher eval AUC at 4 decimals, or equal with simpler or faster code); discard = git reset; log
     to `results.tsv` and a research log; mandatory web research; forbidden: anything in `human/`,
     the holdout set, the source CSVs, other data, new packages, changes to the evaluation; wrap-up
-    when under 2 minutes remain; stop the clock. Quote the keep rule verbatim. Mention the two
-    hand-run test runs in `results/test1` and `test2` only as development history (different
-    agent, earlier rules; not part of the 60).
+    when under 2 minutes remain; stop the clock. Quote the keep rule verbatim. (The hand-run
+    test runs in the minimal3 repo and the orchestrator's `archive/test1` are not mentioned:
+    authors' decision.)
 
 3.4 **The orchestrator and isolation** (`xgboost-autoresearch-minimal3-runs`). `agents3` Docker
     image: Ubuntu 26.04, codex installed as an unprivileged user, Python packages (versions:
@@ -105,9 +105,11 @@ each run and an audit of what the runs actually changed.
     30 GB visible).
 
 3.5 **Agent, LLMs, settings.** Codex CLI 0.160.0 on a ChatGPT subscription; gpt-6-luna, gpt-6-sol,
-    gpt-6-astra; `model_reasoning_effort = max` (Luna's top level; Sol and Astra have `ultra`
-    above it; `turn_context` confirmed from every session log); approvals off, sandbox off inside
-    the container; web search on (the instructions require it). Dates: Luna and Sol runs
+    gpt-6-astra; `model_reasoning_effort = max` (Luna's top level; in Codex's model catalogue
+    Sol and Astra list `ultra` above it, while OpenAI's API model pages list `max` as the top
+    level for all three; `turn_context` confirmed from every session log); approvals off, sandbox
+    off inside the container; web search on (the instructions require it). Cite the model pages
+    and the Codex configuration reference (keys in `references.bib`). Dates: Luna and Sol runs
     2026-10-05 to 10-06, Astra 2026-10-06 to 10-07. State plainly that the hosted service's
     builds, load and routing are not under our control and that the measured variation is that of
     the deployed agent–LLM–service system.
@@ -209,5 +211,7 @@ E. Feature audit method and the per-run audit table (what each final model does 
    DayofMonth, holidays, day of year, tree depth, trees, learning rate, ensembles).
 F. Software versions, machine, dates, container settings; repository and commit list; data
    availability (S3 source, `make_data.py`); AI-assistance disclosure.
+H. Token usage per run from the session logs (input, cached share, output, reasoning), per LLM
+   mean and range, with a list-price projection labelled as a projection (Table T12).
 G. (Optional) Example run: the kept-commit history of one run (e.g. astra6_n20-1 or -13) with
    eval and holdout AUC per keep, to show what an hour looks like.

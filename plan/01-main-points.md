@@ -11,7 +11,8 @@ Alternatives if the authors want a more conventional arXiv title (decide in `08-
 - "How Much Do AI Agent Results Vary? Twenty Identical Runs per LLM on an XGBoost Tuning Task"
 
 Authors: Szilard Pafka (Epoch) and Eduardo Ariño de la Rubia (Central European University), the
-order and affiliations as on the blog post and the companion paper; confirm with the authors.
+order and affiliations as on the blog post and the companion paper, with emails under the
+affiliations (confirmed by the authors, 2026-10-07).
 
 ## Thesis (one paragraph, the paper's spine)
 
@@ -200,4 +201,5 @@ holidays." (astra6_n20-4, holdout 0.6815, is to be confirmed in the audit.)
 - Not a statement about later years: eval and holdout both come from 2006 (a 2007 check is listed
   as optional future work in `03`; nothing of the kind is borrowed from the companion paper).
 - Not evidence of rule-breaking: none was found; the integrity machinery is a methods contribution.
-- Nothing about cost or tokens unless the session logs are mined for usage (optional, `03`).
+- No cost claim. Token usage per run is reported in an appendix from the session logs, with a
+  list-price projection labelled as such (the runs ran on a ChatGPT subscription).

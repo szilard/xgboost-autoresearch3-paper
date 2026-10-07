@@ -40,6 +40,9 @@ this paper. The companion paper is cited as related work by title and design onl
 | `07-build-and-submission.md` | Directory layout of the paper, toolchain, arXiv submission checklist, milestones. |
 | `08-decisions-for-authors.md` | The open choices only the authors can make. |
 
+Decisions were taken by the authors on 2026-10-07 and are recorded at the top of
+`08-decisions-for-authors.md`; the other files were updated to match.
+
 ## How to use this plan
 
 1. Read `01-main-points.md` and `08-decisions-for-authors.md` first; settle the decisions.

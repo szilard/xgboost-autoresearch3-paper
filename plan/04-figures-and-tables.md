@@ -54,6 +54,7 @@ Draft captions:
 | T9 | Per-run table (appendix) | 60 rows: run, experiments, kept, best eval AUC (commit), holdout AUC, gap, clock time, AI share, valid, caveat/flags | `appendix_tables.py` from `results_summary.md` | appendix |
 | T10 | Sensitivity without caveat runs | T2 and T3 recomputed on the 50 runs without a caveat | `stats.py` | appendix |
 | T11 | Eval–holdout gap | per LLM mean, sd, min, max; Spearman(eval, holdout) | `gap.py` | numbers in `01` |
+| T12 | Tokens per run (appendix) | per LLM: input tokens, cached share, output tokens, reasoning tokens, API calls (mean, min, max); list-price projection per run | `tokens.py` | new |
 
 Table T1 draft rows (verify each against the sources named):
 

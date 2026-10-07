@@ -15,18 +15,16 @@
 
 ## The companion paper (Ariño de la Rubia and Pafka, arXiv 2609.33812)
 
-Cite it once in the introduction and once in related work, by design only, for example:
+Authors' decision (2026-10-07): at most one brief, high-level mention in related work, and at
+most one clause in the introduction; no emphasis. For example, in related work:
 
-> A companion study by the same authors (Ariño de la Rubia and Pafka, 2026) applies intensive
-> replication to a related task with open-weight models served through hosted endpoints and
-> several coding-agent harnesses. The present paper holds the agent fixed (Codex) and varies the
-> LLM among three frontier models from one vendor at a fixed reasoning effort, under a protocol
-> with per-run isolation, automated integrity checks and a time-resolved record of every run;
-> its claims rest only on the 60 runs reported here.
+> A companion study by the same authors (Ariño de la Rubia and Pafka, 2026) also uses repeated
+> runs of coding agents on an XGBoost tuning task, with open-weight models and several agent
+> harnesses. The present paper holds the agent fixed and varies the LLM; its claims rest only on
+> the 60 runs reported here.
 
-Do not describe its findings, do not quote its numbers, do not compare magnitudes with it, and do
-not reuse its figures or tables. If a reviewer asks for a comparison, that is a separate decision
-for the authors (`08`).
+Do not describe its findings, do not quote its numbers, do not compare magnitudes with it, do
+not reuse its figures or tables, and do not return to it in the discussion.
 
 ## Themes, with the papers and where they are cited
 

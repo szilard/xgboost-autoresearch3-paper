@@ -81,21 +81,30 @@ and pin its commit in the output header.
    per-model n, mean, sd, min, p10, median, p90, max, 95% t CI, improvement, range, range/impr;
    pairwise probability of superiority with ties half, 10,000-resample bootstrap (seed 1), Welch
    t, Mann–Whitney; ANOVA and Kruskal; the overlap counts; the runs-per-arm approximation
-   (16 sd²/gap²) labelled post hoc. Also the same with caveat runs removed (sensitivity).
+   (16 sd²/gap²) labelled post hoc. Also the same with caveat runs removed (sensitivity), and
+   without the BTS-informed runs (Astra 7 and 12; Sol 11) for one sentence in the appendix.
 3. `time_course.py` → `results/table_time_course.md` and `results/paths.csv`: per run the kept
    path (minutes, holdout AUC), first-gain time, holdout at 15/30/45/60 min, longest plateau,
    downward steps, time to within 0.002 of final; per-model medians and means; the median paths
    as in `tools/plot_holdout_auc.py` (reuse its functions: import from the runs repo or copy with
    attribution).
-4. `feature_audit.py` → `results/table_feature_audit.md` and `results/feature_audit_per_run.csv`:
+4. `feature_audit.py` → `results/table_feature_audit.md`, `results/feature_audit_per_run.csv` and
+   `results/feature_audit_ambiguous.md`:
    for each final `train.py`: DayofMonth in `cat_cols` (regex on the last assignment), Month in
    `cat_cols`, holiday-like features (`holiday|thanksgiving|christmas|...`), day-of-year-like
    features, max_depth / max_leaves, n_estimators, learning_rate, ensembles (`num_parallel_tree`,
    seed averaging, blends), DART, interaction constraints, target or frequency encodings,
    schedule offsets. Plus, from each run's `results.tsv`, the first kept change and its
-   description (to quantify "most runs make the same first move: shallower trees"). The heuristic
-   output must be checked by hand for all 60 files (it takes about an hour); record the manual
-   verdicts in the CSV with a `verified` column. Report mean holdout for dropped vs kept per LLM.
+   description (to quantify "most runs make the same first move: shallower trees"). **Ambiguity
+   flags** (printed as a "read these by hand" list): `DayofMonth` in the category list but also
+   converted to a number elsewhere; the category list not built by a plain `cat_cols = [...]`
+   assignment, or assigned more than once; holiday or day-of-year words only in comments or in
+   code that is not reachable from `prepare`; `Month` or `DayofMonth` referenced inside `prepare`
+   after being removed from the lists. Decision (2026-10-07): the paper is drafted with the
+   heuristic numbers and the table marked provisional; the full manual check of all 60 files
+   (about an hour, flagged files first) is done before the final consistency pass, with the
+   verdicts recorded in the CSV in a `verified` column. Report mean holdout for dropped vs kept
+   per LLM.
 5. `best_of_k.py` → `results/table_best_of_k.md`: per LLM, for k in 1, 2, 3, 5, 10: the holdout
    AUC of the run with the best eval AUC among k draws with replacement, median and 5th/95th
    percentiles; implement the exact formula (rank the runs by eval AUC, P(rank r chosen) =
@@ -110,18 +119,23 @@ and pin its commit in the output header.
    `dataviz` conventions already used by the tools (same palette: Astra blue `#2a78d6`, Sol
    orange `#eb6834`, Luna green `#1baf7a`).
 8. `appendix_tables.py` → `results/appendix_per_run.md` (60-row table), `results/appendix_flags.md`.
-9. (Optional) `tokens.py`: parse `codex-session.jsonl.gz` for usage events (input, cached,
-   output, reasoning tokens per turn) if present; if the slimmed logs do not carry usage, drop the
-   idea and say so in `08`.
-10. (Optional, new computation, not from the companion repo) `score_2007.py`: build a balanced
-    2007 sample with the same recipe as `make_data.py` (if `2007.csv` exists in the S3 bucket;
-    check first), score the 60 saved final artifacts (they are not archived in the runs repo: the
-    artifacts were deleted with the containers; **so this requires retraining each final
-    `train.py` on `train.csv`**, which reintroduces small training nondeterminism; measure it by
-    retraining a few and comparing with the recorded holdout AUC). Only if the authors want it;
-    otherwise list as future work.
+9. `tokens.py` → `results/table_tokens.md`, `results/tokens_per_run.csv`: the slimmed session
+   logs do carry usage: `event_msg`/`token_count` events whose `info.total_token_usage` is
+   cumulative over the session (checked on astra6_n20-1: the final total equals the sum of the
+   per-event `last_token_usage`, and the running total never resets across the two turns). Per
+   run take the last event's totals: input_tokens, cached_input_tokens, output_tokens,
+   reasoning_output_tokens, total_tokens; also the number of `token_count` events (API calls).
+   Per LLM: mean, min, max; cached share. Add a list-price projection from OpenAI's model pages
+   (per million tokens, input / cached input / output: Astra 10 / 1 / 50; Sol 2 / 0.2 / 10;
+   Luna 0.1 / 0.01 / 0.5; verify on the pages), labelled as a projection: the runs were on a
+   ChatGPT subscription and no metered spend occurred. Sample values from one run per LLM:
+   astra6_n20-1 15.0M input (98.4% cached), 93K output, about $22; sol6_n20-1 28.3M (99.3%), 52K,
+   about $6.5; luna6_n20-1 39.7M (98.7%), 92K, about $0.5.
+10. Scoring the final models on 2007 flights: **not done** (authors' decision, 2026-10-07);
+    listed as future work. It would require retraining each final `train.py`, since the model
+    artifacts were deleted with the containers.
 
-Make `analysis/run_all.sh` that runs 1 to 8 in order and `analysis/README.md` mapping each table
+Make `analysis/run_all.sh` that runs 1 to 9 in order and `analysis/README.md` mapping each table
 and figure of the paper to its script and output file.
 
 ## Numbers that still need a decision or a check before they go in the paper
