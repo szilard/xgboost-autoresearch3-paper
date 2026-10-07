@@ -38,8 +38,17 @@ cmd = ["pandoc", "paper.md", "--from", "markdown+smart", "--to", "latex", "--sta
 subprocess.run(cmd, cwd=BUILD, check=True)
 # arXiv wants \pdfoutput=1 within the first lines
 tex = (BUILD / "main.tex").read_text()
+# file paths in code font cannot break and ran into the margin (Appendix C): in code text that contains
+# a slash (a path), allow a break after each slash and underscore; flag names such as keep_rule stay whole
+def breakable_path(m):
+    t = m.group(0)
+    return t.replace("/", "/\\allowbreak{}").replace("\\_", "\\_\\allowbreak{}") if "/" in t else t
+
+
+tex = re.sub(r"\\texttt\{(?:[^{}]|\{[^{}]*\})*\}", breakable_path, tex)
 if not tex.startswith("\\pdfoutput=1"):
-    (BUILD / "main.tex").write_text("\\pdfoutput=1\n" + tex)
+    tex = "\\pdfoutput=1\n" + tex
+(BUILD / "main.tex").write_text(tex)
 if "--tex-only" in sys.argv:
     print("wrote build/main.tex"); sys.exit(0)
 for step in (["pdflatex", "-interaction=nonstopmode", "-halt-on-error", "main"], ["bibtex", "main"],

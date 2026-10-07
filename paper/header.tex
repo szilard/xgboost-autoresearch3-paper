@@ -7,6 +7,10 @@
 \setlength{\LTcapwidth}{\textwidth}
 \renewcommand{\arraystretch}{1.08}
 \usepackage{float}
-\floatplacement{figure}{htbp}
+% [H]: figures stay where they are in the text. A float moved to the top of a page that also holds a
+% longtable makes LaTeX overrun that page by the float's height (pandoc's longtables; seen on pages 11 and 15)
+\floatplacement{figure}{H}
 \setcounter{secnumdepth}{2}
 \usepackage{xurl}
+% let TeX stretch a tight line (code paths in narrow lists) rather than run into the margin
+\setlength{\emergencystretch}{3em}

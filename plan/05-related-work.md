@@ -97,7 +97,7 @@ not reuse its figures or tables, and do not return to it in the discussion.
 ## Still to do for the related-work section
 
 - Done 2026-10-07: every flagged entry opened at its primary source (`verification/bib-verification.md`): 8 confirmed, 10 corrected, none unopenable; all 46 arXiv ids resolve to the cited titles. The official OpenAI model pages and the Codex configuration reference are now cited (`openai2026gpt6`, `openai2026codex`, `openai2026codexconfig`).
-- Before the camera-ready: check two title wordings against the proceedings, `zhu2025abc` ("in" vs "for" Building) and `grinsztajn2022tabular` ("typical" appears in the NeurIPS title only).
+- Done 2026-10-07: the two title wordings checked against the proceedings. `zhu2025abc` uses "in Building" in the NeurIPS 2025 proceedings, as the bib does (arXiv says "for"); its author list was wrong (25 of 26 authors, Narayanan missing, Kellermann misplaced) and is corrected. `grinsztajn2022tabular` cites the NeurIPS version, whose title has "typical", as the bib does.
 - Decide whether to cite one or two sources on reasoning-effort / test-time-compute settings.
 - Search log of this plan (2026-10-07, WebSearch standard mode): Karpathy autoresearch; variance
   and nondeterminism in agent evals; DS/AutoML agent benchmarks; LLM HPO; Bowyer; Madaan; Thinking
