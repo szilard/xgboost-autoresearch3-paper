@@ -74,7 +74,7 @@ for m in MODELS:
     rows.append([SHORT[m], n, f"{x.mean():.4f}", f"{x.std(ddof=1):.4f}", f"{x.mean()-half:.4f}–{x.mean()+half:.4f}", f"{x.min():.4f}", f"{p10:.4f}",
                  f"{np.median(x):.4f}", f"{p90:.4f}", f"{x.max():.4f}", f"{x.mean()-BASE_HOLDOUT:+.4f}", f"{x.max()-x.min():.4f}"])
 save("per_model", ["LLM", "n", "mean", "sd", "95% CI of the mean", "min", "10th pct.", "median", "90th pct.", "max", "mean gain over starter", "range"], rows,
-     "Holdout AUC of each run's final model, 20 runs per LLM. The starter model scores 0.6725. sd is the sample standard deviation; the interval uses the t distribution; the percentiles are the nearest runs; the range is the best run minus the worst.")
+     "Holdout AUC of each run's final model, 20 runs per LLM. The starter model scores 0.6725. sd is the sample standard deviation; the interval uses the t distribution; the 10th and 90th percentiles are the 3rd-lowest and 3rd-highest of the 20 runs; the range is the best run minus the worst.")
 
 # Table: head to head
 rows = []
@@ -132,7 +132,7 @@ for m in MODELS:
     rr = model_runs(runs, m); e = np.array([r["best_eval_auc"] for r in rr]); h = np.array([r["holdout_auc"] for r in rr])
     rows.append([SHORT[m]] + [f"{quantile(dist(e, h, k), 0.5):.4f}" for k in KS] + [f"{quantile(dist(e, h, 3), 0.05):.4f}", f"{quantile(dist(h, h, 3), 0.5):.4f}"])
 save("best_of_k", ["LLM"] + [f"k = {k}" for k in KS] + ["k = 3, 5th percentile", "k = 3, chosen on holdout"], rows,
-     "Running the agent k times and keeping the run with the best eval AUC: median holdout AUC of the kept run, exact over the 20 observed runs with draws with replacement (for k = 1, the median of Table 2). The last two columns give, for k = 3, the 5th percentile of the kept run's holdout AUC and the median if the choice were made on the holdout set itself.")
+     "Running the agent k times and choosing the run with the best eval AUC: median holdout AUC of the chosen run, computed exactly over the 20 observed runs with draws with replacement (for k = 1, the median of Table 2). The last two columns give, for k = 3, the 5th percentile of the chosen run's holdout AUC, from the same exact distribution, and the median if the choice were made on the holdout set itself.")
 
 # Appendix: tests
 rows = []
@@ -160,16 +160,16 @@ save("sensitivity", ["runs", "n (Astra, Sol, Luna)", "mean Astra", "mean Sol", "
 rows = [[r["run"], r["integrity_flags"] if r["integrity_flags"] != "none" else "", r["flags"], note(r)]
         for r in runs if r["integrity_flags"] != "none" or r["valid"] == "caveat"]
 save("flags", ["run", "integrity flag (cleared)", "caveat", "resolution"], rows,
-     "The runs with an integrity flag from the automatic checks or a content hit in the leak check (all cleared on review), or a protocol caveat. No run was excluded.")
+     "The runs with an integrity flag, the leak check included (all false alarms on review), or a protocol caveat. No run was excluded.")
 
 # Appendix: operations
 rows = []
 for m in MODELS:
     rr = model_runs(runs, m)
     rows.append([SHORT[m], f"{min(r['driver_start'][:10] for r in rr)} to {max(r['driver_end'][:10] for r in rr)}", sum(r["failed_turns"] for r in rr), sum(r["retry_wait_s"] > 0 for r in rr),
-                 sum(r["clock_remaining_s"] < 0 for r in rr), f"{min(r['clock_elapsed_s'] for r in rr)//60}–{max(r['clock_elapsed_s'] for r in rr)//60} min",
+                 sum(r["clock_remaining_s"] < 0 for r in rr), "–".join(f"{t//60}:{t%60:02d}" for t in (min(r['clock_elapsed_s'] for r in rr), max(r['clock_elapsed_s'] for r in rr))),
                  sum(r["compactions"] > 0 for r in rr), f"{min(r['memory_peak_gib'] for r in rr)}–{max(r['memory_peak_gib'] for r in rr)}"])
-save("operations", ["LLM", "dates (UTC)", "failed turns", "runs with retry waits", "runs stopped after the budget", "clock, min to max", "runs with a context compaction", "peak memory, GiB"], rows,
+save("operations", ["LLM", "dates (UTC)", "failed turns", "runs with retry waits", "runs stopped after the budget", "clock, min:s, shortest to longest", "runs with a context compaction", "peak memory, GiB"], rows,
      "Operational summary. Failed turns ended with the service error 'model at capacity' and were retried; the clock kept running. Every run's agent stopped the clock itself; the clock could exceed the hour when the agent's wrap-up came after its last status check. Nothing was killed at the 24 GiB memory cap.")
 
 # Appendix: tokens
@@ -238,11 +238,11 @@ for m in MODELS:
         rows.append([r["run"], f"{r['holdout_auc']:.4f}", yn("dom_cat"), yn("month_cat"), yn("doy"), yn("holiday"), depth, trees, lrate,
                      yn("ensemble"), a["verified"] or "pending"])
 verified_all = all(aud[r["run"]]["verified"] for r in runs)
-save("audit_per_run", ["run", "holdout AUC", "day-of-month category", "month category", "day of year", "holiday features", "depth", "trees", "learning rate", "ensemble",
+save("audit_per_run", ["run", "holdout AUC", "day-of-month category", "month category", "day-of-year-like", "holiday features", "depth", "trees", "learning rate", "ensemble",
                        "verified" if verified_all else "checked by hand"], rows,
      ("The final model of every run. A script read each final train.py; every file was then read in full, and the script's verdicts were confirmed or corrected (Appendix E). "
-      "Depth, trees and learning rate as read, one value per model configuration of the final prediction, in the order of the file; \"16 leaves\" is a leaf limit for lossguide trees; "
-      "\"(default)\" marks a value the file leaves at XGBoost's default. Ensemble: the prediction combines more than one fitted model (different configurations, seeds or a blend).")
+      "Depth, trees and learning rate as read for the models of the final prediction, each distinct value once, in the order of the file; \"16 leaves\" is a leaf limit for lossguide trees. "
+      "Ensemble: the prediction combines more than one fitted model (different configurations, seeds or a blend).")
      if verified_all else
      "The final model of every run, from the scripted audit of its train.py. Depth: max_depth, or the leaf limit for lossguide trees (lossguide alone where the script could not read the limit). Where a file sets a value more than once, as ensembles of different models do, every value is listed in the order of the file. A blank means the file computes the value rather than setting a number. Ensemble: more than one model, seed averaging or a blend.",
      max_wrapping=12)  # eleven columns: the settings columns wrap so that run names keep one line

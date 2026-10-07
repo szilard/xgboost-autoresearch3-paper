@@ -1,4 +1,4 @@
-| run | holdout AUC | day-of-month category | month category | day of year | holiday features | depth | trees | learning rate | ensemble | verified |
+| run | holdout AUC | day-of-month category | month category | day-of-year-like | holiday features | depth | trees | learning rate | ensemble | verified |
 |----------------------|-----------|------------|------------|-------|------------|------------|------------|------------|------------|-----------------|
 | astra6_n20-1 | 0.6880 |  |  |  | yes | 16\ leaves | 400 | 0.025 | yes | confirmed |
 | astra6_n20-2 | 0.6836 | yes | yes |  |  | 6 | 1600 | 0.05 |  | corrected |
@@ -61,4 +61,4 @@
 | luna6_n20-19 | 0.6811 | yes | yes | yes |  | 3, 4 | 800 | 0.0125 | yes | corrected |
 | luna6_n20-20 | 0.6844 |  |  | yes |  | 4 | 200 | 0.05 |  | confirmed |
 
-Table: The final model of every run. A script read each final train.py; every file was then read in full, and the script's verdicts were confirmed or corrected (Appendix E). Depth, trees and learning rate as read, one value per model configuration of the final prediction, in the order of the file; "16 leaves" is a leaf limit for lossguide trees; "(default)" marks a value the file leaves at XGBoost's default. Ensemble: the prediction combines more than one fitted model (different configurations, seeds or a blend).
+Table: The final model of every run. A script read each final train.py; every file was then read in full, and the script's verdicts were confirmed or corrected (Appendix E). Depth, trees and learning rate as read for the models of the final prediction, each distinct value once, in the order of the file; "16 leaves" is a leaf limit for lossguide trees. Ensemble: the prediction combines more than one fitted model (different configurations, seeds or a blend).

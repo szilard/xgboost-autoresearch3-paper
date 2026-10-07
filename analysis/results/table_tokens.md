@@ -1,5 +1,5 @@
 <!-- analysis/tokens.py -->
-<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-07 19:37Z -->
+<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-07 20:11Z -->
 
 ## Token usage per run (mean, with min to max), from the session logs
 

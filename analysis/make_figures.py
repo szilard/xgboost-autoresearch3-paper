@@ -89,7 +89,7 @@ for m in MODELS:
     ax.fill_between(ks, p5, p95, color=COLOUR[m], alpha=0.12, lw=0)
     ax.plot(ks, med, color=COLOUR[m], lw=2.2, marker="o", ms=4, label=m)
     ax.plot(ks, om, color=COLOUR[m], lw=1, ls=(0, (3, 2)))
-ax.set_xlabel("number of runs k (best eval AUC kept)", color=INK2); ax.set_ylabel("holdout AUC of the kept run", color=INK2)
+ax.set_xlabel("number of runs k (the run with the best eval AUC is chosen)", color=INK2); ax.set_ylabel("holdout AUC of the chosen run", color=INK2)
 ax.set_xticks(ks)
 style(ax, "Best of k runs: median (line), 5th to 95th percentile (band), oracle on holdout (dashed)")
 ax.legend(frameon=False, fontsize=8, labelcolor=INK2, loc="lower right")
