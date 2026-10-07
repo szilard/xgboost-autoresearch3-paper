@@ -1,0 +1,12 @@
+% Preamble additions for the pandoc build of the paper.
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage[font=small,labelfont=bf,width=\textwidth]{caption}
+\usepackage{etoolbox}
+\AtBeginEnvironment{longtable}{\small}
+\setlength{\LTcapwidth}{\textwidth}
+\renewcommand{\arraystretch}{1.08}
+\usepackage{float}
+\floatplacement{figure}{htbp}
+\setcounter{secnumdepth}{2}
+\usepackage{xurl}

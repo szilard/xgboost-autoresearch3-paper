@@ -69,9 +69,18 @@ def utc(ts):
     return datetime.fromtimestamp(float(ts), tz=timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
 
 
-def md_table(headers, rows):
-    out = ["| " + " | ".join(headers) + " |", "|" + "|".join("---" for _ in headers) + "|"]
-    out += ["| " + " | ".join(str(c) for c in r) + " |" for r in rows]
+def md_table(headers, rows, min_width=4):
+    """Pipe table; the separator's dash counts follow the longest word per column (header words wrap),
+    which pandoc turns into relative column widths when a row is wider than its line length."""
+    cells = [[str(c) for c in r] for r in rows]
+    widths = []
+    for j, h in enumerate(headers):
+        longest_word = max([len(w) for w in str(h).split()] + [1])
+        body = max([len(r[j]) for r in cells if j < len(r)] + [1])
+        no_space = all(" " not in r[j] for r in cells if j < len(r))
+        widths.append(max(min_width, longest_word, body + 3 if no_space else min(body, 50)))
+    out = ["| " + " | ".join(str(h) for h in headers) + " |", "|" + "|".join("-" * w for w in widths) + "|"]
+    out += ["| " + " | ".join(r) + " |" for r in cells]
     return "\n".join(out) + "\n"
 
 

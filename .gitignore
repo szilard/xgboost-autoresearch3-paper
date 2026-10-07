@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+paper/build/
+paper/arxiv/
+paper/arxiv.tar.gz
