@@ -1,61 +1,61 @@
-run,model,holdout_auc,dom_cat,month_cat,dom_numeric,month_numeric,holiday,doy,max_depth,max_leaves,n_estimators,learning_rate,max_depth_all,max_leaves_all,n_estimators_all,learning_rate_all,n_models,ensemble,dart,constraints,encodings,flags,verified
-astra6_n20-1,gpt-6-astra,0.6880,0,0,1,1,1,0,0,16,400,0.025,0,16,400,0.025,1,1,0,0,0,,
-astra6_n20-2,gpt-6-astra,0.6836,1,1,0,0,0,0,6,,1600,0.05,6,,1600,0.05,1,1,0,0,0,,
-astra6_n20-3,gpt-6-astra,0.6886,0,0,1,1,1,1,0,32,600,0.04,0,32,600,0.04,1,0,0,0,0,,
-astra6_n20-4,gpt-6-astra,0.6815,0,1,1,1,1,1,5,,1000,0.02,5,,1000,0.02,1,1,0,0,0,,
-astra6_n20-5,gpt-6-astra,0.6846,0,0,1,1,1,0,3,,300,0.05,3,,300,0.05,1,1,0,0,0,,
-astra6_n20-6,gpt-6-astra,0.6846,0,1,1,0,0,0,0,16,500,0.05,0,16,500,0.05,1,1,0,0,0,,
-astra6_n20-7,gpt-6-astra,0.6881,0,0,1,1,1,0,7,,500,0.05,3/7,,200/500,0.1/0.05,2,1,0,0,1,,
-astra6_n20-8,gpt-6-astra,0.6856,0,0,1,1,1,1,0,24,100,0.05,0,24,100,0.05,1,1,0,0,0,,
-astra6_n20-9,gpt-6-astra,0.6888,0,1,1,1,1,0,0,32,600,0.05,2/0,32,200/600,0.05,2,1,0,0,0,,
-astra6_n20-10,gpt-6-astra,0.6845,0,1,1,1,1,0,8,,400,0.05,8,,400,0.05,1,1,0,0,0,,
-astra6_n20-11,gpt-6-astra,0.6860,0,0,0,1,1,0,0,,,0.05,0,,,0.05,0,0,0,0,0,dom_in_prepare_unclear,
-astra6_n20-12,gpt-6-astra,0.6873,0,0,1,1,1,1,3,,500,0.05,3,,500,0.05,1,1,0,0,1,,
-astra6_n20-13,gpt-6-astra,0.6906,0,0,1,1,1,1,0,16,600,0.05,0,16,600,0.05,3,1,0,1,0,,
-astra6_n20-14,gpt-6-astra,0.6888,0,0,1,1,1,1,3,,600,0.05,3,,600,0.05,2,1,0,0,0,,
-astra6_n20-15,gpt-6-astra,0.6856,0,1,1,1,0,1,4,,200,0.08,4,,200,0.08,2,1,0,1,0,,
-astra6_n20-16,gpt-6-astra,0.6870,0,0,0,0,1,1,4,,180,0.1,4,,180,0.1,2,1,0,0,0,dom_in_prepare_unclear,
-astra6_n20-17,gpt-6-astra,0.6872,0,0,1,1,0,1,4,,500,0.05,4,,500,0.05,2,1,0,1,0,,
-astra6_n20-18,gpt-6-astra,0.6878,0,1,1,1,1,1,0,16,1200,0.05,0,16,1200,0.05,0,1,0,1,0,,
-astra6_n20-19,gpt-6-astra,0.6876,0,1,1,1,1,1,4,,300,0.05,4,,300,0.05,1,1,0,0,1,,
-astra6_n20-20,gpt-6-astra,0.6853,0,0,1,1,0,0,0,32,600,0.05,0,32,600,0.05,0,1,0,0,0,,
-sol6_n20-1,gpt-6-sol,0.6850,0,0,1,1,0,1,4,,100,0.1,3/4,,150/100,0.1,2,1,0,0,0,,
-sol6_n20-2,gpt-6-sol,0.6836,1,1,1,1,0,1,4,,200,0.05,4/3,,200,0.05,3,1,0,0,0,dom_both,
-sol6_n20-3,gpt-6-sol,0.6841,0,1,1,1,0,1,3,,300,0.05,3,,300,0.05,1,0,0,0,0,,
-sol6_n20-4,gpt-6-sol,0.6821,1,1,1,1,0,1,3,,200,0.05,3,,200,0.05,1,0,0,0,0,dom_both,
-sol6_n20-5,gpt-6-sol,0.6826,1,1,1,1,1,1,6,,275,0.025,6,,275,0.025,1,1,0,0,0,dom_both,
-sol6_n20-6,gpt-6-sol,0.6803,1,1,1,1,0,1,10,31,120,0.05,10,31,120,0.05,1,0,0,0,0,dom_both,
-sol6_n20-7,gpt-6-sol,0.6837,0,1,1,0,0,0,3,,160,0.1,3/4,,130/160,0.1,3,1,0,0,0,,
-sol6_n20-8,gpt-6-sol,0.6871,0,0,1,1,0,0,3,,200,0.05,3,,300/200,0.05,1,0,1,0,0,,
-sol6_n20-9,gpt-6-sol,0.6834,1,1,1,1,0,1,3,,400,0.05,3,,400,0.05,3,1,0,0,0,dom_both,
-sol6_n20-10,gpt-6-sol,0.6864,0,0,1,1,0,0,3,,400,0.05,3,,400,0.05,3,1,0,0,0,,
-sol6_n20-11,gpt-6-sol,0.6857,0,0,1,1,1,1,3,,500,0.05,3,,500,0.05,1,0,0,0,0,,
-sol6_n20-12,gpt-6-sol,0.6846,0,0,1,1,0,1,3,,150,0.1,3,,150,0.1,1,0,0,0,0,,
-sol6_n20-13,gpt-6-sol,0.6854,0,0,1,1,0,1,4,,18,0.05,3/2/4,,400/700/18,0.05,3,1,0,0,0,,
-sol6_n20-14,gpt-6-sol,0.6846,0,0,1,1,0,1,4,,100,0.1,3/4,,100,0.1,2,1,1,0,0,,
-sol6_n20-15,gpt-6-sol,0.6856,0,0,1,1,0,1,0,16,200,0.05,0,16,200,0.05,1,0,0,0,0,,
-sol6_n20-16,gpt-6-sol,0.6804,1,1,0,0,0,0,4,,400,0.05,4,,400,0.05,1,0,0,0,0,,
-sol6_n20-17,gpt-6-sol,0.6839,1,1,1,1,1,1,4,,250,0.05,3/4,,250,0.05,2,1,0,0,0,dom_both,
-sol6_n20-18,gpt-6-sol,0.6847,0,1,1,1,0,1,3,,300,0.05,3,,300,0.05,2,1,0,0,0,,
-sol6_n20-19,gpt-6-sol,0.6866,0,0,1,1,0,1,0,8,500,0.05,0,8,500,0.05,2,1,0,0,0,,
-sol6_n20-20,gpt-6-sol,0.6838,0,1,1,1,0,1,3,,300,0.05,3,,300,0.05,1,0,0,0,0,,
-luna6_n20-1,gpt-6-luna,0.6822,1,1,0,0,0,0,6,,800,0.02,6,,800,0.02,1,0,0,0,1,,
-luna6_n20-2,gpt-6-luna,0.6789,1,1,0,0,0,0,5,,300,0.05,5,,300,0.05,1,0,0,0,0,,
-luna6_n20-3,gpt-6-luna,0.6803,1,1,0,0,0,0,4,,200,0.05,4,,200,0.05,2,1,0,0,1,,
-luna6_n20-4,gpt-6-luna,0.6797,1,1,0,0,0,0,4,,300,0.03,4,,300,0.03,1,0,0,0,0,,
-luna6_n20-5,gpt-6-luna,0.6789,1,1,0,0,0,0,4,,200,0.05,4,,200,0.05,1,0,0,0,1,,
-luna6_n20-6,gpt-6-luna,0.6800,1,1,0,0,0,0,3,,100,0.1,3,,100,0.1,1,0,0,0,0,,
-luna6_n20-7,gpt-6-luna,0.6795,1,1,0,0,0,0,4,,200,0.05,4,,200,0.05,1,0,0,0,1,,
-luna6_n20-8,gpt-6-luna,0.6795,1,1,0,0,0,0,3,,200,0.05,3,,200,0.05,1,0,0,0,0,,
-luna6_n20-9,gpt-6-luna,0.6844,0,0,1,1,0,1,4,,200,0.05,4,,200,0.05,1,0,0,0,1,,
-luna6_n20-10,gpt-6-luna,0.6820,1,0,0,1,0,0,0,16,200,0.05,0,16,200,0.05,1,0,0,0,0,,
-luna6_n20-11,gpt-6-luna,0.6773,1,1,0,0,0,0,6,,100,0.1,6,,100,0.1,1,0,0,0,0,,
-luna6_n20-12,gpt-6-luna,0.6799,1,1,0,0,0,0,6,,450,0.1,6,,450,0.1,1,0,0,0,0,,
-luna6_n20-13,gpt-6-luna,0.6797,1,1,0,0,1,0,5,,200,0.05,5,,200,0.05,1,0,0,0,0,,
-luna6_n20-14,gpt-6-luna,0.6800,1,1,0,0,0,0,3,,300,0.05,3,,300,0.05,1,0,0,0,0,,
-luna6_n20-15,gpt-6-luna,0.6785,1,1,0,1,0,0,4,,100,0.1,4,,100,0.1,1,0,0,0,0,,
-luna6_n20-16,gpt-6-luna,0.6819,1,1,1,1,1,0,4,,200,0.05,4,,200,0.05,1,0,0,0,0,dom_both,
-luna6_n20-17,gpt-6-luna,0.6817,0,0,1,1,0,1,3,,100,0.1,3,,100,0.1,1,0,0,0,0,,
-luna6_n20-18,gpt-6-luna,0.6831,0,0,1,1,0,1,3,,200,0.1,3,,200,0.1,1,0,0,0,0,,
-luna6_n20-19,gpt-6-luna,0.6811,1,1,1,1,0,1,,,800,0.0125,,,800,0.0125,1,1,0,0,0,dom_both,
-luna6_n20-20,gpt-6-luna,0.6844,0,0,1,1,0,1,4,,200,0.05,4,,200,0.05,1,0,0,0,0,,
+run,model,holdout_auc,dom_cat,month_cat,dom_numeric,month_numeric,holiday,doy,max_depth,max_leaves,n_estimators,learning_rate,max_depth_all,max_leaves_all,n_estimators_all,learning_rate_all,n_models,ensemble,dart,constraints,encodings,flags,verified,script_dom_cat,script_month_cat,script_doy,script_holiday,script_ensemble,depth_read,trees_read,learning_rate_read,audit_note
+astra6_n20-1,gpt-6-astra,0.6880,0,0,1,1,1,0,0,16,400,0.025,0,16,400,0.025,1,1,0,0,0,,confirmed,0,0,0,1,1,16 leaves,400,0.025,Three-seed average of one config (L93-97). Categoricals are integer codes typed 'c' via feature_types (L77).
+astra6_n20-2,gpt-6-astra,0.6836,1,1,0,0,0,0,6,,1600,0.05,6,,1600,0.05,1,0,0,0,0,,corrected,1,1,0,0,1,6,1600,0.05,"num_parallel_tree=3 (L60) is one booster, so ensemble no. Month and DayofMonth get one-hot splits and feature_weights 0.5 (L68-71). Extra CarrierOrigin cross category (L19-21)."
+astra6_n20-3,gpt-6-astra,0.6886,0,0,1,1,1,0,0,32,600,0.04,0,32,600,0.04,1,1,0,0,0,,corrected,0,0,1,1,0,32 leaves,600,0.04,"Final prediction is a 0.5/0.5 blend of an XGBClassifier and an XGBRegressor (squared error, other regularisation) on the same features (L81-89, L118-124); the script missed this ensemble. Month is used for recency and within-month class-balancing sample weights (L112-117), not as a feature. Script doy=1 comes from the day_of_year name only."
+astra6_n20-4,gpt-6-astra,0.6815,0,1,1,1,1,0,5,,1000,0.02,5,,1000,0.02,1,0,0,0,0,,corrected,0,1,1,1,1,5,1000,0.02,"num_parallel_tree=4 (L119) is one booster, so ensemble no. Five-fold smoothed target encodings of Origin, Dest, carrier-origin, carrier-dest and route (L39-66, L97-105); none is calendar."
+astra6_n20-5,gpt-6-astra,0.6846,0,0,1,1,1,0,3,,300,0.05,3,,300,0.05,1,0,0,0,0,,corrected,0,0,0,1,1,3,300,0.05,"num_parallel_tree=4 (L57) is one booster, so ensemble no. Month recency sample weights (L66-69), not a feature."
+astra6_n20-6,gpt-6-astra,0.6846,0,1,1,0,0,0,0,16,500,0.05,0,16,500,0.05,1,0,0,0,0,,corrected,0,1,0,0,1,16 leaves,500,0.05,"num_parallel_tree=4 (L66) is one booster, so ensemble no."
+astra6_n20-7,gpt-6-astra,0.6881,0,0,1,1,1,0,7,,500,0.05,3/7,,200/500,0.1/0.05,2,1,0,0,1,,confirmed,0,0,0,1,1,"3, 7","200, 500","0.1, 0.05","0.5/0.5 blend (L71-77, L114) of a depth-3 model with num_parallel_tree=4 (L86) and a depth-7 one-hot model (L107). Within-month class-balancing weights from per-month delay rates (L95-97) are sample weights, not features."
+astra6_n20-8,gpt-6-astra,0.6856,0,0,1,1,1,0,0,24,100,0.05,0,24,100,0.05,1,0,0,0,0,,corrected,0,0,1,1,1,24 leaves,100,0.05,"num_parallel_tree=3 (L75) is one booster, so ensemble no. Custom label-smoothed logistic objective (L52-64). Month recency weights (L86-88)."
+astra6_n20-9,gpt-6-astra,0.6888,0,1,1,1,1,0,0,32,600,0.05,2/0,32,200/600,0.05,2,1,0,0,0,,confirmed,0,1,0,1,1,"2, 32 leaves","200, 600",0.05,"Depth-2 calendar model (Month, HolidayOffset, HolidayType) supplies half its margin as base_margin to a lossguide operational model with num_parallel_tree=4 (L99-134). Month reaches only the calendar model."
+astra6_n20-10,gpt-6-astra,0.6845,0,1,1,1,1,0,8,,400,0.05,8,,400,0.05,1,0,0,0,0,,corrected,0,1,0,1,1,8,400,0.05,"num_parallel_tree=3 (L109) is one booster, so ensemble no. Route, CarrierOrigin and CarrierDest cross categories (L20-26, L87-89)."
+astra6_n20-11,gpt-6-astra,0.6860,0,0,0,1,1,0,0,,,0.05,0,,,0.05,0,1,0,0,0,dom_in_prepare_unclear,corrected,0,0,0,1,0,"4 leaves, 8 leaves, 16 leaves","500, 300, 200",0.05,"Flagged file: DayofMonth enters prepare() only through the row-wise calendar_flags helper, so dom_cat no is right. Three reg:logistic XGBRegressors with max_leaves=2**depth for depth 2/3/4 and 500/300/200 rounds, blended 1:2:1 (L80-112); the script could not resolve them. Soft labels 0.05/0.95 (L86). Within-month class-balancing and recency weights (L116-121). Summer is a coarse month flag."
+astra6_n20-12,gpt-6-astra,0.6873,0,0,1,1,1,0,3,,500,0.05,3,,500,0.05,1,0,0,0,1,,corrected,0,0,1,1,1,3,500,0.05,"num_parallel_tree=2 (L101) is one booster, so ensemble no. Within-month class-balancing sample weights (L86-89), not features."
+astra6_n20-13,gpt-6-astra,0.6906,0,0,1,1,1,1,0,16,600,0.05,0,16,600,0.05,3,1,0,1,0,,confirmed,0,0,1,1,1,16 leaves,600,0.05,"Average of two lossguide models that differ in subsample and regularisation (L84-105), each with num_parallel_tree=4 (L67). Interaction constraints isolate calendar groups (L54-63, L78). Month recency weights (L107-109)."
+astra6_n20-14,gpt-6-astra,0.6888,0,0,1,1,1,0,3,,600,0.05,3,,600,0.05,2,1,0,0,0,,corrected,0,0,1,1,1,"3, 2, 4, 5","600, 1200, 300, 150",0.05,"Weighted log-odds average of 8 models (L83-116): five seeds at depth 3/600 rounds, plus depth 2/1200, 4/300 and 5/150 with weight 5/3 each; the script saw only the first config. Categoricals are integer codes typed 'c' via feature_types (L79). Month recency weights (L96-99)."
+astra6_n20-15,gpt-6-astra,0.6856,0,1,1,1,0,1,4,,200,0.08,4,,200,0.08,2,1,0,1,0,,corrected,0,1,1,0,1,"4, 3, 5","200, 400, 100",0.08,Five-member average (L78-89): three seeds at depth 4/200 plus depth 3/400 and depth 5/100; the script saw only the first config. num_parallel_tree=4 per member (L59). DayOfMonthNum and DayOfYear are in their own interaction group (L60-63).
+astra6_n20-16,gpt-6-astra,0.6870,0,0,0,0,1,0,4,,180,0.1,4,,180,0.1,2,1,0,0,0,dom_in_prepare_unclear,corrected,0,0,1,1,1,4,180,0.1,"Flagged file: DayofMonth enters prepare() only through the day_numbers lookup (L23, L54) feeding the holiday distance, so dom_cat no is right. Two-seed average of one config (L95-110). rate_drop/skip_drop/normalize_type are set without booster='dart' (L74-76); per the run's research log the installed XGBoost applies dropout from these parameters, so this may be DART in effect (script dart=0). Month recency weights (L93-94)."
+astra6_n20-17,gpt-6-astra,0.6872,0,0,1,1,0,1,4,,500,0.05,4,,500,0.05,2,1,0,1,0,,confirmed,0,0,1,0,1,4,500,0.05,"Two-seed average (L121-128), num_parallel_tree=4 (L110). Leave-pair-out smoothed delay rates for airport-carrier pairs (OriginPeerRisk, DestPeerRisk, CarrierElsewhereRisk; L37-59, L71-75); none is calendar. Categoricals are float codes typed 'c' via feature_types (L115). DayNum and DayOfYear are in their own interaction group (L112)."
+astra6_n20-18,gpt-6-astra,0.6878,0,1,1,1,1,0,0,16,1200,0.05,0,16,1200,0.05,0,1,0,1,0,,corrected,0,1,1,1,1,16 leaves,1200,0.05,"Three-seed soft vote (L126-133). Month is held to an additive effect (L96-100), and 62.5% of its learned effect is subtracted at prediction (L105-123). Custom label-smoothed logistic objective (L77-79)."
+astra6_n20-19,gpt-6-astra,0.6876,0,1,1,1,1,0,4,,300,0.05,4,,300,0.05,1,1,0,0,1,,corrected,0,1,1,1,1,4,300,0.05,Three-seed soft vote (L87-91). Recency and within-month class-balancing sample weights (L95-100).
+astra6_n20-20,gpt-6-astra,0.6853,0,0,1,1,0,0,0,32,600,0.05,0,32,600,0.05,0,0,0,0,0,,corrected,0,0,0,0,1,32 leaves,600,0.05,"Single XGBRanker (pairwise objective, 32 random groups) whose score goes through a sigmoid (L70-107). num_parallel_tree=4 (L93) is one booster, so ensemble no. CarrierOrigin cross category with one-hot splits (L21-23, L46-50, L95)."
+sol6_n20-1,gpt-6-sol,0.6850,0,0,1,1,0,1,4,,100,0.1,3/4,,150/100,0.1,2,1,0,0,0,,confirmed,0,0,1,0,1,"3, 4","150, 100",0.1,"Weighted blend 0.7 depth-3 + 0.3 depth-4 (L55). WeekdayTimeBlock categorical (DayOfWeek x 3-hour block, L27-30)."
+sol6_n20-2,gpt-6-sol,0.6836,1,1,1,1,0,1,4,,200,0.05,4/3,,200,0.05,3,1,0,0,0,dom_both,confirmed,1,1,1,0,1,"4, 3",200,0.05,"dom_both flag checked: X['DayofMonth'] is never overwritten; the numeric day map is read from df only to build DayOfYear, so the category reaches all three models. Equal average of 3 models (L74, L81); third differs by subsample/colsample 0.8 and seed."
+sol6_n20-3,gpt-6-sol,0.6841,0,1,1,1,0,1,3,,300,0.05,3,,300,0.05,1,0,0,0,0,,confirmed,0,1,1,0,0,3,300,0.05,
+sol6_n20-4,gpt-6-sol,0.6821,1,1,1,1,0,1,3,,200,0.05,3,,200,0.05,1,0,0,0,0,dom_both,confirmed,1,1,1,0,0,3,200,0.05,dom_both flag checked: the numeric day (L28) is read from df only to build DayOfYear; X['DayofMonth'] stays categorical.
+sol6_n20-5,gpt-6-sol,0.6826,1,1,1,1,1,1,6,,275,0.025,6,,275,0.025,1,1,0,0,0,dom_both,confirmed,1,1,1,1,1,6,275,0.025,"dom_both flag checked: numeric day map (L23) used only inside DayOfYear (L35, from df); the category reaches the model. Soft VotingClassifier of 5 seeds of one config (L50-67). Holidays as fixed day-of-year numbers 1, 185, 327, 328, 359 (New Year, July 4, approx. Thanksgiving, Christmas)."
+sol6_n20-6,gpt-6-sol,0.6803,1,1,1,1,0,1,10,31,120,0.05,10,31,120,0.05,1,0,0,0,0,dom_both,confirmed,1,1,1,0,0,31 leaves (depth 10),120,0.05,"dom_both flag checked: numeric day map (L19) used only inside DayOfYear (L25, from df); the category reaches the model. grow_policy lossguide with max_depth 10 and max_leaves 31 (L40-42). CRSDepTime replaced by DepMinuteOfDay and DepHour (L23-26)."
+sol6_n20-7,gpt-6-sol,0.6837,0,1,1,0,0,0,3,,160,0.1,3/4,,130/160,0.1,3,1,0,0,0,,confirmed,0,1,0,0,1,"3, 4","130, 160",0.1,"Soft vote weights 3:1:1 (L66-70); third model max_cat_to_onehot 20 (L62). TimeVsCarrierOriginMedian is a per carrier-origin median departure-time offset (L19-22, L27-29), not calendar."
+sol6_n20-8,gpt-6-sol,0.6871,0,0,1,1,1,0,3,,200,0.05,3,,300/200,0.05,1,1,1,0,0,,corrected,0,0,0,0,0,"3, 4","300, 200",0.05,"Equal average of five models (L52-57, L61-69): seeds 42 and 43 gbtree depth 3, 300 trees; seed 44 depth 4 via set_params (L62, L64); seeds 45 and 46 DART depth 3, 200 trees (L65-66). Script missed the year-end travel window, the depth-4 member and the averaging. DepHour categorical (L26-28)."
+sol6_n20-9,gpt-6-sol,0.6834,1,1,1,1,0,1,3,,400,0.05,3,,400,0.05,3,1,0,0,0,dom_both,confirmed,1,1,1,0,1,3,400,0.05,"dom_both flag checked: numeric day map (L20) used only inside DayOfYear (L25, from df); the category reaches all three models. Equal average of 3 members differing by colsample_bytree/subsample 0.8 (L56-60)."
+sol6_n20-10,gpt-6-sol,0.6864,0,0,1,1,0,0,3,,400,0.05,3,,400,0.05,3,1,0,0,0,,confirmed,0,0,0,0,1,3,400,0.05,"Soft vote of 3 seeds of one config (L51-58). OriginRelativeDepTime is a per-origin median departure-time offset (L19, L25-28), not calendar."
+sol6_n20-11,gpt-6-sol,0.6857,0,0,1,1,1,1,3,,500,0.05,3,,500,0.05,1,0,0,0,0,,confirmed,0,0,1,1,0,3,500,0.05,"HolidayWindow is a 7-level category (Presidents' Day, Memorial Day, July 4, Labor Day, Thanksgiving, winter holidays, none)."
+sol6_n20-12,gpt-6-sol,0.6846,0,1,1,1,0,1,3,,150,0.1,3,,150,0.1,1,0,0,0,0,,corrected,0,0,1,0,0,3,150,0.1,"Script missed the categorical month copy under the new name MonthCategory (L26). Route, carrier-origin and origin-weekday median departure-time offsets (L18-20, L30-41) are per-level encodings of non-calendar columns."
+sol6_n20-13,gpt-6-sol,0.6854,0,0,1,1,0,1,4,,18,0.05,3/2/4,,400/700/18,0.05,3,1,0,0,0,,confirmed,0,0,1,0,1,"3, 2, 4","400, 700, 18",0.05,"Soft vote, equal weights (L45-52)."
+sol6_n20-14,gpt-6-sol,0.6846,0,0,1,1,0,1,4,,100,0.1,3/4,,100,0.1,2,1,1,0,0,,confirmed,0,0,1,0,1,"3, 4",100,0.1,Weighted 2:1 average (L46) of gbtree depth 3 and DART depth 4 (L56-60). DepHour categorical (L28).
+sol6_n20-15,gpt-6-sol,0.6856,0,0,1,1,0,1,0,16,200,0.05,0,16,200,0.05,1,0,0,0,0,,confirmed,0,0,1,0,0,16 leaves,200,0.05,"lossguide, max_depth 0, max_leaves 16 (L42-44). DepHour categorical (L31-33)."
+sol6_n20-16,gpt-6-sol,0.6804,1,1,0,0,0,0,4,,400,0.05,4,,400,0.05,1,0,0,0,0,,confirmed,1,1,0,0,0,4,400,0.05,"Starter feature set unchanged. max_cat_to_onehot 32 (L38): Month, DayofMonth and DayOfWeek get one-hot style splits inside XGBoost; still categorical."
+sol6_n20-17,gpt-6-sol,0.6839,1,1,1,1,1,1,4,,250,0.05,3/4,,250,0.05,2,1,0,0,0,dom_both,confirmed,1,1,1,1,1,"3, 4",250,0.05,"dom_both flag checked: the numeric day (L32) is read from df only to build DayOfYear; X['DayofMonth'] stays categorical. Soft vote equal weights (L61-68). DepVsRouteMedian is a per-route median departure-time offset (L21-23, L29-31)."
+sol6_n20-18,gpt-6-sol,0.6847,0,1,1,1,0,1,3,,300,0.05,3,,300,0.05,2,1,0,0,0,,corrected,0,1,1,0,1,"3, 4",300,0.05,"Soft vote weights 2:1 (L40-47); the second member overrides max_depth to 4 by dict merge (L43), which the script missed. DepVsOriginMedian is a per-origin median departure-time offset (L19, L29-30)."
+sol6_n20-19,gpt-6-sol,0.6866,0,0,1,1,0,1,0,8,500,0.05,0,8,500,0.05,2,1,0,0,0,,corrected,0,0,1,0,1,"8 leaves, 12 leaves",500,0.05,"Soft vote weights 2:1 (L63-67) of two lossguide models with max_depth 0; the second copies the base params and sets max_leaves 12 (L55-62), which the script missed. Both use num_parallel_tree 3 (L47). DepSlot categorical hour (L25-26)."
+sol6_n20-20,gpt-6-sol,0.6838,0,1,1,1,0,1,3,,300,0.05,3,,300,0.05,1,0,0,0,0,,confirmed,0,1,1,0,0,3,300,0.05,"DepTimeSin/DepTimeCos cyclic time of day (L25-28), not calendar."
+luna6_n20-1,gpt-6-luna,0.6822,1,1,0,0,0,0,6,,800,0.02,6,,800,0.02,1,0,0,0,1,,confirmed,1,1,0,0,0,6,800,0.02,"Cross-fitted (5-fold OOF) smoothed target-rate encodings of UniqueCarrier, Origin, Dest (L23-59, L70-82); no per-level encoding of Month or DayofMonth. DepHour and DepMinute numeric (L63-64)."
+luna6_n20-2,gpt-6-luna,0.6789,1,1,0,0,0,0,5,,300,0.05,5,,300,0.05,1,0,0,0,0,,confirmed,1,1,0,0,0,5,300,0.05,
+luna6_n20-3,gpt-6-luna,0.6803,1,1,0,0,0,0,4,,200,0.05,4,,200,0.05,2,1,0,0,1,,confirmed,1,1,0,0,1,4,200,0.05,"Soft VotingClassifier (L45-69) of two XGBClassifiers with the same depth/trees/lr; the second uses seed 7, subsample 0.8, colsample_bytree 0.4. Smoothed full-train Origin target rate (L19-25, L29); cyclic dep time (L30-33)."
+luna6_n20-4,gpt-6-luna,0.6797,1,1,0,0,0,0,4,,300,0.03,4,,300,0.03,1,0,0,0,0,,confirmed,1,1,0,0,0,4,300,0.03,"UniqueCarrier x Origin cross category (L17, L21-25); max_cat_threshold=32."
+luna6_n20-5,gpt-6-luna,0.6789,1,1,0,0,0,0,4,,200,0.05,4,,200,0.05,1,0,0,0,1,,confirmed,1,1,0,0,0,4,200,0.05,"Fold-wise Origin target rate (L29-49, L62-65); folds come from a row hash that includes Month and DayofMonth (L17-25, L58-61), but their levels are not encoded. DepHour category (L66-67)."
+luna6_n20-6,gpt-6-luna,0.6800,1,1,0,0,0,0,3,,100,0.1,3,,100,0.1,1,0,0,0,0,,confirmed,1,1,0,0,0,3,100,0.1,"Fold-wise target rates of Carrier, Dest and DayOfWeek x DepHour (L22-49, L68-80); folds from a row hash over all columns incl. Month/DayofMonth, no encoding of their levels. DepHour and DOWHour categories (L58-67). max_cat_to_onehot=25: Month gets one-hot splits, DayofMonth partition splits."
+luna6_n20-7,gpt-6-luna,0.6795,1,1,0,0,0,0,4,,200,0.05,4,,200,0.05,1,0,0,0,1,,confirmed,1,1,0,0,0,4,200,0.05,"sklearn TargetEncoder (cross-fitted) on Origin only (L19-33, L39-47)."
+luna6_n20-8,gpt-6-luna,0.6795,1,1,0,0,0,0,3,,200,0.05,3,,200,0.05,1,0,0,0,0,,confirmed,1,1,0,0,0,3,200,0.05,
+luna6_n20-9,gpt-6-luna,0.6844,0,0,1,1,0,1,4,,200,0.05,4,,200,0.05,1,0,0,0,1,,confirmed,0,0,1,0,0,4,200,0.05,"Cross-fitted target rates of UniqueCarrier, Origin, Dest (L23-45, L60-65); DepHour category (L21, L51, L55-59)."
+luna6_n20-10,gpt-6-luna,0.6820,1,0,0,1,0,0,0,16,200,0.05,0,16,200,0.05,1,0,0,0,0,,confirmed,1,0,0,0,0,16 leaves,200,0.05,"Month reaches the model only as sin/cos of month number (L26-29), not counted as doy. Lossguide, max_depth=0, max_leaves=16 (L38-42); max_cat_threshold=128."
+luna6_n20-11,gpt-6-luna,0.6773,1,1,0,0,0,0,6,,100,0.1,6,,100,0.1,1,0,0,0,0,,confirmed,1,1,0,0,0,6,100,0.1,
+luna6_n20-12,gpt-6-luna,0.6799,1,1,0,0,0,0,6,,450,0.1,6,,450,0.1,1,0,0,0,0,,confirmed,1,1,0,0,0,6,450,0.1,max_cat_to_onehot=300 (L41): Month and DayofMonth use one-hot splits (still native categories). DepHour category and DepTimeMinutes numeric (L20-22).
+luna6_n20-13,gpt-6-luna,0.6797,1,1,0,0,1,0,5,,200,0.05,5,,200,0.05,1,0,0,0,0,,confirmed,1,1,0,1,0,5,200,0.05,"ThanksgivingWindow flag = Tue-Sun of Thanksgiving week, from (DayofMonth, DayOfWeek) pairs in November (L17-28). max_cat_to_onehot=32 (L45): Month and DayofMonth get one-hot splits."
+luna6_n20-14,gpt-6-luna,0.6800,1,1,0,0,0,0,3,,300,0.05,3,,300,0.05,1,0,0,0,0,,confirmed,1,1,0,0,0,3,300,0.05,
+luna6_n20-15,gpt-6-luna,0.6785,1,1,0,1,0,0,4,,100,0.1,4,,100,0.1,1,0,0,0,0,,confirmed,1,1,0,0,0,4,100,0.1,Month enters both as a category and as sin/cos of month number (L21-24); cyclic DayOfWeek and dep time (L22-29).
+luna6_n20-16,gpt-6-luna,0.6819,1,1,1,1,1,0,4,,200,0.05,4,,200,0.05,1,0,0,0,0,dom_both,confirmed,1,1,0,1,0,4,200,0.05,"dom_both flag resolved: numeric month_number/day_number (L29-30) are never put into X; they only build HolidayWindow, so Month and DayofMonth reach the model only as categories (script's dom_numeric/month_numeric=1 is wrong). HolidayWindow: Thanksgiving Nov 20-30, winter Dec 20-Jan 3, July 4 Jul 1-5, Memorial May 25-31, Labor Sep 1-7. DepPeriod and WeekPeriod categories."
+luna6_n20-17,gpt-6-luna,0.6817,0,0,1,1,0,1,3,,100,0.1,3,,100,0.1,1,0,0,0,0,,confirmed,0,0,1,0,0,3,100,0.1,Day of year enters only as sin/cos (L29-31). CRSDepHour category (L37-41).
+luna6_n20-18,gpt-6-luna,0.6831,0,0,1,1,0,1,3,,200,0.1,3,,200,0.1,1,0,0,0,0,,confirmed,0,0,1,0,0,3,200,0.1,"DepHour numeric, cyclic dep time (L23-27)."
+luna6_n20-19,gpt-6-luna,0.6811,1,1,1,1,0,1,,,800,0.0125,,,800,0.0125,1,1,0,0,0,dom_both,corrected,1,1,1,0,1,"3, 4",800,0.0125,"dom_both flag resolved: numeric month/day (L28-29) are local arrays used only for day-of-year sin/cos; Month and DayofMonth reach both models as categories. Soft VotingClassifier of two XGBClassifiers built in a loop over depth (3, 4) (L43-58); the script left max_depth unresolved."
+luna6_n20-20,gpt-6-luna,0.6844,0,0,1,1,0,1,4,,200,0.05,4,,200,0.05,1,0,0,0,0,,confirmed,0,0,1,0,0,4,200,0.05,"DayOfWeek only as sin/cos (L31-34), not categorical."

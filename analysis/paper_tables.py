@@ -48,8 +48,8 @@ def xgb_seconds(r):
     return st.mean(v)
 
 
-def save(name, headers, rows, caption):
-    (OUT / f"{name}.md").write_text(md_table(headers, rows) + f"\nTable: {caption}\n")
+def save(name, headers, rows, caption, **widths):
+    (OUT / f"{name}.md").write_text(md_table(headers, rows, **widths) + f"\nTable: {caption}\n")
     print(f"wrote paper/tables/{name}.md")
 
 
@@ -229,10 +229,20 @@ for m in MODELS:
     for r in model_runs(runs, m):
         a = aud[r["run"]]
         yn = lambda k: "yes" if a[k] == "1" else ""
-        leaves = a["max_leaves_all"].split("/")[-1] if a["max_leaves_all"] else ""
-        depth = ", ".join((f"{leaves}\\ leaves" if leaves else "lossguide") if d == "0" else d for d in a["max_depth_all"].split("/")) if a["max_depth_all"] else ""
-        several = lambda k: a[k].replace("/", ", ")  # a comma and a space, so that the cell can wrap
-        rows.append([r["run"], f"{r['holdout_auc']:.4f}", yn("dom_cat"), yn("month_cat"), yn("doy"), yn("holiday"), depth, several("n_estimators_all"), several("learning_rate_all"),
+        if a["verified"]:  # settings as read in the manual audit; "16 leaves" kept on one line
+            depth, trees, lrate = (re.sub(r"(\d) leaves", r"\1\\ leaves", a[k]) for k in ("depth_read", "trees_read", "learning_rate_read"))
+        else:
+            leaves = a["max_leaves_all"].split("/")[-1] if a["max_leaves_all"] else ""
+            depth = ", ".join((f"{leaves}\\ leaves" if leaves else "lossguide") if d == "0" else d for d in a["max_depth_all"].split("/")) if a["max_depth_all"] else ""
+            trees, lrate = (a[k].replace("/", ", ") for k in ("n_estimators_all", "learning_rate_all"))  # a comma and a space, so that the cell can wrap
+        rows.append([r["run"], f"{r['holdout_auc']:.4f}", yn("dom_cat"), yn("month_cat"), yn("doy"), yn("holiday"), depth, trees, lrate,
                      yn("ensemble"), a["verified"] or "pending"])
-save("audit_per_run", ["run", "holdout AUC", "day-of-month category", "month category", "day of year", "holiday features", "depth", "trees", "learning rate", "ensemble", "checked by hand"], rows,
-     "The final model of every run, from the scripted audit of its train.py. Depth: max_depth, or the leaf limit for lossguide trees (lossguide alone where the script could not read the limit). Where a file sets a value more than once, as ensembles of different models do, every value is listed in the order of the file. A blank means the file computes the value rather than setting a number. Ensemble: more than one model, seed averaging or a blend.")
+verified_all = all(aud[r["run"]]["verified"] for r in runs)
+save("audit_per_run", ["run", "holdout AUC", "day-of-month category", "month category", "day of year", "holiday features", "depth", "trees", "learning rate", "ensemble",
+                       "verified" if verified_all else "checked by hand"], rows,
+     ("The final model of every run. A script read each final train.py; every file was then read in full, and the script's verdicts were confirmed or corrected (Appendix E). "
+      "Depth, trees and learning rate as read, one value per model configuration of the final prediction, in the order of the file; \"16 leaves\" is a leaf limit for lossguide trees; "
+      "\"(default)\" marks a value the file leaves at XGBoost's default. Ensemble: the prediction combines more than one fitted model (different configurations, seeds or a blend).")
+     if verified_all else
+     "The final model of every run, from the scripted audit of its train.py. Depth: max_depth, or the leaf limit for lossguide trees (lossguide alone where the script could not read the limit). Where a file sets a value more than once, as ensembles of different models do, every value is listed in the order of the file. A blank means the file computes the value rather than setting a number. Ensemble: more than one model, seed averaging or a blend.",
+     max_wrapping=12)  # eleven columns: the settings columns wrap so that run names keep one line

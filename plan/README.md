@@ -45,7 +45,7 @@ Decisions were taken by the authors on 2026-10-07 and are recorded at the top of
 
 Status 2026-10-07: the analysis package is in place (`analysis/`, outputs in `analysis/results/`,
 figures in `figures/`); every table of `01-main-points.md` is now backed by a committed output file.
-The bibliography is verified (`verification/bib-verification.md`); the manual feature audit is pending until the pre-submission pass (see `08`).
+The bibliography is verified (`verification/bib-verification.md`, `verification/bib-authors.md`); the manual feature audit is done (`analysis/audit/`, decision 23 in `08`).
 
 ## How to use this plan
 

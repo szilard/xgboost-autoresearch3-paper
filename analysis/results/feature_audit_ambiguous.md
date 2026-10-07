@@ -1,5 +1,5 @@
 <!-- analysis/feature_audit.py -->
-<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-07 17:40Z -->
+<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-07 19:37Z -->
 
 ## Files to read by hand first
 

@@ -8,6 +8,7 @@ encodings. `verified` is left empty for the manual pass (plan 03, decision 8).
 """
 import csv
 import re
+from pathlib import Path
 import statistics as st
 from common import MODELS, RESULTS, SHORT, load_runs, md_table, runs_repo, write
 
@@ -54,6 +55,22 @@ def audit(src):
 A = {}
 for r in runs:
     A[r["run"]] = audit((r["dir"] / "train.py").read_text())
+
+# Manual verdicts (analysis/audit/RULES.md), settled in analysis/audit/verified.csv: they replace the script's
+# calendar and ensemble verdicts and give the model settings as read; the script's own values stay in script_*.
+VERIFIED = Path(__file__).resolve().parent / "audit" / "verified.csv"
+MANUAL = {v["run"]: v for v in csv.DictReader(open(VERIFIED))} if VERIFIED.exists() else {}
+for run, a in A.items():
+    for k in ("dom_cat", "month_cat", "doy", "holiday", "ensemble"):
+        a["script_" + k] = a[k]
+    a.update(depth_read="", trees_read="", learning_rate_read="", audit_note="")
+    v = MANUAL.get(run)
+    if v:
+        for k in ("dom_cat", "month_cat", "doy", "holiday", "ensemble"):
+            a[k] = int(v[k] == "yes")
+        a.update(depth_read=v["depth"], trees_read=v["trees"], learning_rate_read=v["learning_rate"], audit_note=v["note"],
+                 verified="corrected" if v["disagrees_with_script"].strip() not in ("", "none") else "confirmed")
+ALL_VERIFIED = len(MANUAL) == len(A)
 rows = []
 for m in MODELS:
     rr = [r for r in runs if r["model"] == m]; a = [A[r["run"]] for r in rr]
@@ -64,7 +81,8 @@ for m in MODELS:
                  f"{st.mean(dropped)-st.mean(kept):+.4f}" if kept and dropped else "-",
                  sum(1 for d in depths if d <= 4), len(depths), sum(x["ensemble"] for x in a), sum(x["dart"] for x in a), sum(x["constraints"] for x in a),
                  sum(x["encodings"] for x in a), sum(bool(x["flags"]) for x in a)])
-out = "## Final models by LLM (heuristic audit; provisional until the manual check)\n\n" + md_table(
+out = ("## Final models by LLM (scripted audit, every file then read and the verdicts confirmed or corrected)\n\n" if ALL_VERIFIED
+       else "## Final models by LLM (heuristic audit; provisional until the manual check)\n\n") + md_table(
     ["LLM", "runs", "dropped DayofMonth as a category", "kept it", "Month still a category", "day-of-year-like feature", "holiday features",
      "mean holdout, dropped", "mean holdout, kept", "difference", "max_depth ≤ 4 (of runs with max_depth set)", "runs with max_depth set",
      "ensembles", "DART", "interaction or monotone constraints", "target or rate encodings", "runs with ambiguity flags"], rows)

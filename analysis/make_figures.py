@@ -108,7 +108,7 @@ for i, m in enumerate(MODELS):
         ax.text(j + (i - 1) * w, v + 0.02, f"{int(round(v*len(rr)))}", ha="center", va="bottom", fontsize=8, color=INK2)
 ax.set_xticks(range(len(cats))); ax.set_xticklabels([l for _, l in cats], color=INK)
 ax.set_ylim(0, 1.08); ax.set_ylabel("share of the 20 final models", color=INK2)
-style(ax, "How the final models handle the calendar (heuristic audit, provisional)")
+style(ax, "How the final models handle the calendar" + ("" if all(x.get("verified") for x in rows) else " (heuristic audit, provisional)"))
 ax.grid(axis="x", visible=False)
 ax.legend(frameon=False, fontsize=8, labelcolor=INK2, loc="upper right")
 save_both(fig, "feature_audit.png")

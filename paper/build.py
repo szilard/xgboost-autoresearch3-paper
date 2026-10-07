@@ -46,6 +46,11 @@ def breakable_path(m):
 
 
 tex = re.sub(r"\\texttt\{(?:[^{}]|\{[^{}]*\})*\}", breakable_path, tex)
+# run names (astra6_n20-12) must not break at their hyphen
+tex = re.sub(r"(?<![\\\w{])((?:astra|sol|luna)6\\_n20-\d+)", r"\\mbox{\1}", tex)
+# table headers are one-word paragraphs in narrow minipages, and TeX never hyphenates a paragraph's first
+# word: a zero skip in front lets "ensemble" or "holdout" hyphenate instead of running into the next column
+tex = tex.replace("\\begin{minipage}[b]{\\linewidth}\\raggedright\n", "\\begin{minipage}[b]{\\linewidth}\\raggedright\\hspace{0pt}")
 if not tex.startswith("\\pdfoutput=1"):
     tex = "\\pdfoutput=1\n" + tex
 (BUILD / "main.tex").write_text(tex)

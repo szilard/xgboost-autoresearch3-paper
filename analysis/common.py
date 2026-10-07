@@ -69,7 +69,7 @@ def utc(ts):
     return datetime.fromtimestamp(float(ts), tz=timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
 
 
-def md_table(headers, rows, min_width=4):
+def md_table(headers, rows, min_width=4, max_wrapping=50):
     """Pipe table; the separator's dash counts set pandoc's relative column widths when a row is wider than
     the line length. A column needs room for its longest unbreakable piece (a header word, or a whole cell
     when the column's cells contain no spaces) plus the cell padding; the n // 3 covers digits and capitals,
@@ -83,7 +83,7 @@ def md_table(headers, rows, min_width=4):
         col = [r[j] for r in cells if j < len(r)]
         body = max([len(c) for c in col] + [1])
         no_space = all(" " not in c.replace("\\ ", "") for c in col)  # "\ " is pandoc's non-breaking space
-        widths.append(max(min_width, need(longest_word), need(body) + (3 if body >= 10 else 0) if no_space else min(body, 50)))  # long unbreakable cells (run names) need a margin
+        widths.append(max(min_width, need(longest_word), need(body) + (3 if body >= 8 else 0) if no_space else min(body, max_wrapping)))  # long unbreakable cells (run names, "confirmed") need a margin
     out = ["| " + " | ".join(str(h) for h in headers) + " |", "|" + "|".join("-" * w for w in widths) + "|"]
     out += ["| " + " | ".join(r) + " |" for r in cells]
     return "\n".join(out) + "\n"
