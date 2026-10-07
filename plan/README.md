@@ -43,6 +43,10 @@ this paper. The companion paper is cited as related work by title and design onl
 Decisions were taken by the authors on 2026-10-07 and are recorded at the top of
 `08-decisions-for-authors.md`; the other files were updated to match.
 
+Status 2026-10-07: the analysis package is in place (`analysis/`, outputs in `analysis/results/`,
+figures in `figures/`); every table of `01-main-points.md` is now backed by a committed output file.
+The manual feature audit and the bibliography verification are pending (see `08`).
+
 ## How to use this plan
 
 1. Read `01-main-points.md` and `08-decisions-for-authors.md` first; settle the decisions.

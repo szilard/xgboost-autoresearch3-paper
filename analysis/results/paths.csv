@@ -1,0 +1,820 @@
+run,model,minute,holdout_auc,eval_auc,description
+astra6_n20-1,gpt-6-astra,1.01,0.6725,0.6743,baseline
+astra6_n20-1,gpt-6-astra,2.33,0.6725,0.6743,simplify prepare; same features and faster evaluation
+astra6_n20-1,gpt-6-astra,3.39,0.6784,0.6800,depth 4; 400 trees; stronger leaf and L2 regularization
+astra6_n20-1,gpt-6-astra,4.04,0.6797,0.6812,remove day-of-month calendar feature
+astra6_n20-1,gpt-6-astra,5.72,0.6810,0.6837,remove month; retain weekday and schedule inputs
+astra6_n20-1,gpt-6-astra,6.61,0.6810,0.6837,fixed category codes; identical AUC and faster evaluation
+astra6_n20-1,gpt-6-astra,8.14,0.6814,0.6837,200 rounds; equal AUC with a smaller faster model
+astra6_n20-1,gpt-6-astra,11.78,0.6824,0.6841,departure offsets from train-fitted origin/route/carrier-origin medians
+astra6_n20-1,gpt-6-astra,18.78,0.6822,0.6842,balance class weights within each training month
+astra6_n20-1,gpt-6-astra,27.58,0.6823,0.6843,equal blend of schedule and geography classifiers
+astra6_n20-1,gpt-6-astra,28.64,0.6823,0.6845,three fixed seeds for each schedule/geography representation
+astra6_n20-1,gpt-6-astra,29.53,0.6823,0.6845,remove geography; equal AUC with half the ensemble
+astra6_n20-1,gpt-6-astra,37.23,0.6825,0.6846,400 rounds at learning rate 0.025
+astra6_n20-1,gpt-6-astra,41.11,0.6828,0.6848,lossguide growth with 16 leaves
+astra6_n20-1,gpt-6-astra,48.50,0.6855,0.6871,narrow Thanksgiving/winter/July-4 relative-date features
+astra6_n20-1,gpt-6-astra,50.96,0.6857,0.6876,add Memorial Day and Labor Day offsets
+astra6_n20-1,gpt-6-astra,52.18,0.6857,0.6880,shared MLK/Presidents Day relative-date feature
+astra6_n20-1,gpt-6-astra,53.67,0.6857,0.6881,remove route-time offset from holiday ensemble
+astra6_n20-1,gpt-6-astra,54.88,0.6880,0.6900,remove monthly weighting after adding holiday features
+astra6_n20-2,gpt-6-astra,1.02,0.6725,0.6743,baseline
+astra6_n20-2,gpt-6-astra,2.51,0.6724,0.6762,600 trees at 0.05 with stronger regularization and sampling
+astra6_n20-2,gpt-6-astra,5.12,0.6812,0.6834,One-hot splits for all base categorical features
+astra6_n20-2,gpt-6-astra,7.13,0.6817,0.6840,Increase one-hot boosting to 1200 rounds
+astra6_n20-2,gpt-6-astra,8.52,0.6822,0.6844,Add carrier-origin/destination categories and streamline prepare
+astra6_n20-2,gpt-6-astra,10.75,0.6829,0.6845,Add three-dimensional airport embeddings from training route distances
+astra6_n20-2,gpt-6-astra,12.68,0.6827,0.6846,Remove route-direction differences from geographic features
+astra6_n20-2,gpt-6-astra,20.03,0.6831,0.6851,Average three randomized trees per boosting round
+astra6_n20-2,gpt-6-astra,27.40,0.6833,0.6852,Increase numerical histogram resolution to 1024 bins
+astra6_n20-2,gpt-6-astra,44.59,0.6832,0.6852,Reduce boosted forest from 1200 to 800 rounds
+astra6_n20-2,gpt-6-astra,50.96,0.6829,0.6854,Remove carrier-destination cross while retaining carrier-origin
+astra6_n20-2,gpt-6-astra,52.23,0.6831,0.6856,Keep only the two largest airport embedding components
+astra6_n20-2,gpt-6-astra,53.42,0.6832,0.6856,Remove destination coordinates while retaining origin geography
+astra6_n20-2,gpt-6-astra,55.79,0.6835,0.6859,Increase L2 leaf penalty from ten to one hundred
+astra6_n20-2,gpt-6-astra,57.37,0.6837,0.6861,Double boosting rounds under the stronger L2 penalty
+astra6_n20-2,gpt-6-astra,58.96,0.6836,0.6863,Weight feature sampling toward departure time and away from fine calendar effects
+astra6_n20-3,gpt-6-astra,0.77,0.6725,0.6743,baseline
+astra6_n20-3,gpt-6-astra,1.89,0.6762,0.6759,Remove day-of-month feature to reduce year-specific fitting
+astra6_n20-3,gpt-6-astra,2.95,0.6762,0.6759,Simplify categorical preparation and reuse fixed dtypes
+astra6_n20-3,gpt-6-astra,3.69,0.6788,0.6793,Try shallow regularized boosting with 600 smaller steps
+astra6_n20-3,gpt-6-astra,4.79,0.6803,0.6822,Test removing month-specific seasonal effects
+astra6_n20-3,gpt-6-astra,7.03,0.6807,0.6826,Add hour minute and cyclic departure-time features
+astra6_n20-3,gpt-6-astra,8.29,0.6801,0.6831,Limit native category partition search to reduce overfitting
+astra6_n20-3,gpt-6-astra,11.08,0.6802,0.6833,Remove weak minute-of-hour feature
+astra6_n20-3,gpt-6-astra,14.32,0.6819,0.6848,Add airport geography inferred from training route distances
+astra6_n20-3,gpt-6-astra,15.35,0.6838,0.6874,Test geographic features in place of raw airport categories
+astra6_n20-3,gpt-6-astra,17.77,0.6843,0.6880,Weight recent training flights with a six-month half-life
+astra6_n20-3,gpt-6-astra,23.88,0.6843,0.6882,Balance training labels within months to reduce seasonal confounding
+astra6_n20-3,gpt-6-astra,28.06,0.6849,0.6888,Add pooled proximity to recurring major holidays
+astra6_n20-3,gpt-6-astra,30.79,0.6853,0.6889,Require larger leaves and stronger shrinkage for regional effects
+astra6_n20-3,gpt-6-astra,35.98,0.6860,0.6898,Test smooth seasonality with geography and month balancing
+astra6_n20-3,gpt-6-astra,39.26,0.6866,0.6901,Allocate a fixed leaf budget with loss-guided growth
+astra6_n20-3,gpt-6-astra,40.50,0.6874,0.6904,Diversify trees with feature subsampling
+astra6_n20-3,gpt-6-astra,41.88,0.6877,0.6905,Increase adaptive leaf capacity under strong regularization
+astra6_n20-3,gpt-6-astra,45.51,0.6880,0.6907,Blend logistic and squared-error XGBoost fits
+astra6_n20-3,gpt-6-astra,46.51,0.6880,0.6913,Add typical airport route mileage and relative flight distance
+astra6_n20-3,gpt-6-astra,52.41,0.6879,0.6915,Use Hessian-weighted split candidates for logistic fitting
+astra6_n20-3,gpt-6-astra,54.77,0.6881,0.6915,Remove redundant raw and hourly departure-time features
+astra6_n20-3,gpt-6-astra,57.56,0.6881,0.6915,Reuse fitted categorical codes to speed row preparation
+astra6_n20-3,gpt-6-astra,58.61,0.6886,0.6918,Require stronger gain for approximate logistic tree splits
+astra6_n20-4,gpt-6-astra,0.55,0.6725,0.6743,baseline
+astra6_n20-4,gpt-6-astra,1.95,0.6763,0.6781,400 depth-5 trees eta .05 child-weight 20 lambda 10 subsample .8
+astra6_n20-4,gpt-6-astra,3.63,0.6763,0.6781,Simplify categorical dataframe construction for faster evaluation
+astra6_n20-4,gpt-6-astra,4.66,0.6779,0.6786,Remove day-of-month categorical feature
+astra6_n20-4,gpt-6-astra,6.88,0.6779,0.6790,Add departure hour minute and circular time features
+astra6_n20-4,gpt-6-astra,8.14,0.6786,0.6806,Limit categorical partitions with max_cat_threshold 8
+astra6_n20-4,gpt-6-astra,10.90,0.6778,0.6808,Add row-local distance to major travel holidays
+astra6_n20-4,gpt-6-astra,11.56,0.6793,0.6819,Increase minimum child weight from 20 to 100
+astra6_n20-4,gpt-6-astra,16.28,0.6796,0.6823,Add deterministic five-fold smoothed airport carrier-route target encodings
+astra6_n20-4,gpt-6-astra,20.63,0.6805,0.6834,Add three-dimensional airport geometry fitted from train route distances
+astra6_n20-4,gpt-6-astra,23.97,0.6814,0.6841,Boost four parallel trees per round with 80 percent feature sampling
+astra6_n20-4,gpt-6-astra,34.91,0.6812,0.6842,Use 1000 rounds at learning rate .02 for smoother boosting
+astra6_n20-4,gpt-6-astra,54.31,0.6815,0.6843,Increase L2 leaf regularization from 10 to 100
+astra6_n20-5,gpt-6-astra,0.61,0.6725,0.6743,baseline
+astra6_n20-5,gpt-6-astra,2.15,0.6733,0.6744,500 trees eta .05 with leaf regularization and row subsampling
+astra6_n20-5,gpt-6-astra,3.24,0.6737,0.6747,remove categorical day-of-month
+astra6_n20-5,gpt-6-astra,3.97,0.6737,0.6747,faster equivalent category preparation
+astra6_n20-5,gpt-6-astra,4.61,0.6786,0.6794,reduce tree depth from six to four
+astra6_n20-5,gpt-6-astra,8.67,0.6803,0.6821,remove month seasonality
+astra6_n20-5,gpt-6-astra,14.16,0.6813,0.6830,average four randomized trees per boosting round
+astra6_n20-5,gpt-6-astra,17.82,0.6825,0.6838,add recurring holiday day and travel-window flags
+astra6_n20-5,gpt-6-astra,18.48,0.6828,0.6851,reduce randomized ensemble tree depth to three
+astra6_n20-5,gpt-6-astra,26.50,0.6832,0.6854,six-month half-life recency weights for training flights
+astra6_n20-5,gpt-6-astra,27.86,0.6831,0.6854,gamma five prunes weak splits at equal AUC with faster runtime
+astra6_n20-5,gpt-6-astra,35.69,0.6840,0.6858,use all training rows with feature sampling retained
+astra6_n20-5,gpt-6-astra,43.93,0.6840,0.6860,increase L2 leaf shrinkage from 10 to 100
+astra6_n20-5,gpt-6-astra,46.30,0.6840,0.6860,cache category indexes for faster evaluation at equal AUC
+astra6_n20-5,gpt-6-astra,50.77,0.6846,0.6876,add L1 leaf regularization of ten
+astra6_n20-5,gpt-6-astra,55.80,0.6846,0.6876,reduce boosting rounds to 300 at equal AUC and faster runtime
+astra6_n20-6,gpt-6-astra,1.23,0.6725,0.6743,baseline
+astra6_n20-6,gpt-6-astra,2.66,0.6794,0.6813,depth4 500 rounds lr0.05 child20 lambda10 subsample0.9 category32
+astra6_n20-6,gpt-6-astra,3.83,0.6828,0.6855,ordered numeric day of month instead of native categorical
+astra6_n20-6,gpt-6-astra,6.14,0.6828,0.6855,same features with faster row preparation
+astra6_n20-6,gpt-6-astra,12.99,0.6828,0.6855,explicit categorical code lookups; equivalent and faster
+astra6_n20-6,gpt-6-astra,28.16,0.6832,0.6857,equal average of best booster and sampled boosted forest
+astra6_n20-6,gpt-6-astra,33.40,0.6832,0.6870,L1 leaf penalty alpha10 in both ensemble members
+astra6_n20-6,gpt-6-astra,37.76,0.6831,0.6871,category split threshold128 with L1 alpha10
+astra6_n20-6,gpt-6-astra,43.82,0.6837,0.6872,loss-guided trees capped at 16 leaves in both ensemble members
+astra6_n20-6,gpt-6-astra,47.88,0.6843,0.6879,departure offsets from origin route and carrier-origin medians
+astra6_n20-6,gpt-6-astra,51.21,0.6848,0.6881,gamma3 split-gain floor with schedule features
+astra6_n20-6,gpt-6-astra,52.27,0.6846,0.6881,forest member alone; equal AUC with simpler and faster model
+astra6_n20-7,gpt-6-astra,1.03,0.6725,0.6743,baseline
+astra6_n20-7,gpt-6-astra,3.12,0.6725,0.6743,faster equivalent categorical preparation
+astra6_n20-7,gpt-6-astra,4.04,0.6762,0.6759,remove categorical day-of-month
+astra6_n20-7,gpt-6-astra,4.52,0.6791,0.6804,depth 4 instead of 6
+astra6_n20-7,gpt-6-astra,6.68,0.6808,0.6829,remove month
+astra6_n20-7,gpt-6-astra,8.63,0.6812,0.6830,harmonize HP carrier code to US
+astra6_n20-7,gpt-6-astra,9.29,0.6819,0.6832,minimum child weight 50
+astra6_n20-7,gpt-6-astra,13.83,0.6819,0.6833,four randomized trees per boosting round
+astra6_n20-7,gpt-6-astra,22.65,0.6814,0.6837,depth 3 with 200 boosting rounds
+astra6_n20-7,gpt-6-astra,26.41,0.6813,0.6839,class-balanced loss within training months
+astra6_n20-7,gpt-6-astra,30.74,0.6829,0.6855,75/25 blend of partition and one-hot models
+astra6_n20-7,gpt-6-astra,32.63,0.6834,0.6859,equal blend of partition and one-hot models
+astra6_n20-7,gpt-6-astra,33.61,0.6834,0.6860,add departure minute-of-hour to both models
+astra6_n20-7,gpt-6-astra,35.10,0.6837,0.6866,add distance-derived airport geometry to blended models
+astra6_n20-7,gpt-6-astra,36.18,0.6837,0.6866,reduce airport geometry from three axes to two
+astra6_n20-7,gpt-6-astra,40.70,0.6844,0.6872,one-hot component depth 5
+astra6_n20-7,gpt-6-astra,42.09,0.6867,0.6893,actual holiday and holiday travel-window flags
+astra6_n20-7,gpt-6-astra,44.64,0.6869,0.6893,retain travel window and remove actual-holiday flag
+astra6_n20-7,gpt-6-astra,45.31,0.6869,0.6894,L2 regularization 20 in both models
+astra6_n20-7,gpt-6-astra,46.68,0.6869,0.6894,faster categorical code lookups without unknown-category warnings
+astra6_n20-7,gpt-6-astra,49.13,0.6875,0.6900,one-hot component depth 6
+astra6_n20-7,gpt-6-astra,52.11,0.6878,0.6902,one-hot component depth 7
+astra6_n20-7,gpt-6-astra,55.40,0.6881,0.6905,row subsampling 0.8 in the depth-7 one-hot component
+astra6_n20-8,gpt-6-astra,0.56,0.6725,0.6743,baseline
+astra6_n20-8,gpt-6-astra,2.00,0.6772,0.6788,depth4 500 trees eta0.05 child20 lambda10 subsample0.8
+astra6_n20-8,gpt-6-astra,3.33,0.6772,0.6788,simplify categorical preparation with fixed dtypes
+astra6_n20-8,gpt-6-astra,4.18,0.6786,0.6794,remove day-of-month categorical feature
+astra6_n20-8,gpt-6-astra,7.22,0.6799,0.6803,replace unordered Month with numeric month
+astra6_n20-8,gpt-6-astra,8.36,0.6807,0.6813,add departure hour minute and sine-cosine components
+astra6_n20-8,gpt-6-astra,15.37,0.6808,0.6817,boosted forest with3 trees per round row0.7 node-columns0.8
+astra6_n20-8,gpt-6-astra,18.39,0.6822,0.6834,add signed offsets to six major travel holidays
+astra6_n20-8,gpt-6-astra,19.23,0.6834,0.6846,shorten boosted forest from500 to200 rounds
+astra6_n20-8,gpt-6-astra,20.37,0.6834,0.6846,halve boosted forest from200 to100 rounds
+astra6_n20-8,gpt-6-astra,21.92,0.6834,0.6847,increase forest tree depth from4 to5 at100 rounds
+astra6_n20-8,gpt-6-astra,22.72,0.6835,0.6851,reduce numerical histogram resolution to64 bins
+astra6_n20-8,gpt-6-astra,24.92,0.6835,0.6851,explicit categorical index codes preserve features and speed preparation
+astra6_n20-8,gpt-6-astra,29.19,0.6832,0.6851,cap categorical partition split candidates at16
+astra6_n20-8,gpt-6-astra,37.98,0.6834,0.6852,apply normalized24-month half-life recency training weights
+astra6_n20-8,gpt-6-astra,40.38,0.6835,0.6855,weighted logistic objective with0.05/0.95 smoothed targets
+astra6_n20-8,gpt-6-astra,42.01,0.6844,0.6857,loss-guided growth with24 leaves and no fixed depth cap
+astra6_n20-8,gpt-6-astra,50.34,0.6851,0.6861,Clip holiday offsets to plus or minus 7 days
+astra6_n20-8,gpt-6-astra,53.65,0.6855,0.6874,Add L1 leaf regularization with reg_alpha 5
+astra6_n20-8,gpt-6-astra,55.06,0.6860,0.6877,Strengthen recency weighting to a 12-month half-life
+astra6_n20-8,gpt-6-astra,55.68,0.6856,0.6879,Remove raw HHMM departure feature while retaining decomposed time
+astra6_n20-9,gpt-6-astra,0.72,0.6725,0.6743,baseline
+astra6_n20-9,gpt-6-astra,2.42,0.6777,0.6786,shallow regularized boosting: 600 trees depth 4 eta .05
+astra6_n20-9,gpt-6-astra,3.96,0.6787,0.6794,remove day-of-month categorical feature
+astra6_n20-9,gpt-6-astra,5.12,0.6787,0.6794,simplify categorical conversion with identical features
+astra6_n20-9,gpt-6-astra,7.75,0.6781,0.6799,limit categorical split threshold to 8; explicit category codes
+astra6_n20-9,gpt-6-astra,9.18,0.6789,0.6803,increase depth to 6 with categorical threshold 8
+astra6_n20-9,gpt-6-astra,10.18,0.6787,0.6807,add scheduled departure minute component
+astra6_n20-9,gpt-6-astra,11.60,0.6804,0.6817,make month additive by restricting its interactions
+astra6_n20-9,gpt-6-astra,13.61,0.6813,0.6833,use one-hot splits for all categorical features
+astra6_n20-9,gpt-6-astra,18.41,0.6827,0.6845,add three distance-graph coordinates for origin and destination
+astra6_n20-9,gpt-6-astra,21.76,0.6831,0.6846,boost four randomized trees per round with column sampling
+astra6_n20-9,gpt-6-astra,24.46,0.6854,0.6871,add nearest-holiday type and signed day offset with calendar isolation
+astra6_n20-9,gpt-6-astra,28.15,0.6855,0.6874,add distance-normalized direction between airport coordinates
+astra6_n20-9,gpt-6-astra,33.97,0.6867,0.6893,shallow calendar model plus operational residual boosted forest
+astra6_n20-9,gpt-6-astra,36.44,0.6881,0.6908,shrink calendar log-odds to half strength
+astra6_n20-9,gpt-6-astra,47.17,0.6886,0.6910,use loss-guided operational trees with at most 32 leaves
+astra6_n20-9,gpt-6-astra,48.89,0.6888,0.6911,remove weakest airport coordinate and matching direction feature
+astra6_n20-9,gpt-6-astra,58.47,0.6888,0.6913,Increase operational L2 leaf regularization from 10 to 50
+astra6_n20-10,gpt-6-astra,0.93,0.6725,0.6743,baseline
+astra6_n20-10,gpt-6-astra,3.57,0.6725,0.6743,simpler categorical preparation; evaluation 31s to 10s
+astra6_n20-10,gpt-6-astra,4.32,0.6762,0.6759,remove day-of-month categories
+astra6_n20-10,gpt-6-astra,5.11,0.6752,0.6771,one-category splits for all categorical predictors
+astra6_n20-10,gpt-6-astra,6.21,0.6772,0.6796,400 trees at 0.05 with one-category splits
+astra6_n20-10,gpt-6-astra,7.53,0.6776,0.6800,min_child_weight 30
+astra6_n20-10,gpt-6-astra,9.55,0.6778,0.6801,add one-category route identity
+astra6_n20-10,gpt-6-astra,10.42,0.6783,0.6810,add carrier-origin and carrier-destination identities
+astra6_n20-10,gpt-6-astra,11.31,0.6782,0.6815,depth 8 with supported operational interactions
+astra6_n20-10,gpt-6-astra,15.89,0.6799,0.6824,train-distance airport embedding and route direction
+astra6_n20-10,gpt-6-astra,16.84,0.6802,0.6827,L2 leaf regularization 20
+astra6_n20-10,gpt-6-astra,20.64,0.6828,0.6858,Thanksgiving Christmas New Year and July 4 offsets
+astra6_n20-10,gpt-6-astra,23.86,0.6835,0.6863,subsample 0.8 and colsample_bytree 0.85
+astra6_n20-10,gpt-6-astra,25.50,0.6839,0.6866,three randomized trees per boosting round
+astra6_n20-10,gpt-6-astra,40.56,0.6839,0.6866,direct fitted category codes; evaluation 15s to 9s
+astra6_n20-10,gpt-6-astra,42.91,0.6838,0.6868,circular and 04:00-based departure clock features
+astra6_n20-10,gpt-6-astra,44.25,0.6839,0.6873,training graph distances to five airport landmarks
+astra6_n20-10,gpt-6-astra,46.82,0.6840,0.6874,L1 leaf-weight regularization 5
+astra6_n20-10,gpt-6-astra,47.75,0.6844,0.6875,departure-distance arrival-clock proxy
+astra6_n20-10,gpt-6-astra,50.62,0.6845,0.6878,extend Christmas lead-up from 7 to 14 days
+astra6_n20-11,gpt-6-astra,0.96,0.6725,0.6743,baseline
+astra6_n20-11,gpt-6-astra,3.16,0.6725,0.6743,faster prepare same features and AUC
+astra6_n20-11,gpt-6-astra,4.37,0.6762,0.6759,remove day-of-month
+astra6_n20-11,gpt-6-astra,5.20,0.6790,0.6800,300 shallow depth4 trees rate .05 child20 L2 10
+astra6_n20-11,gpt-6-astra,6.74,0.6815,0.6830,remove month seasonal feature
+astra6_n20-11,gpt-6-astra,10.17,0.6816,0.6838,depth3 instead of depth4
+astra6_n20-11,gpt-6-astra,15.41,0.6816,0.6838,explicit category codes; same AUC faster evaluation
+astra6_n20-11,gpt-6-astra,18.78,0.6815,0.6841,balance training classes within month
+astra6_n20-11,gpt-6-astra,20.95,0.6820,0.6843,six-month recency weighting plus monthly balance
+astra6_n20-11,gpt-6-astra,28.16,0.6827,0.6850,blend depth2/3/4 with weights1:2:1
+astra6_n20-11,gpt-6-astra,30.63,0.6825,0.6851,relative route and carrier-origin departure medians
+astra6_n20-11,gpt-6-astra,32.26,0.6839,0.6865,pooled holiday pre-holiday and post-holiday flags
+astra6_n20-11,gpt-6-astra,33.45,0.6846,0.6872,coarse winter and summer indicators
+astra6_n20-11,gpt-6-astra,37.00,0.6858,0.6890,L1 leaf regularization5 in all ensemble members
+astra6_n20-11,gpt-6-astra,38.10,0.6858,0.6891,remove route-median feature and lookup
+astra6_n20-11,gpt-6-astra,40.99,0.6858,0.6893,remove winter indicator keep summer
+astra6_n20-11,gpt-6-astra,42.48,0.6860,0.6894,lossguide growth with4/8/16 leaf limits
+astra6_n20-11,gpt-6-astra,43.75,0.6860,0.6895,L1 regularization10 with loss-guided trees
+astra6_n20-11,gpt-6-astra,44.97,0.6860,0.6897,soft training labels .05/.95 with logistic regressors
+astra6_n20-11,gpt-6-astra,57.94,0.6860,0.6897,faster scalar calendar preparation with identical features
+astra6_n20-12,gpt-6-astra,0.63,0.6725,0.6743,baseline
+astra6_n20-12,gpt-6-astra,2.02,0.6725,0.6743,simplify categorical preparation
+astra6_n20-12,gpt-6-astra,3.38,0.6786,0.6797,500 shallow regularized trees
+astra6_n20-12,gpt-6-astra,3.97,0.6785,0.6797,remove day-of-month category
+astra6_n20-12,gpt-6-astra,5.85,0.6784,0.6801,departure hour minute and cyclic features
+astra6_n20-12,gpt-6-astra,9.73,0.6791,0.6809,depth 3 trees
+astra6_n20-12,gpt-6-astra,11.62,0.6800,0.6815,Month additive interaction constraint
+astra6_n20-12,gpt-6-astra,13.22,0.6818,0.6840,holiday-relative offset and identity
+astra6_n20-12,gpt-6-astra,15.23,0.6819,0.6842,add MLK and Presidents Day
+astra6_n20-12,gpt-6-astra,17.56,0.6827,0.6848,four sampled trees per boosting round
+astra6_n20-12,gpt-6-astra,20.52,0.6841,0.6868,remove broad Month seasonality
+astra6_n20-12,gpt-6-astra,23.38,0.6848,0.6871,harmonize HP and US carrier codes
+astra6_n20-12,gpt-6-astra,24.40,0.6848,0.6872,minimum child weight 100
+astra6_n20-12,gpt-6-astra,27.76,0.6850,0.6874,departure deviations from schedule medians
+astra6_n20-12,gpt-6-astra,34.19,0.6849,0.6875,10 percent label smoothing
+astra6_n20-12,gpt-6-astra,39.59,0.6852,0.6878,approximate arrival-time phase
+astra6_n20-12,gpt-6-astra,40.75,0.6851,0.6883,balance outcomes within training months
+astra6_n20-12,gpt-6-astra,44.40,0.6850,0.6883,Coarser numeric histograms: max_bin=64
+astra6_n20-12,gpt-6-astra,48.50,0.6850,0.6884,Remove label smoothing after month balancing
+astra6_n20-12,gpt-6-astra,51.46,0.6859,0.6891,Asymmetric BTS travel windows for four holidays
+astra6_n20-12,gpt-6-astra,53.99,0.6864,0.6900,Broader Christmas and shorter New Year travel windows
+astra6_n20-12,gpt-6-astra,55.46,0.6866,0.6903,Halve parallel trees from four to two
+astra6_n20-12,gpt-6-astra,55.95,0.6866,0.6904,Tree-level rather than node-level feature sampling
+astra6_n20-12,gpt-6-astra,57.13,0.6873,0.6909,L2 leaf penalty 50
+astra6_n20-13,gpt-6-astra,0.76,0.6725,0.6743,baseline
+astra6_n20-13,gpt-6-astra,2.76,0.6725,0.6743,remove redundant categorical membership checks
+astra6_n20-13,gpt-6-astra,3.71,0.6772,0.6787,600 trees eta .05 depth 4 child 50 lambda 10 subsample .8
+astra6_n20-13,gpt-6-astra,4.32,0.6776,0.6792,drop DayofMonth to reduce unstable date interactions
+astra6_n20-13,gpt-6-astra,5.10,0.6776,0.6792,cache categorical dtypes and explicit codes; equivalent row features
+astra6_n20-13,gpt-6-astra,6.29,0.6792,0.6804,isolate Month as additive seasonality
+astra6_n20-13,gpt-6-astra,7.89,0.6800,0.6821,limit categorical split search to max_cat_threshold 16
+astra6_n20-13,gpt-6-astra,9.02,0.6804,0.6823,four parallel trees per boosting iteration
+astra6_n20-13,gpt-6-astra,9.87,0.6809,0.6824,train-fitted route and carrier-origin schedule residuals
+astra6_n20-13,gpt-6-astra,10.89,0.6808,0.6825,airport MDS coordinates from train-only route distances
+astra6_n20-13,gpt-6-astra,14.54,0.6830,0.6843,additive Thanksgiving Christmas and summer holiday windows
+astra6_n20-13,gpt-6-astra,17.88,0.6831,0.6843,ablate inferred geography after adding holiday windows
+astra6_n20-13,gpt-6-astra,20.39,0.6832,0.6845,colsample_bytree .8 for parallel-tree diversity
+astra6_n20-13,gpt-6-astra,22.31,0.6849,0.6866,increase reg_lambda from 10 to 100
+astra6_n20-13,gpt-6-astra,24.58,0.6850,0.6869,increase reg_lambda from 100 to 500
+astra6_n20-13,gpt-6-astra,26.36,0.6848,0.6869,ablate both train-fitted schedule residual features
+astra6_n20-13,gpt-6-astra,31.71,0.6864,0.6885,ordered numerical Month with isolated seasonality
+astra6_n20-13,gpt-6-astra,34.96,0.6869,0.6886,lossguide growth with 16 leaves and unrestricted depth
+astra6_n20-13,gpt-6-astra,36.78,0.6869,0.6886,remove explicit minimum child weight; use default 1
+astra6_n20-13,gpt-6-astra,37.71,0.6872,0.6889,training recency weights with 12-month half-life
+astra6_n20-13,gpt-6-astra,39.73,0.6900,0.6922,add isolated two-week seasonal position alongside Month
+astra6_n20-13,gpt-6-astra,45.45,0.6900,0.6924,add operational minutes since 05:00 modulo one day
+astra6_n20-13,gpt-6-astra,46.44,0.6901,0.6924,drop raw clock time and retain operational time
+astra6_n20-13,gpt-6-astra,47.33,0.6901,0.6925,lambda 250 with fortnightly seasonality and operational time
+astra6_n20-13,gpt-6-astra,50.00,0.6906,0.6933,reg_alpha 10 alongside lambda 250
+astra6_n20-13,gpt-6-astra,55.24,0.6906,0.6935,equal-weight ensemble of .8 and .5 row sampling
+astra6_n20-13,gpt-6-astra,58.36,0.6906,0.6935,simplify preparation and define interaction groups once; exact equivalence
+astra6_n20-14,gpt-6-astra,0.71,0.6725,0.6743,baseline
+astra6_n20-14,gpt-6-astra,1.44,0.6725,0.6743,fixed categorical codes; same AUC with much faster evaluation
+astra6_n20-14,gpt-6-astra,2.43,0.6778,0.6796,500 shallow regularized trees; eta .05 depth 4 child 30 lambda 10 subsample .85
+astra6_n20-14,gpt-6-astra,3.05,0.6785,0.6799,remove categorical day of month
+astra6_n20-14,gpt-6-astra,5.79,0.6796,0.6807,reduce boosting to 200 rounds
+astra6_n20-14,gpt-6-astra,6.49,0.6823,0.6834,replace month categories with cyclic season features
+astra6_n20-14,gpt-6-astra,7.24,0.6819,0.6836,add departure offset from training route median schedule
+astra6_n20-14,gpt-6-astra,8.08,0.6827,0.6843,400 depth-3 trees at comparable leaf budget
+astra6_n20-14,gpt-6-astra,9.24,0.6830,0.6847,average five independent seeded shallow XGBoost models
+astra6_n20-14,gpt-6-astra,11.34,0.6831,0.6852,add 0.8 per-node feature sampling to five-model ensemble
+astra6_n20-14,gpt-6-astra,18.83,0.6861,0.6876,add proximity to Christmas New Year July 4 and Thanksgiving
+astra6_n20-14,gpt-6-astra,21.96,0.6860,0.6880,add flexible night-departure phase without monotonic constraints
+astra6_n20-14,gpt-6-astra,24.49,0.6867,0.6881,fit with normalized six-month recency weights
+astra6_n20-14,gpt-6-astra,32.22,0.6873,0.6886,blend depth 2 4 and 5 models with the depth-3 ensemble
+astra6_n20-14,gpt-6-astra,32.90,0.6876,0.6889,add departure offset from carrier-origin median schedule
+astra6_n20-14,gpt-6-astra,35.67,0.6879,0.6893,increase leaf-value L2 penalty from 10 to 100
+astra6_n20-14,gpt-6-astra,40.71,0.6880,0.6902,add L1 leaf penalty alpha 10 alongside lambda 100
+astra6_n20-14,gpt-6-astra,43.07,0.6877,0.6902,remove redundant route-time lookup; same AUC with simpler faster code
+astra6_n20-14,gpt-6-astra,43.80,0.6879,0.6905,sample half the rows per tree using gradient-based selection
+astra6_n20-14,gpt-6-astra,44.38,0.6880,0.6905,uniform half-sampling; same AUC with simpler much faster training
+astra6_n20-14,gpt-6-astra,46.10,0.6880,0.6906,add distance offset from carrier median route length
+astra6_n20-14,gpt-6-astra,51.70,0.6881,0.6908,increase numeric histogram resolution from 256 to 1024 bins
+astra6_n20-14,gpt-6-astra,53.20,0.6883,0.6911,remove overlapping New Year offset while retaining other holidays
+astra6_n20-14,gpt-6-astra,54.30,0.6884,0.6912,use a consistent Thanksgiving window across the month boundary
+astra6_n20-14,gpt-6-astra,55.41,0.6884,0.6913,average weighted log-odds instead of model probabilities
+astra6_n20-14,gpt-6-astra,57.84,0.6888,0.6917,extend all depth families by 50 percent under strong regularization
+astra6_n20-15,gpt-6-astra,0.69,0.6725,0.6743,baseline
+astra6_n20-15,gpt-6-astra,1.65,0.6747,0.6769,500 shallow regularized trees
+astra6_n20-15,gpt-6-astra,2.37,0.6747,0.6769,faster equivalent categorical preparation
+astra6_n20-15,gpt-6-astra,3.42,0.6812,0.6831,ordered calendar and departure components
+astra6_n20-15,gpt-6-astra,5.68,0.6834,0.6853,200 trees reduce temporal overfitting
+astra6_n20-15,gpt-6-astra,8.39,0.6841,0.6854,four randomized trees per boosting round
+astra6_n20-15,gpt-6-astra,10.57,0.6843,0.6857,separate fine-date and operational interactions
+astra6_n20-15,gpt-6-astra,12.89,0.6845,0.6863,departure offsets from fitted schedule medians
+astra6_n20-15,gpt-6-astra,24.22,0.6847,0.6865,average three independent boosting trajectories
+astra6_n20-15,gpt-6-astra,50.29,0.6854,0.6872,increase per tree row sampling to0.9
+astra6_n20-15,gpt-6-astra,54.28,0.6854,0.6873,remove standalone departure minute feature
+astra6_n20-15,gpt-6-astra,56.13,0.6856,0.6875,average three depth4 models with depth3 and depth5 members
+astra6_n20-16,gpt-6-astra,0.95,0.6725,0.6743,baseline
+astra6_n20-16,gpt-6-astra,3.11,0.6725,0.6743,equivalent preparation with cached categorical dtypes
+astra6_n20-16,gpt-6-astra,3.96,0.6762,0.6759,drop day-of-month category
+astra6_n20-16,gpt-6-astra,4.63,0.6790,0.6800,depth 4 with 300 trees eta .05 min_child_weight 20 lambda 10
+astra6_n20-16,gpt-6-astra,6.43,0.6796,0.6815,restrict native categorical partitions to max_cat_threshold 16
+astra6_n20-16,gpt-6-astra,9.10,0.6801,0.6817,replace categorical month with numeric and cyclic coordinates
+astra6_n20-16,gpt-6-astra,10.01,0.6802,0.6818,add departure hour and minute-of-hour features
+astra6_n20-16,gpt-6-astra,13.25,0.6806,0.6820,three trees per boosting round with 75 percent row subsampling
+astra6_n20-16,gpt-6-astra,14.28,0.6810,0.6824,add 80 percent per-split feature subsampling
+astra6_n20-16,gpt-6-astra,16.47,0.6838,0.6854,add clipped distance to four major recurring holidays
+astra6_n20-16,gpt-6-astra,24.27,0.6838,0.6854,equivalent direct calendar lookups and explicit missing category codes
+astra6_n20-16,gpt-6-astra,26.49,0.6837,0.6854,remove minute-of-hour timetable feature
+astra6_n20-16,gpt-6-astra,27.91,0.6842,0.6856,add departure minutes relative to training route median
+astra6_n20-16,gpt-6-astra,28.77,0.6844,0.6858,sample weights with twelve-month recency half-life
+astra6_n20-16,gpt-6-astra,31.78,0.6847,0.6862,compact DART model with forest-normalized dropout
+astra6_n20-16,gpt-6-astra,33.69,0.6841,0.6863,coarsen numeric histograms to 64 bins
+astra6_n20-16,gpt-6-astra,39.45,0.6852,0.6868,average two prespecified dropout seeds 42 and 137
+astra6_n20-16,gpt-6-astra,41.92,0.6867,0.6885,increase leaf L2 regularization from 10 to 100
+astra6_n20-16,gpt-6-astra,43.02,0.6866,0.6888,increase leaf L2 regularization from 100 to 300
+astra6_n20-16,gpt-6-astra,45.04,0.6870,0.6894,add departure offset from training carrier-origin median
+astra6_n20-16,gpt-6-astra,54.20,0.6870,0.6894,remove redundant deprecated dart booster alias and one-tree default
+astra6_n20-17,gpt-6-astra,0.83,0.6725,0.6743,baseline
+astra6_n20-17,gpt-6-astra,1.96,0.6782,0.6793,500 shallow regularized trees
+astra6_n20-17,gpt-6-astra,3.23,0.6821,0.6825,calendar and departure-time features; faster preparation
+astra6_n20-17,gpt-6-astra,7.96,0.6821,0.6825,equivalent fixed categorical codes; evaluation 3x faster
+astra6_n20-17,gpt-6-astra,9.82,0.6812,0.6830,limit categorical split groups to 16
+astra6_n20-17,gpt-6-astra,14.24,0.6821,0.6834,boost four randomized trees per round
+astra6_n20-17,gpt-6-astra,15.94,0.6818,0.6841,separate exact-date effects from operating features
+astra6_n20-17,gpt-6-astra,17.40,0.6822,0.6844,airport geometry learned from training route distances
+astra6_n20-17,gpt-6-astra,28.88,0.6824,0.6849,prune weak splits with gamma 5
+astra6_n20-17,gpt-6-astra,32.13,0.6828,0.6851,smoothed delay rates from other carriers and airports
+astra6_n20-17,gpt-6-astra,34.76,0.6843,0.6867,remove categorical day-of-month but retain ordered dates
+astra6_n20-17,gpt-6-astra,37.21,0.6845,0.6868,average three independently seeded boosted forests
+astra6_n20-17,gpt-6-astra,46.34,0.6856,0.6873,use ordered month without a categorical duplicate
+astra6_n20-17,gpt-6-astra,48.02,0.6855,0.6877,add circular month features
+astra6_n20-17,gpt-6-astra,50.54,0.6870,0.6895,stronger L2 shrinkage of leaf predictions
+astra6_n20-17,gpt-6-astra,53.43,0.6873,0.6898,increase L2 leaf shrinkage from 50 to 200
+astra6_n20-17,gpt-6-astra,58.06,0.6872,0.6898,simplify ensemble from three seeds to two
+astra6_n20-18,gpt-6-astra,0.75,0.6725,0.6743,baseline
+astra6_n20-18,gpt-6-astra,1.99,0.6751,0.6758,400 trees with shrinkage and stronger regularization
+astra6_n20-18,gpt-6-astra,4.83,0.6755,0.6761,remove day-of-month to reduce date-specific overfitting
+astra6_n20-18,gpt-6-astra,5.93,0.6755,0.6761,reuse categorical dtypes; identical features and faster evaluation
+astra6_n20-18,gpt-6-astra,6.61,0.6783,0.6807,native one-hot splits for all categorical features
+astra6_n20-18,gpt-6-astra,7.30,0.6790,0.6818,increase one-hot model to 1200 trees
+astra6_n20-18,gpt-6-astra,11.19,0.6826,0.6840,constrain month to an additive seasonal effect
+astra6_n20-18,gpt-6-astra,13.63,0.6826,0.6840,explicit category codes; equal AUC and faster preprocessing
+astra6_n20-18,gpt-6-astra,14.81,0.6827,0.6844,four parallel trees per boosting step with column sampling
+astra6_n20-18,gpt-6-astra,16.23,0.6838,0.6850,two-dimensional airport geography learned from training route distances
+astra6_n20-18,gpt-6-astra,20.91,0.6843,0.6854,shared additive coarse holiday phase
+astra6_n20-18,gpt-6-astra,23.71,0.6844,0.6855,loss-guided tree growth capped at 16 leaves
+astra6_n20-18,gpt-6-astra,25.67,0.6845,0.6857,smooth logistic targets to 0.05 and 0.95
+astra6_n20-18,gpt-6-astra,26.93,0.6845,0.6859,average three independent smoothed classifiers with fixed seeds
+astra6_n20-18,gpt-6-astra,31.08,0.6878,0.6900,halve each model's additive month contribution
+astra6_n20-18,gpt-6-astra,34.56,0.6878,0.6901,retain 37.5 percent of the learned additive month effect
+astra6_n20-19,gpt-6-astra,0.55,0.6725,0.6743,baseline
+astra6_n20-19,gpt-6-astra,1.95,0.6787,0.6800,600 depth-4 trees with shrinkage and stronger regularization
+astra6_n20-19,gpt-6-astra,2.85,0.6790,0.6809,Remove DayofMonth to reduce calendar-date overfitting
+astra6_n20-19,gpt-6-astra,4.09,0.6790,0.6809,Cache categorical dtypes and construct feature frame once
+astra6_n20-19,gpt-6-astra,5.01,0.6790,0.6809,Encode unknown categories explicitly as missing without warnings
+astra6_n20-19,gpt-6-astra,7.28,0.6812,0.6832,Remove Month to test sensitivity to year-specific seasonal effects
+astra6_n20-19,gpt-6-astra,9.55,0.6809,0.6833,"Add departure hour, minute, sine, and cosine features"
+astra6_n20-19,gpt-6-astra,11.48,0.6813,0.6834,Add three-dimensional airport coordinates inferred from route distances
+astra6_n20-19,gpt-6-astra,12.30,0.6812,0.6841,Reduce max_depth from 4 to 3 with current engineered features
+astra6_n20-19,gpt-6-astra,13.57,0.6816,0.6845,Weight later training months more with a six-month half-life
+astra6_n20-19,gpt-6-astra,15.76,0.6818,0.6846,Remove all airport geometry features and graph fitting
+astra6_n20-19,gpt-6-astra,16.85,0.6820,0.6848,Add train-fitted route and carrier-origin departure offsets
+astra6_n20-19,gpt-6-astra,18.15,0.6820,0.6848,Reduce boosting rounds from 600 to 300
+astra6_n20-19,gpt-6-astra,23.85,0.6823,0.6850,Balance positive and negative loss weight within each training month
+astra6_n20-19,gpt-6-astra,27.30,0.6824,0.6851,"Average three equally weighted XGBoost models with fixed seeds 42, 43, 44"
+astra6_n20-19,gpt-6-astra,30.75,0.6831,0.6862,Reintroduce Month under monthly class balancing and shallow ensembling
+astra6_n20-19,gpt-6-astra,31.99,0.6847,0.6874,Add pooled proximity to six fixed and moving calendar holidays
+astra6_n20-19,gpt-6-astra,34.43,0.6848,0.6880,Increase min_child_weight from 30 to 100
+astra6_n20-19,gpt-6-astra,36.68,0.6850,0.6881,Remove standalone departure hour and minute features
+astra6_n20-19,gpt-6-astra,39.29,0.6857,0.6891,Add categorical identity of the nearest holiday within seven days
+astra6_n20-19,gpt-6-astra,43.17,0.6864,0.6898,Increase reg_lambda from 10 to 50
+astra6_n20-19,gpt-6-astra,45.79,0.6871,0.6906,Increase max_depth to four with larger leaves and stronger L2
+astra6_n20-19,gpt-6-astra,56.50,0.6876,0.6910,Increase minimum child weight from 100 to 300 for stronger leaf support
+astra6_n20-20,gpt-6-astra,0.90,0.6725,0.6743,baseline
+astra6_n20-20,gpt-6-astra,2.46,0.6769,0.6786,600 depth-4 trees with slower learning and stronger regularization
+astra6_n20-20,gpt-6-astra,3.56,0.6769,0.6786,Simplify categorical preparation with cached dtypes and one dataframe construction
+astra6_n20-20,gpt-6-astra,4.70,0.6812,0.6831,Represent day of month as ordered numeric rather than categorical
+astra6_n20-20,gpt-6-astra,7.48,0.6816,0.6838,Limit categorical partition searches with max_cat_threshold=8
+astra6_n20-20,gpt-6-astra,8.31,0.6832,0.6844,Replace categorical month with ordered numeric month
+astra6_n20-20,gpt-6-astra,10.35,0.6828,0.6851,Increase tree depth from 4 to 6 with existing regularization
+astra6_n20-20,gpt-6-astra,15.99,0.6836,0.6853,Boost four sampled trees per round with node-wise feature sampling
+astra6_n20-20,gpt-6-astra,18.12,0.6846,0.6861,Add airport landmark-distance lookups fitted only on training routes
+astra6_n20-20,gpt-6-astra,20.70,0.6849,0.6863,Fill landmark geography using shortest distances through the training route network
+astra6_n20-20,gpt-6-astra,21.97,0.6844,0.6864,Use one-hot categorical splits instead of category partitions
+astra6_n20-20,gpt-6-astra,28.88,0.6845,0.6865,Train pairwise RankNet-style XGBoost on one global flight-ranking group
+astra6_n20-20,gpt-6-astra,32.50,0.6845,0.6865,Use cached categorical codes for faster preparation and explicit unknown handling
+astra6_n20-20,gpt-6-astra,33.70,0.6847,0.6868,Train pairwise ranking using 32 randomly mixed comparison groups
+astra6_n20-20,gpt-6-astra,43.70,0.6848,0.6869,Use loss-guided tree growth with a 32-leaf budget
+astra6_n20-20,gpt-6-astra,55.74,0.6853,0.6876,Add only a one-hot carrier-origin interaction
+astra6_n20-20,gpt-6-astra,57.95,0.6853,0.6876,Remove inactive categorical-partition threshold under all-one-hot splitting
+sol6_n20-1,gpt-6-sol,0.80,0.6725,0.6743,baseline
+sol6_n20-1,gpt-6-sol,4.44,0.6776,0.6774,ordered month and day-of-month
+sol6_n20-1,gpt-6-sol,7.41,0.6837,0.6838,max depth four
+sol6_n20-1,gpt-6-sol,10.41,0.6844,0.6848,max depth three
+sol6_n20-1,gpt-6-sol,13.13,0.6846,0.6851,150 rounds at depth three
+sol6_n20-1,gpt-6-sol,23.40,0.6842,0.6857,add numeric day of year
+sol6_n20-1,gpt-6-sol,33.99,0.6844,0.6862,weekday by three-hour time block
+sol6_n20-1,gpt-6-sol,44.34,0.6849,0.6864,70-30 depth-three and depth-four ensemble
+sol6_n20-1,gpt-6-sol,59.92,0.6850,0.6865,drop numeric month with day of year retained
+sol6_n20-2,gpt-6-sol,0.63,0.6725,0.6743,baseline
+sol6_n20-2,gpt-6-sol,2.36,0.6783,0.6793,"300 depth-4 trees, lr .05, min_child_weight 5"
+sol6_n20-2,gpt-6-sol,4.95,0.6819,0.6829,add ordinal day of year
+sol6_n20-2,gpt-6-sol,17.69,0.6823,0.6835,200 trees versus 300
+sol6_n20-2,gpt-6-sol,35.63,0.6829,0.6840,equal average of depth-4 and depth-3 models
+sol6_n20-2,gpt-6-sol,42.54,0.6831,0.6841,three-model blend with sampled depth-4 model
+sol6_n20-2,gpt-6-sol,54.29,0.6833,0.6843,reg_alpha 1 in all ensemble members
+sol6_n20-2,gpt-6-sol,56.11,0.6837,0.6852,reg_alpha 3 in all ensemble members
+sol6_n20-2,gpt-6-sol,57.64,0.6836,0.6858,reg_alpha 6 in all ensemble members
+sol6_n20-3,gpt-6-sol,0.69,0.6725,0.6743,baseline
+sol6_n20-3,gpt-6-sol,2.54,0.6731,0.6752,add scheduled departure hour and minute
+sol6_n20-3,gpt-6-sol,4.41,0.6777,0.6789,300 trees depth 4 learning rate 0.05
+sol6_n20-3,gpt-6-sol,9.24,0.6817,0.6822,add day of year
+sol6_n20-3,gpt-6-sol,13.31,0.6833,0.6843,depth 3 with day of year
+sol6_n20-3,gpt-6-sol,33.19,0.6833,0.6843,remove unused departure minute feature
+sol6_n20-3,gpt-6-sol,47.74,0.6840,0.6856,ordinal day of month replaces categorical
+sol6_n20-3,gpt-6-sol,56.66,0.6841,0.6857,remove scheduled departure hour
+sol6_n20-4,gpt-6-sol,0.69,0.6725,0.6743,baseline
+sol6_n20-4,gpt-6-sol,6.77,0.6771,0.6789,depth 4 with 100 trees
+sol6_n20-4,gpt-6-sol,10.17,0.6786,0.6798,depth 3 with 100 trees
+sol6_n20-4,gpt-6-sol,16.61,0.6815,0.6830,add numeric day of year
+sol6_n20-4,gpt-6-sol,37.87,0.6821,0.6831,200 trees eta 0.05
+sol6_n20-5,gpt-6-sol,0.60,0.6725,0.6743,baseline
+sol6_n20-5,gpt-6-sol,1.95,0.6728,0.6751,add departure minute and hour
+sol6_n20-5,gpt-6-sol,4.09,0.6748,0.6766,decrease boosting rounds to 50
+sol6_n20-5,gpt-6-sol,4.98,0.6755,0.6770,decrease boosting rounds to 25
+sol6_n20-5,gpt-6-sol,9.27,0.6759,0.6775,raise minimum child weight to 10
+sol6_n20-5,gpt-6-sol,11.30,0.6759,0.6775,remove unused departure minute feature
+sol6_n20-5,gpt-6-sol,12.42,0.6772,0.6779,add numeric day of year
+sol6_n20-5,gpt-6-sol,13.79,0.6777,0.6782,add annual sine and cosine features
+sol6_n20-5,gpt-6-sol,15.01,0.6786,0.6794,50 trees with 0.05 learning rate
+sol6_n20-5,gpt-6-sol,16.04,0.6786,0.6796,100 trees with 0.025 learning rate
+sol6_n20-5,gpt-6-sol,18.42,0.6789,0.6797,subsample 80 percent of rows per tree
+sol6_n20-5,gpt-6-sol,26.01,0.6799,0.6801,add major holiday proximity
+sol6_n20-5,gpt-6-sol,28.51,0.6798,0.6804,reduce numeric histogram bins to 64
+sol6_n20-5,gpt-6-sol,29.57,0.6796,0.6805,reduce numeric histogram bins to 32
+sol6_n20-5,gpt-6-sol,33.47,0.6799,0.6809,average three XGBoost sampling seeds
+sol6_n20-5,gpt-6-sol,34.69,0.6801,0.6810,average five XGBoost sampling seeds
+sol6_n20-5,gpt-6-sol,37.47,0.6803,0.6812,feature sample 80 percent per split
+sol6_n20-5,gpt-6-sol,38.54,0.6808,0.6816,feature sample 60 percent per split
+sol6_n20-5,gpt-6-sol,39.67,0.6812,0.6821,feature sample 40 percent per split
+sol6_n20-5,gpt-6-sol,49.63,0.6822,0.6831,increase ensemble boosting rounds to 150
+sol6_n20-5,gpt-6-sol,51.21,0.6828,0.6838,increase ensemble boosting rounds to 225
+sol6_n20-5,gpt-6-sol,53.86,0.6826,0.6839,test 275 ensemble boosting rounds
+sol6_n20-6,gpt-6-sol,0.63,0.6725,0.6743,baseline
+sol6_n20-6,gpt-6-sol,2.25,0.6728,0.6751,add departure minute of day and hour
+sol6_n20-6,gpt-6-sol,5.35,0.6748,0.6766,reduce boosting rounds to 50
+sol6_n20-6,gpt-6-sol,6.33,0.6755,0.6770,reduce boosting rounds to 25
+sol6_n20-6,gpt-6-sol,10.45,0.6774,0.6784,add ordinal day of year
+sol6_n20-6,gpt-6-sol,15.88,0.6783,0.6786,subsample 80 percent of rows per tree
+sol6_n20-6,gpt-6-sol,18.30,0.6783,0.6786,remove redundant raw HHMM model feature
+sol6_n20-6,gpt-6-sol,29.60,0.6777,0.6790,loss-guided growth with 31 leaves
+sol6_n20-6,gpt-6-sol,33.85,0.6777,0.6791,add holiday period category
+sol6_n20-6,gpt-6-sol,36.73,0.6785,0.6798,40 rounds of loss-guided trees
+sol6_n20-6,gpt-6-sol,38.07,0.6800,0.6801,60 rounds of loss-guided trees
+sol6_n20-6,gpt-6-sol,40.62,0.6785,0.6803,allow depth eight with 31 leaves
+sol6_n20-6,gpt-6-sol,41.88,0.6785,0.6808,allow depth ten with 31 leaves
+sol6_n20-6,gpt-6-sol,47.52,0.6806,0.6812,120 rounds at learning rate 0.05
+sol6_n20-6,gpt-6-sol,50.34,0.6803,0.6818,remove holiday category feature
+sol6_n20-7,gpt-6-sol,0.58,0.6725,0.6743,baseline
+sol6_n20-7,gpt-6-sol,2.91,0.6735,0.6747,add categorical departure hour
+sol6_n20-7,gpt-6-sol,4.71,0.6773,0.6789,depth four trees
+sol6_n20-7,gpt-6-sol,5.59,0.6784,0.6797,depth three trees
+sol6_n20-7,gpt-6-sol,14.44,0.6785,0.6800,remove day of month
+sol6_n20-7,gpt-6-sol,17.10,0.6785,0.6800,remove departure hour category with equal AUC and faster evaluation
+sol6_n20-7,gpt-6-sol,19.10,0.6790,0.6801,time relative to train origin median schedule
+sol6_n20-7,gpt-6-sol,20.12,0.6785,0.6805,add time relative to carrier-origin median
+sol6_n20-7,gpt-6-sol,21.15,0.6787,0.6810,carrier-origin time reference alone
+sol6_n20-7,gpt-6-sol,23.10,0.6786,0.6812,use true minutes in carrier-origin relative time
+sol6_n20-7,gpt-6-sol,30.19,0.6789,0.6820,130 depth-three boosting rounds
+sol6_n20-7,gpt-6-sol,36.18,0.6798,0.6834,add week-of-month category
+sol6_n20-7,gpt-6-sol,37.19,0.6823,0.6857,merge days 29-31 with days 22-28
+sol6_n20-7,gpt-6-sol,38.17,0.6825,0.6857,use numeric four-bin month phase with equal AUC and faster scoring
+sol6_n20-7,gpt-6-sol,45.24,0.6830,0.6860,soft-vote depth three and four at two-to-one weights
+sol6_n20-7,gpt-6-sol,49.75,0.6835,0.6862,three-model ensemble with categorical split diversity
+sol6_n20-7,gpt-6-sol,53.79,0.6835,0.6864,alternate model one-hot threshold 20
+sol6_n20-7,gpt-6-sol,55.76,0.6837,0.6865,130-round depth-four ensemble member
+sol6_n20-7,gpt-6-sol,57.69,0.6837,0.6866,160-round categorical alternate model
+sol6_n20-8,gpt-6-sol,0.60,0.6725,0.6743,baseline
+sol6_n20-8,gpt-6-sol,1.84,0.6783,0.6793,300 depth-4 trees eta .05 child weight 5
+sol6_n20-8,gpt-6-sol,5.35,0.6784,0.6801,add categorical departure hour
+sol6_n20-8,gpt-6-sol,8.31,0.6795,0.6805,remove categorical day of month
+sol6_n20-8,gpt-6-sol,9.41,0.6818,0.6842,add ordinal day of month
+sol6_n20-8,gpt-6-sol,13.00,0.6824,0.6844,row subsample 0.8
+sol6_n20-8,gpt-6-sol,14.95,0.6844,0.6847,use ordinal month instead of category
+sol6_n20-8,gpt-6-sol,16.84,0.6840,0.6850,depth three trees
+sol6_n20-8,gpt-6-sol,20.24,0.6843,0.6853,average three depth-three seeds
+sol6_n20-8,gpt-6-sol,21.32,0.6848,0.6856,two depth-three plus one depth-four models
+sol6_n20-8,gpt-6-sol,25.02,0.6864,0.6868,add Thanksgiving and year-end travel windows
+sol6_n20-8,gpt-6-sol,27.30,0.6867,0.6871,year-end window only; remove Thanksgiving
+sol6_n20-8,gpt-6-sol,33.84,0.6867,0.6872,five-member mixed-depth ensemble
+sol6_n20-8,gpt-6-sol,34.96,0.6867,0.6873,max bin 512
+sol6_n20-8,gpt-6-sol,48.10,0.6868,0.6873,four depth-three one depth-four; equal AUC smaller faster
+sol6_n20-8,gpt-6-sol,52.65,0.6869,0.6874,one DART member in ensemble
+sol6_n20-8,gpt-6-sol,54.15,0.6870,0.6875,two DART ensemble members
+sol6_n20-8,gpt-6-sol,57.33,0.6871,0.6877,two DART members rate drop 0.1
+sol6_n20-8,gpt-6-sol,58.87,0.6871,0.6877,two DART members rate drop 0.2; equal AUC faster
+sol6_n20-9,gpt-6-sol,0.67,0.6725,0.6743,baseline
+sol6_n20-9,gpt-6-sol,2.14,0.6731,0.6752,add departure hour and minute features
+sol6_n20-9,gpt-6-sol,4.21,0.6790,0.6803,reduce tree depth from 6 to 3
+sol6_n20-9,gpt-6-sol,5.11,0.6792,0.6810,increase depth-three model to 200 trees
+sol6_n20-9,gpt-6-sol,7.09,0.6819,0.6832,add numeric day of year
+sol6_n20-9,gpt-6-sol,10.79,0.6820,0.6837,raise minimum child weight to 10
+sol6_n20-9,gpt-6-sol,16.07,0.6831,0.6839,400 trees at learning rate 0.05
+sol6_n20-9,gpt-6-sol,18.06,0.6831,0.6839,remove unused departure minute feature
+sol6_n20-9,gpt-6-sol,26.10,0.6833,0.6842,average full-column and sampled-column models
+sol6_n20-9,gpt-6-sol,27.24,0.6833,0.6843,add row-sampled model to probability average
+sol6_n20-9,gpt-6-sol,28.27,0.6832,0.6844,reduce histogram bins from 256 to 128
+sol6_n20-9,gpt-6-sol,33.32,0.6834,0.6846,set split gain threshold gamma to 2
+sol6_n20-10,gpt-6-sol,0.59,0.6725,0.6743,baseline native categoricals depth 6 100 trees
+sol6_n20-10,gpt-6-sol,2.70,0.6776,0.6774,ordered numeric month and day of month
+sol6_n20-10,gpt-6-sol,4.73,0.6838,0.6850,depth 3 with 400 trees at eta 0.05
+sol6_n20-10,gpt-6-sol,9.12,0.6836,0.6852,subsample 0.8 with depth 3 400 trees
+sol6_n20-10,gpt-6-sol,19.17,0.6840,0.6855,departure minutes relative to train route median
+sol6_n20-10,gpt-6-sol,20.13,0.6842,0.6855,origin median schedule replaces route median at equal AUC and lower cost
+sol6_n20-10,gpt-6-sol,22.54,0.6845,0.6858,reg_lambda 10 shrinks sparse leaf scores
+sol6_n20-10,gpt-6-sol,23.51,0.6850,0.6861,reg_lambda 30 versus 10
+sol6_n20-10,gpt-6-sol,34.29,0.6854,0.6864,soft vote of two seeded shallow models
+sol6_n20-10,gpt-6-sol,35.34,0.6855,0.6866,soft vote of three independently seeded models
+sol6_n20-10,gpt-6-sol,49.24,0.6858,0.6869,reg_alpha 1 on three-seed ensemble
+sol6_n20-10,gpt-6-sol,50.53,0.6864,0.6884,reg_alpha 5 with lambda 30
+sol6_n20-10,gpt-6-sol,55.89,0.6864,0.6885,min_child_weight 5 under L1 five
+sol6_n20-11,gpt-6-sol,0.63,0.6725,0.6743,baseline
+sol6_n20-11,gpt-6-sol,1.78,0.6779,0.6795,300 trees depth 4 learning rate 0.05
+sol6_n20-11,gpt-6-sol,2.68,0.6794,0.6812,300 trees depth 3 learning rate 0.05
+sol6_n20-11,gpt-6-sol,12.73,0.6832,0.6840,add numeric day of year
+sol6_n20-11,gpt-6-sol,13.72,0.6831,0.6844,remove day of month category with day of year
+sol6_n20-11,gpt-6-sol,14.49,0.6839,0.6850,remove month category with day of year
+sol6_n20-11,gpt-6-sol,19.42,0.6840,0.6851,subsample 0.8 with day of year
+sol6_n20-11,gpt-6-sol,21.08,0.6840,0.6852,colsample by tree 0.8 with row subsample 0.8
+sol6_n20-11,gpt-6-sol,21.93,0.6841,0.6854,reg lambda 5 with row and feature sampling
+sol6_n20-11,gpt-6-sol,24.09,0.6853,0.6867,add seven-level major holiday window
+sol6_n20-11,gpt-6-sol,27.41,0.6855,0.6870,reg lambda 20 with holiday windows
+sol6_n20-11,gpt-6-sol,28.27,0.6862,0.6879,reg lambda 50 with holiday windows
+sol6_n20-11,gpt-6-sol,30.07,0.6862,0.6880,500 trees with reg lambda 50
+sol6_n20-11,gpt-6-sol,44.58,0.6861,0.6889,reg alpha 10 with reg lambda 50
+sol6_n20-11,gpt-6-sol,49.81,0.6859,0.6892,colsample by tree 0.6
+sol6_n20-11,gpt-6-sol,52.59,0.6857,0.6893,subsample 0.7 with colsample 0.6
+sol6_n20-12,gpt-6-sol,0.59,0.6725,0.6743,baseline
+sol6_n20-12,gpt-6-sol,2.36,0.6771,0.6789,depth 4 at 100 rounds
+sol6_n20-12,gpt-6-sol,3.83,0.6786,0.6798,depth 3 at 100 rounds
+sol6_n20-12,gpt-6-sol,5.33,0.6788,0.6805,depth 3 at 150 rounds
+sol6_n20-12,gpt-6-sol,7.99,0.6790,0.6809,ablate day of month
+sol6_n20-12,gpt-6-sol,10.59,0.6791,0.6810,min child weight 10
+sol6_n20-12,gpt-6-sol,11.28,0.6789,0.6811,min child weight 30
+sol6_n20-12,gpt-6-sol,13.22,0.6789,0.6811,simplify categorical prepare; eval 18.3s
+sol6_n20-12,gpt-6-sol,17.38,0.6805,0.6811,numeric month; tied and faster
+sol6_n20-12,gpt-6-sol,19.50,0.6803,0.6813,departure time relative to route median
+sol6_n20-12,gpt-6-sol,20.51,0.6807,0.6822,add carrier origin schedule offset
+sol6_n20-12,gpt-6-sol,26.78,0.6808,0.6823,add off-five-minute schedule indicator
+sol6_n20-12,gpt-6-sol,30.57,0.6840,0.6854,add numeric day of month
+sol6_n20-12,gpt-6-sol,32.16,0.6844,0.6857,add numeric day of year
+sol6_n20-12,gpt-6-sol,34.05,0.6836,0.6866,add categorical month copy
+sol6_n20-12,gpt-6-sol,44.94,0.6836,0.6866,remove unused numeric month input
+sol6_n20-12,gpt-6-sol,52.58,0.6846,0.6870,origin-weekday schedule offset
+sol6_n20-13,gpt-6-sol,0.65,0.6725,0.6743,baseline
+sol6_n20-13,gpt-6-sol,3.19,0.6783,0.6805,300 rounds at depth 3
+sol6_n20-13,gpt-6-sol,12.60,0.6805,0.6817,continuous day of year
+sol6_n20-13,gpt-6-sol,13.98,0.6809,0.6825,remove day category with day of year
+sol6_n20-13,gpt-6-sol,14.79,0.6815,0.6826,remove month category with day of year
+sol6_n20-13,gpt-6-sol,17.12,0.6819,0.6834,600 rounds learning rate 0.05
+sol6_n20-13,gpt-6-sol,28.21,0.6828,0.6843,equal soft vote of depth 3 and depth 2
+sol6_n20-13,gpt-6-sol,39.26,0.6838,0.6852,gamma 5 on both blend components
+sol6_n20-13,gpt-6-sol,43.55,0.6838,0.6852,400 and 700 pruned rounds equal AUC faster and smaller
+sol6_n20-13,gpt-6-sol,48.03,0.6842,0.6855,three-way blend with 20 percent depth 4
+sol6_n20-13,gpt-6-sol,50.50,0.6842,0.6855,implicit equal three-way vote ties AUC with simpler code
+sol6_n20-13,gpt-6-sol,52.71,0.6846,0.6857,depth 4 component 200 rounds
+sol6_n20-13,gpt-6-sol,53.80,0.6850,0.6862,depth 4 component 100 rounds
+sol6_n20-13,gpt-6-sol,54.87,0.6854,0.6867,depth 4 component 50 rounds
+sol6_n20-13,gpt-6-sol,55.94,0.6855,0.6869,depth 4 component 25 rounds
+sol6_n20-13,gpt-6-sol,58.23,0.6854,0.6869,depth 4 component 18 rounds ties AUC with smaller artifact
+sol6_n20-14,gpt-6-sol,0.62,0.6725,0.6743,baseline
+sol6_n20-14,gpt-6-sol,3.33,0.6735,0.6747,add categorical departure hour
+sol6_n20-14,gpt-6-sol,5.56,0.6773,0.6789,use depth 4 instead of 6
+sol6_n20-14,gpt-6-sol,6.56,0.6784,0.6797,use depth 3 instead of 4
+sol6_n20-14,gpt-6-sol,12.31,0.6823,0.6832,add numeric day of year
+sol6_n20-14,gpt-6-sol,23.73,0.6828,0.6842,remove redundant day-of-month category
+sol6_n20-14,gpt-6-sol,24.70,0.6837,0.6850,remove month category; day of year retained
+sol6_n20-14,gpt-6-sol,37.29,0.6845,0.6853,average depth 3 and depth 4 model probabilities
+sol6_n20-14,gpt-6-sol,38.39,0.6844,0.6854,weight depth 3 twice versus depth 4
+sol6_n20-14,gpt-6-sol,48.01,0.6843,0.6856,DART regularization in depth-4 model
+sol6_n20-14,gpt-6-sol,57.51,0.6846,0.6858,forest normalization in DART secondary model
+sol6_n20-15,gpt-6-sol,0.62,0.6725,0.6743,baseline
+sol6_n20-15,gpt-6-sol,2.42,0.6787,0.6808,regularized 400-tree depth-4 boosting
+sol6_n20-15,gpt-6-sol,5.75,0.6826,0.6833,ordered day of year
+sol6_n20-15,gpt-6-sol,6.86,0.6830,0.6841,ablate day of month category
+sol6_n20-15,gpt-6-sol,8.17,0.6842,0.6852,ablate month category
+sol6_n20-15,gpt-6-sol,12.25,0.6842,0.6854,200 boosting rounds
+sol6_n20-15,gpt-6-sol,18.25,0.6847,0.6857,categorical departure hour
+sol6_n20-15,gpt-6-sol,27.56,0.6849,0.6864,colsample_bytree 0.6
+sol6_n20-15,gpt-6-sol,28.99,0.6854,0.6867,colsample_bytree 0.4
+sol6_n20-15,gpt-6-sol,42.58,0.6852,0.6869,lossguide 16 leaves
+sol6_n20-15,gpt-6-sol,50.11,0.6852,0.6874,reg_lambda 10
+sol6_n20-15,gpt-6-sol,51.40,0.6856,0.6878,reg_lambda 30
+sol6_n20-16,gpt-6-sol,0.65,0.6725,0.6743,baseline starter model
+sol6_n20-16,gpt-6-sol,2.89,0.6775,0.6789,400 depth-4 trees at learning rate 0.05
+sol6_n20-16,gpt-6-sol,8.31,0.6782,0.6805,sampling at 0.8 and min child weight 10
+sol6_n20-16,gpt-6-sol,13.31,0.6795,0.6807,one-category splits for small categorical fields
+sol6_n20-16,gpt-6-sol,18.69,0.6804,0.6817,increase L2 leaf regularization to 10
+sol6_n20-17,gpt-6-sol,0.68,0.6725,0.6743,baseline
+sol6_n20-17,gpt-6-sol,2.89,0.6728,0.6751,add minute-of-day and departure hour
+sol6_n20-17,gpt-6-sol,6.99,0.6766,0.6773,add day of year from prefixed calendar fields
+sol6_n20-17,gpt-6-sol,8.45,0.6756,0.6774,min_child_weight 10
+sol6_n20-17,gpt-6-sol,10.11,0.6816,0.6828,max_depth 4 with min_child_weight 10
+sol6_n20-17,gpt-6-sol,11.77,0.6816,0.6830,max_depth 3
+sol6_n20-17,gpt-6-sol,14.52,0.6829,0.6838,depth 3 with 250 trees learning rate 0.05
+sol6_n20-17,gpt-6-sol,24.42,0.6829,0.6839,distance to New Year July 4 and Christmas
+sol6_n20-17,gpt-6-sol,26.17,0.6831,0.6842,add Thanksgiving proximity
+sol6_n20-17,gpt-6-sol,30.21,0.6832,0.6846,departure time versus train-fitted route median
+sol6_n20-17,gpt-6-sol,49.16,0.6838,0.6851,3-to-1 soft vote of depth 3 and depth 4 models
+sol6_n20-17,gpt-6-sol,50.65,0.6839,0.6853,equal soft vote of depth 3 and depth 4 models
+sol6_n20-17,gpt-6-sol,55.34,0.6839,0.6853,omit minute-of-day model input; retain route calculation
+sol6_n20-18,gpt-6-sol,0.58,0.6725,0.6743,baseline
+sol6_n20-18,gpt-6-sol,2.88,0.6779,0.6795,300 trees depth 4 eta 0.05
+sol6_n20-18,gpt-6-sol,4.63,0.6794,0.6812,300 trees depth 3 eta 0.05
+sol6_n20-18,gpt-6-sol,13.79,0.6830,0.6856,parse day of month as ordered numeric
+sol6_n20-18,gpt-6-sol,16.28,0.6841,0.6857,add ordered day of year
+sol6_n20-18,gpt-6-sol,23.09,0.6838,0.6858,departure minutes relative to origin median
+sol6_n20-18,gpt-6-sol,25.10,0.6845,0.6860,max_bin 512
+sol6_n20-18,gpt-6-sol,30.24,0.6847,0.6862,soft vote depth 3 and 4 weights 2:1
+sol6_n20-18,gpt-6-sol,33.58,0.6847,0.6864,gamma 1 in both ensemble members
+sol6_n20-18,gpt-6-sol,49.46,0.6847,0.6864,"simplify categorical preparation, equal AUC faster"
+sol6_n20-19,gpt-6-sol,0.60,0.6725,0.6743,baseline
+sol6_n20-19,gpt-6-sol,2.56,0.6775,0.6789,400 depth-4 trees at learning rate 0.05
+sol6_n20-19,gpt-6-sol,4.35,0.6792,0.6813,depth 3 at 400 trees and learning rate 0.05
+sol6_n20-19,gpt-6-sol,6.03,0.6831,0.6842,add ordinal day of year
+sol6_n20-19,gpt-6-sol,8.04,0.6832,0.6846,replace month and day categories with day of year
+sol6_n20-19,gpt-6-sol,8.78,0.6832,0.6847,minimum child weight 10
+sol6_n20-19,gpt-6-sol,10.67,0.6838,0.6852,row subsample 0.8
+sol6_n20-19,gpt-6-sol,11.37,0.6844,0.6856,column subsample 0.8 on top of row subsampling
+sol6_n20-19,gpt-6-sol,17.24,0.6841,0.6857,L2 leaf regularization 10
+sol6_n20-19,gpt-6-sol,17.97,0.6845,0.6861,L2 leaf regularization 50
+sol6_n20-19,gpt-6-sol,18.74,0.6847,0.6863,L2 leaf regularization 200
+sol6_n20-19,gpt-6-sol,21.30,0.6847,0.6865,gamma 5 split gain penalty
+sol6_n20-19,gpt-6-sol,25.60,0.6853,0.6867,three trees per boosting round
+sol6_n20-19,gpt-6-sol,28.68,0.6854,0.6869,48-level half-hour departure slot
+sol6_n20-19,gpt-6-sol,29.56,0.6853,0.6870,24-level hourly departure category
+sol6_n20-19,gpt-6-sol,33.77,0.6846,0.6875,L1 leaf regularization 10
+sol6_n20-19,gpt-6-sol,35.97,0.6846,0.6875,lossguide tree growth; same AUC and faster total run
+sol6_n20-19,gpt-6-sol,37.07,0.6851,0.6882,lossguide with eight leaves and no depth cap
+sol6_n20-19,gpt-6-sol,41.79,0.6864,0.6886,equal blend of regularized and lighter XGBoost
+sol6_n20-19,gpt-6-sol,42.95,0.6861,0.6887,2:1 regularized to lighter model blend
+sol6_n20-19,gpt-6-sol,47.53,0.6865,0.6888,lighter blend component uses twelve leaves
+sol6_n20-19,gpt-6-sol,58.52,0.6866,0.6889,500 rounds in 2:1 blended models
+sol6_n20-20,gpt-6-sol,0.70,0.6725,0.6743,baseline
+sol6_n20-20,gpt-6-sol,3.12,0.6779,0.6795,"depth 4, 300 trees, learning rate 0.05"
+sol6_n20-20,gpt-6-sol,4.94,0.6794,0.6812,depth 3 with same boosting budget
+sol6_n20-20,gpt-6-sol,10.68,0.6830,0.6856,parse day of month and use numeric splits
+sol6_n20-20,gpt-6-sol,14.32,0.6841,0.6857,add day of year numeric feature
+sol6_n20-20,gpt-6-sol,31.72,0.6842,0.6858,min child weight 10
+sol6_n20-20,gpt-6-sol,39.44,0.6838,0.6860,add cyclic departure time sine and cosine
+luna6_n20-1,gpt-6-luna,0.63,0.6725,0.6743,baseline
+luna6_n20-1,gpt-6-luna,5.41,0.6735,0.6745,500 trees at learning rate 0.03
+luna6_n20-1,gpt-6-luna,6.54,0.6759,0.6766,500 trees at 0.03 with subsample 0.8
+luna6_n20-1,gpt-6-luna,8.66,0.6775,0.6795,500 trees at 0.03 with row and feature subsampling 0.8
+luna6_n20-1,gpt-6-luna,9.59,0.6801,0.6819,500 trees at 0.03 with subsample 0.8 and colsample 0.6
+luna6_n20-1,gpt-6-luna,10.57,0.6800,0.6819,500 trees at 0.03 with subsample 0.8 and colsample 0.4
+luna6_n20-1,gpt-6-luna,16.29,0.6811,0.6826,add scheduled departure hour
+luna6_n20-1,gpt-6-luna,17.47,0.6808,0.6828,add scheduled departure hour and minute
+luna6_n20-1,gpt-6-luna,28.39,0.6814,0.6836,"cross-fitted carrier, origin, and destination delay rates"
+luna6_n20-1,gpt-6-luna,29.60,0.6820,0.6838,"cross-fitted carrier, origin, and destination rates smoothed at 100"
+luna6_n20-1,gpt-6-luna,43.16,0.6818,0.6840,800 trees at 0.02 with best features and sampling
+luna6_n20-1,gpt-6-luna,48.71,0.6821,0.6841,800 trees at 0.02 with mild L1 regularization
+luna6_n20-1,gpt-6-luna,54.40,0.6822,0.6844,800 trees at 0.02 with max_bin 512
+luna6_n20-2,gpt-6-luna,0.67,0.6725,0.6743,"baseline, unchanged starter"
+luna6_n20-2,gpt-6-luna,8.55,0.6784,0.6794,"depth 4, min_child_weight 5, row/column sampling 0.8"
+luna6_n20-2,gpt-6-luna,20.14,0.6783,0.6802,learning rate 0.05 with 200 trees and winning regularization
+luna6_n20-2,gpt-6-luna,21.76,0.6789,0.6811,depth 5 under learning rate 0.05 and 200 trees
+luna6_n20-2,gpt-6-luna,23.23,0.6789,0.6813,"depth 5, learning rate 0.05, 300 trees"
+luna6_n20-3,gpt-6-luna,0.61,0.6725,0.6743,baseline
+luna6_n20-3,gpt-6-luna,5.43,0.6771,0.6789,max_depth 4 (from 6)
+luna6_n20-3,gpt-6-luna,8.31,0.6787,0.6800,"lr 0.05, 200 trees at depth 4"
+luna6_n20-3,gpt-6-luna,15.06,0.6787,0.6803,add cyclic scheduled departure time features
+luna6_n20-3,gpt-6-luna,26.24,0.6782,0.6804,add smoothed Origin target-rate lookup
+luna6_n20-3,gpt-6-luna,42.29,0.6785,0.6806,3:1 soft vote of 200-tree and 100-tree depth-4 models
+luna6_n20-3,gpt-6-luna,46.18,0.6788,0.6808,3:1 vote of full-data and stochastic depth-4 boosters
+luna6_n20-3,gpt-6-luna,47.63,0.6791,0.6809,equal-weight vote of full-data and subsampled depth-4 boosters
+luna6_n20-3,gpt-6-luna,52.41,0.6792,0.6810,equal-weight ensemble with secondary row/column sampling at 0.8
+luna6_n20-3,gpt-6-luna,53.86,0.6796,0.6814,"equal-weight ensemble, secondary row sample 0.8 and column sample 0.6"
+luna6_n20-3,gpt-6-luna,55.84,0.6803,0.6820,"equal-weight ensemble, secondary row sample 0.8 and column sample 0.4"
+luna6_n20-4,gpt-6-luna,0.62,0.6725,0.6743,baseline
+luna6_n20-4,gpt-6-luna,5.19,0.6771,0.6789,reduce max_depth from 6 to 4
+luna6_n20-4,gpt-6-luna,6.47,0.6776,0.6793,set min_child_weight to 5
+luna6_n20-4,gpt-6-luna,7.49,0.6782,0.6800,set min_child_weight to 10
+luna6_n20-4,gpt-6-luna,26.07,0.6784,0.6802,use 300 trees at learning_rate 0.03
+luna6_n20-4,gpt-6-luna,36.23,0.6791,0.6805,set reg_alpha to 1.0
+luna6_n20-4,gpt-6-luna,37.33,0.6787,0.6812,set reg_alpha to 5.0
+luna6_n20-4,gpt-6-luna,38.42,0.6791,0.6816,set reg_alpha to 10.0
+luna6_n20-4,gpt-6-luna,44.68,0.6800,0.6821,add carrier-origin category
+luna6_n20-4,gpt-6-luna,56.30,0.6797,0.6824,set max_cat_threshold to 32 with carrier-origin
+luna6_n20-5,gpt-6-luna,0.62,0.6725,0.6743,baseline
+luna6_n20-5,gpt-6-luna,3.83,0.6734,0.6745,add scheduled-hour category and cyclic minute-of-day features
+luna6_n20-5,gpt-6-luna,5.28,0.6735,0.6747,ablate cyclic pair; retain scheduled-hour category
+luna6_n20-5,gpt-6-luna,11.26,0.6773,0.6789,lower max_depth from 6 to 4
+luna6_n20-5,gpt-6-luna,15.70,0.6783,0.6797,use 200 trees at learning rate 0.05
+luna6_n20-5,gpt-6-luna,47.61,0.6790,0.6799,"add five-fold smoothed carrier, origin, and destination delay rates"
+luna6_n20-5,gpt-6-luna,49.61,0.6791,0.6799,remove destination target rate; retain carrier and origin rates
+luna6_n20-5,gpt-6-luna,51.47,0.6789,0.6803,remove carrier target rate; retain origin rate
+luna6_n20-6,gpt-6-luna,0.59,0.6725,0.6743,baseline
+luna6_n20-6,gpt-6-luna,5.66,0.6735,0.6747,add scheduled departure hour categorical feature
+luna6_n20-6,gpt-6-luna,7.20,0.6773,0.6789,reduce max_depth from 6 to 4 with DepHour feature
+luna6_n20-6,gpt-6-luna,8.48,0.6784,0.6797,reduce max_depth from 4 to 3 with DepHour feature
+luna6_n20-6,gpt-6-luna,14.86,0.6791,0.6806,add DayOfWeek-by-DepHour categorical interaction
+luna6_n20-6,gpt-6-luna,22.29,0.6798,0.6818,set max_cat_to_onehot to 25
+luna6_n20-6,gpt-6-luna,41.98,0.6800,0.6821,"cross-fitted rates for carrier, origin, destination, and DOWHour; omit route"
+luna6_n20-6,gpt-6-luna,49.79,0.6800,0.6821,"remove OriginDelayRate; retain carrier, destination, and DOWHour rates"
+luna6_n20-6,gpt-6-luna,57.65,0.6800,0.6821,set gamma to 0.1; tied best AUC with faster observed eval
+luna6_n20-7,gpt-6-luna,0.63,0.6725,0.6743,baseline: starter XGBClassifier
+luna6_n20-7,gpt-6-luna,9.71,0.6753,0.6764,200 trees at learning rate 0.05
+luna6_n20-7,gpt-6-luna,12.84,0.6787,0.6800,"200 trees, learning rate 0.05, depth 4"
+luna6_n20-7,gpt-6-luna,20.03,0.6787,0.6800,simplify categorical preparation (faster evaluation)
+luna6_n20-7,gpt-6-luna,33.72,0.6784,0.6802,add cross-fitted carrier-origin-dest target rates
+luna6_n20-7,gpt-6-luna,38.08,0.6784,0.6802,ablate carrier rate; retain origin and destination rates
+luna6_n20-7,gpt-6-luna,39.55,0.6786,0.6805,ablate destination rate; retain origin rate
+luna6_n20-7,gpt-6-luna,55.37,0.6795,0.6813,add colsample_bytree 0.8 to origin-rate model
+luna6_n20-8,gpt-6-luna,0.62,0.6725,0.6743,baseline starter categorical XGBoost
+luna6_n20-8,gpt-6-luna,2.83,0.6771,0.6789,reduce max_depth from 6 to 4
+luna6_n20-8,gpt-6-luna,4.19,0.6786,0.6798,reduce max_depth from 4 to 3
+luna6_n20-8,gpt-6-luna,15.83,0.6791,0.6807,use 200 trees at learning_rate 0.05
+luna6_n20-8,gpt-6-luna,26.17,0.6791,0.6807,set min_child_weight=5; equal AUC and faster run
+luna6_n20-8,gpt-6-luna,30.28,0.6795,0.6809,set colsample_bytree=0.8
+luna6_n20-8,gpt-6-luna,36.81,0.6795,0.6809,set min_child_weight=10; equal AUC and faster run
+luna6_n20-9,gpt-6-luna,0.63,0.6725,0.6743,baseline
+luna6_n20-9,gpt-6-luna,4.79,0.6735,0.6747,add scheduled departure hour category
+luna6_n20-9,gpt-6-luna,13.50,0.6741,0.6756,add cross-fit smoothed carrier/origin/destination delay rates
+luna6_n20-9,gpt-6-luna,17.38,0.6760,0.6771,set subsample and colsample_bytree to 0.8
+luna6_n20-9,gpt-6-luna,20.77,0.6792,0.6804,reduce max_depth to 4
+luna6_n20-9,gpt-6-luna,26.20,0.6797,0.6810,use 200 trees at learning_rate 0.05
+luna6_n20-9,gpt-6-luna,51.46,0.6826,0.6831,add day-of-year calendar feature
+luna6_n20-9,gpt-6-luna,54.02,0.6841,0.6842,remove Month while retaining DayOfYear
+luna6_n20-9,gpt-6-luna,56.03,0.6844,0.6859,remove DayofMonth while retaining DayOfYear
+luna6_n20-10,gpt-6-luna,0.62,0.6725,0.6743,baseline
+luna6_n20-10,gpt-6-luna,5.80,0.6766,0.6777,0.8 row and column subsampling
+luna6_n20-10,gpt-6-luna,7.05,0.6781,0.6790,reduce max_depth to 4 with sampling
+luna6_n20-10,gpt-6-luna,8.47,0.6784,0.6799,halve learning rate and double estimators
+luna6_n20-10,gpt-6-luna,10.11,0.6783,0.6802,raise min_child_weight to 5
+luna6_n20-10,gpt-6-luna,15.77,0.6791,0.6808,lower colsample_bytree to 0.6
+luna6_n20-10,gpt-6-luna,21.78,0.6795,0.6811,add cyclic sine/cosine month features
+luna6_n20-10,gpt-6-luna,24.87,0.6809,0.6820,"remove month category, retain cyclic features"
+luna6_n20-10,gpt-6-luna,28.32,0.6817,0.6826,loss-guided growth with max_leaves 16
+luna6_n20-10,gpt-6-luna,46.86,0.6812,0.6827,set max_cat_threshold to 128
+luna6_n20-10,gpt-6-luna,51.24,0.6820,0.6828,set max_bin to 128
+luna6_n20-11,gpt-6-luna,0.59,0.6725,0.6743,"baseline, unchanged starter model"
+luna6_n20-11,gpt-6-luna,5.45,0.6766,0.6777,add 0.8 row and feature subsampling
+luna6_n20-11,gpt-6-luna,8.02,0.6773,0.6805,use colsample_bytree=0.8 without row subsampling
+luna6_n20-12,gpt-6-luna,0.79,0.6725,0.6743,baseline
+luna6_n20-12,gpt-6-luna,3.79,0.6735,0.6747,add elapsed departure minutes and categorical hour
+luna6_n20-12,gpt-6-luna,7.79,0.6742,0.6754,one-hot splits for low-cardinality categories
+luna6_n20-12,gpt-6-luna,9.70,0.6762,0.6777,one-hot splits for airport categories
+luna6_n20-12,gpt-6-luna,30.38,0.6786,0.6808,increase to 200 trees at learning rate 0.1
+luna6_n20-12,gpt-6-luna,32.24,0.6795,0.6814,increase to 300 trees at learning rate 0.1
+luna6_n20-12,gpt-6-luna,34.07,0.6798,0.6815,increase to 400 trees at learning rate 0.1
+luna6_n20-12,gpt-6-luna,41.65,0.6797,0.6816,increase max_bin to 512
+luna6_n20-12,gpt-6-luna,53.64,0.6799,0.6818,set colsample_bytree to 0.9
+luna6_n20-12,gpt-6-luna,57.66,0.6799,0.6819,increase to 450 trees with 0.9 column sampling
+luna6_n20-13,gpt-6-luna,0.61,0.6725,0.6743,baseline
+luna6_n20-13,gpt-6-luna,6.01,0.6736,0.6760,one-hot splits for low-cardinality categoricals
+luna6_n20-13,gpt-6-luna,8.41,0.6745,0.6766,200 trees at 0.05 learning rate
+luna6_n20-13,gpt-6-luna,15.25,0.6767,0.6790,limit partition category candidates to 32
+luna6_n20-13,gpt-6-luna,24.11,0.6784,0.6805,max_depth 5
+luna6_n20-13,gpt-6-luna,36.79,0.6800,0.6815,colsample_bytree 0.8
+luna6_n20-13,gpt-6-luna,40.32,0.6797,0.6816,add Thanksgiving travel window
+luna6_n20-13,gpt-6-luna,44.09,0.6797,0.6816,optimize Thanksgiving window lookup
+luna6_n20-14,gpt-6-luna,0.64,0.6725,0.6743,baseline: starter XGBoost model with native categorical features
+luna6_n20-14,gpt-6-luna,9.00,0.6771,0.6789,reduce max_depth from 6 to 4
+luna6_n20-14,gpt-6-luna,10.24,0.6786,0.6798,reduce max_depth from 4 to 3
+luna6_n20-14,gpt-6-luna,13.01,0.6791,0.6807,use learning_rate 0.05 with 200 trees at depth 3
+luna6_n20-14,gpt-6-luna,16.49,0.6795,0.6809,add colsample_bytree=0.8
+luna6_n20-14,gpt-6-luna,30.97,0.6800,0.6819,increase n_estimators from 200 to 300 at learning_rate 0.05
+luna6_n20-15,gpt-6-luna,0.60,0.6725,0.6743,baseline
+luna6_n20-15,gpt-6-luna,3.29,0.6776,0.6793,depth 4 and min_child_weight 5
+luna6_n20-15,gpt-6-luna,8.17,0.6779,0.6799,"cyclic month, weekday, and departure-time features"
+luna6_n20-15,gpt-6-luna,35.11,0.6779,0.6799,remove explicit min_child_weight setting
+luna6_n20-15,gpt-6-luna,39.07,0.6779,0.6799,gamma 1.0 minimum split gain
+luna6_n20-15,gpt-6-luna,43.70,0.6779,0.6799,gamma 2.0 minimum split gain
+luna6_n20-15,gpt-6-luna,48.12,0.6777,0.6802,reg_lambda 2.0
+luna6_n20-15,gpt-6-luna,52.47,0.6785,0.6804,reg_alpha 0.1 with reg_lambda 2
+luna6_n20-16,gpt-6-luna,0.64,0.6725,0.6743,baseline
+luna6_n20-16,gpt-6-luna,7.77,0.6735,0.6747,add 24-level departure-hour category
+luna6_n20-16,gpt-6-luna,13.89,0.6773,0.6789,set max_depth=4
+luna6_n20-16,gpt-6-luna,15.13,0.6784,0.6797,set max_depth=3
+luna6_n20-16,gpt-6-luna,29.22,0.6783,0.6798,replace DepHour with four six-hour DepPeriod bins
+luna6_n20-16,gpt-6-luna,31.00,0.6792,0.6805,use learning_rate=0.05 with 200 trees
+luna6_n20-16,gpt-6-luna,35.60,0.6790,0.6810,add weekday by six-hour period category
+luna6_n20-16,gpt-6-luna,37.71,0.6792,0.6814,set max_depth=4 with weekday-period interaction
+luna6_n20-16,gpt-6-luna,43.26,0.6800,0.6817,set max_cat_threshold=32
+luna6_n20-16,gpt-6-luna,49.62,0.6816,0.6819,add broad named holiday windows
+luna6_n20-16,gpt-6-luna,55.97,0.6819,0.6833,set colsample_bytree=0.8
+luna6_n20-17,gpt-6-luna,0.61,0.6725,0.6743,baseline (starter configuration)
+luna6_n20-17,gpt-6-luna,3.13,0.6735,0.6747,add train-fitted categorical scheduled departure hour
+luna6_n20-17,gpt-6-luna,9.67,0.6773,0.6789,reduce max_depth from 6 to 4
+luna6_n20-17,gpt-6-luna,21.36,0.6805,0.6820,add annual day-of-year sine and cosine
+luna6_n20-17,gpt-6-luna,27.37,0.6808,0.6832,drop Month and DayofMonth model inputs
+luna6_n20-17,gpt-6-luna,46.80,0.6817,0.6841,reduce max_depth from four to three
+luna6_n20-18,gpt-6-luna,0.63,0.6725,0.6743,baseline
+luna6_n20-18,gpt-6-luna,3.05,0.6728,0.6751,add scheduled departure hour
+luna6_n20-18,gpt-6-luna,7.69,0.6784,0.6794,reduce max_depth to 4
+luna6_n20-18,gpt-6-luna,8.81,0.6790,0.6803,reduce max_depth to 3
+luna6_n20-18,gpt-6-luna,12.86,0.6792,0.6811,double rounds at learning rate 0.1
+luna6_n20-18,gpt-6-luna,21.64,0.6819,0.6832,add row-wise day of year
+luna6_n20-18,gpt-6-luna,31.09,0.6826,0.6838,ablate month and day categories
+luna6_n20-18,gpt-6-luna,34.65,0.6828,0.6847,add cyclical scheduled departure time
+luna6_n20-18,gpt-6-luna,37.40,0.6831,0.6849,set min_child_weight to 5
+luna6_n20-18,gpt-6-luna,47.30,0.6831,0.6849,set gamma to 1.0; tied AUC and slightly faster
+luna6_n20-19,gpt-6-luna,0.58,0.6725,0.6743,baseline
+luna6_n20-19,gpt-6-luna,2.68,0.6771,0.6789,max_depth=4
+luna6_n20-19,gpt-6-luna,3.93,0.6777,0.6791,min_child_weight=25 on max_depth=4
+luna6_n20-19,gpt-6-luna,11.10,0.6783,0.6798,add daily cyclic departure-time features
+luna6_n20-19,gpt-6-luna,12.48,0.6787,0.6800,add second daily departure-time harmonic
+luna6_n20-19,gpt-6-luna,17.44,0.6785,0.6802,learning_rate=0.05 and n_estimators=200
+luna6_n20-19,gpt-6-luna,23.32,0.6784,0.6802,max_depth=3; tied AUC with simpler trees
+luna6_n20-19,gpt-6-luna,24.94,0.6790,0.6806,learning_rate=0.025 and n_estimators=400
+luna6_n20-19,gpt-6-luna,26.35,0.6791,0.6807,learning_rate=0.0125 and n_estimators=800
+luna6_n20-19,gpt-6-luna,39.06,0.6795,0.6810,soft average of depth-3 and depth-4 models
+luna6_n20-19,gpt-6-luna,56.12,0.6811,0.6826,add first day-of-year harmonic
+luna6_n20-20,gpt-6-luna,0.73,0.6725,0.6743,baseline
+luna6_n20-20,gpt-6-luna,9.12,0.6771,0.6789,reduce max_depth from 6 to 4
+luna6_n20-20,gpt-6-luna,12.22,0.6786,0.6798,reduce max_depth from 4 to 3
+luna6_n20-20,gpt-6-luna,19.60,0.6791,0.6807,use learning_rate 0.05 with 200 trees at depth 3
+luna6_n20-20,gpt-6-luna,21.21,0.6795,0.6809,set colsample_bytree to 0.8
+luna6_n20-20,gpt-6-luna,42.47,0.6806,0.6819,add annual day-of-year sine and cosine features
+luna6_n20-20,gpt-6-luna,43.69,0.6807,0.6822,test max_depth 4 with annual features
+luna6_n20-20,gpt-6-luna,45.87,0.6833,0.6841,replace annual sine/cosine pair with linear DayOfYear
+luna6_n20-20,gpt-6-luna,47.86,0.6837,0.6847,drop separate Month and DayofMonth categories
+luna6_n20-20,gpt-6-luna,50.74,0.6844,0.6850,replace DayOfWeek category with weekly sine and cosine
