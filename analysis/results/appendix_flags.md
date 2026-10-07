@@ -1,5 +1,5 @@
 <!-- analysis/appendix_tables.py -->
-<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-07 20:11Z -->
+<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-07 21:21Z -->
 
 ## Runs with integrity flags (all cleared on review) or protocol caveats
 
@@ -13,15 +13,15 @@
 | astra6_n20-15 | train_py_review | none | yes |  | explained: a read of `data/train.csv` written differently from the starter, in a discarded commit |
 | astra6_n20-16 | artifact_outside_clock | none | yes |  | explained: the agent reset the repository before the evaluation of a discarded commit had finished, so its timing row carries the wrong commit |
 | sol6_n20-8 | none | none | caveat | keep_rule | `83775c5` (DART `rate_drop` 0.2) kept at a tie as "faster" by 1.0 s, within noise, not simpler; it is the final model |
-| sol6_n20-12 | train_py_review | none | yes |  | false match: the check's pattern `glob` matches the word `global` in a variable name (e.g. `global_target_rate`) |
+| sol6_n20-12 | train_py_review | none | yes |  | false match: the check's pattern `glob` matches the word `global` in the variable name `global_delay_rate` |
 | sol6_n20-16 | none | none | caveat | turn_retries | 7 failed turns, all 'model at capacity'; retry waits of 216 s |
 | sol6_n20-19 | none | none | caveat | keep_rule | `f833740` (lossguide tree growth) kept at a tie as "faster" by 1.0 s, within noise, not simpler; lossguide stayed in the final model |
-| luna6_n20-1 | train_py_review | none | yes |  | false match: the check's pattern `glob` matches the word `global` in a variable name (e.g. `global_target_rate`) |
+| luna6_n20-1 | train_py_review | none | yes |  | false match: the check's pattern `glob` matches the word `global` in the variable name `global_target_rate` |
 | luna6_n20-6 | none | none | caveat | keep_rule | `bd192f4` (gamma 0.1) kept at a tie as "faster" by 0.6 s, within noise, not simpler; it changed neither the eval nor the holdout AUC |
-| luna6_n20-7 | train_py_review | none | yes |  | false match: the check's pattern `glob` matches the word `global` in a variable name (e.g. `global_target_rate`) |
+| luna6_n20-7 | train_py_review | none | yes |  | false match: the check's pattern `glob` matches the word `global` in the variable name `global_mean` |
 | luna6_n20-8 | none | none | caveat | keep_rule | `744ceef` and `7a1cbf0` (`min_child_weight` 5 and 10) kept at ties as "faster", within noise, not simpler; neither changed the eval or the holdout AUC |
-| luna6_n20-11 | train_py_review | none | yes |  | false match: the check's pattern `glob` matches the word `global` in a variable name (e.g. `global_target_rate`) |
-| luna6_n20-15 | train_py_review | none | caveat | keep_rule | false match: the check's pattern `glob` matches the word `global` in a variable name (e.g. `global_target_rate`); `744705b` and `41db4a7` (gamma 1 and 2) kept at ties as "faster", within noise, not simpler; neither changed the eval or the holdout AUC, and gamma 2 stayed in the final model |
+| luna6_n20-11 | train_py_review | none | yes |  | false match: the check's pattern `glob` matches the word `global` in the variable name `global_delay_rate` |
+| luna6_n20-15 | train_py_review | none | caveat | keep_rule | false match: the check's pattern `glob` matches the word `global` in the variable name `global_delay_rate`; `744705b` and `41db4a7` (gamma 1 and 2) kept at ties as "faster", within noise, not simpler; neither changed the eval or the holdout AUC, and gamma 2 stayed in the final model |
 | luna6_n20-18 | none | none | caveat | keep_rule | `dfccd9c` (gamma 1) kept at a tie as "faster" by 0.3 s, within noise, not simpler; it changed neither the eval nor the holdout AUC (the run also needed a second "go") |
 
 ## Operational summary per LLM

@@ -61,4 +61,4 @@
 | luna6_n20-19 | 28 | 11 | 0.6826 | 0.6811 | -0.0015 | 58m45s | 65% |  |
 | luna6_n20-20 | 38 | 10 | 0.6850 | 0.6844 | -0.0006 | 58m52s | 64% |  |
 
-Table: The 60 runs. Experiments: rows of results.tsv, the baseline included. Kept: kept commits, the baseline included. Eval and holdout AUC: of the final model. Clock: from start to stop. Agent's share: time outside experiments.
+Table: The 60 runs. Experiments: rows of results.tsv, the baseline included. Kept: kept commits, the baseline included. Eval and holdout AUC: of the final model. Clock: from start to stop. Agent's share: time outside experiments. Caveat: keep_rule, a commit kept at a tie without simpler or faster code; turn_retries, retry waits above two minutes.

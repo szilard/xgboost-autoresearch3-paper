@@ -46,6 +46,24 @@ def breakable_path(m):
 
 
 tex = re.sub(r"\\texttt\{(?:[^{}]|\{[^{}]*\})*\}", breakable_path, tex)
+# a true minus for negative numbers (a hyphen before a digit that follows a space or bracket; dates and run names keep theirs)
+head, sep, body = tex.partition("\\begin{document}")
+body = re.sub(r"(?<=[\s(\[{])-(?=\d)", "$-$", body)
+tex = head + sep + body
+
+
+# short tables stay on one page: in a longtable, a row ended with \\* allows no page break after it
+def keep_together(m, max_rows=15):
+    block = m.group(0)
+    if "\\endlastfoot" not in block:
+        return block
+    top, rest = block.split("\\endlastfoot", 1)
+    if rest.count("\\\\\n") > max_rows:
+        return block
+    return top + "\\endlastfoot" + rest.replace("\\\\\n", "\\\\*\n")
+
+
+tex = re.sub(r"\\begin\{longtable\}.*?\\end\{longtable\}", keep_together, tex, flags=re.S)
 # run names (astra6_n20-12) must not break at their hyphen
 tex = re.sub(r"(?<![\\\w{])((?:astra|sol|luna)6\\_n20-\d+)", r"\\mbox{\1}", tex)
 # table headers are one-word paragraphs in narrow minipages, and TeX never hyphenates a paragraph's first

@@ -198,3 +198,18 @@ def runs_csv(repo):
     """The collected table written by collect_runs.py, re-read as dicts (numbers as strings)."""
     with open(RESULTS / "runs.csv", newline="") as f:
         return list(csv.DictReader(f))
+
+
+# the order of Figure 2 (top to bottom): the widest gap first, the closest pair last
+PAIRS = [("gpt-6-astra", "gpt-6-luna"), ("gpt-6-sol", "gpt-6-luna"), ("gpt-6-astra", "gpt-6-sol")]
+
+
+def runs_per_arm(gap, sd, power=0.8, alpha=0.05):
+    """Smallest n per arm for which a two-sided two-sample t-test at level alpha reaches the power,
+    at the given gap of means and common sd (exact, from the noncentral t distribution)."""
+    from scipy import stats as ss
+    import numpy as np
+    for n in range(2, 1000):
+        df = 2 * n - 2; ncp = gap / (sd * np.sqrt(2 / n)); tc = ss.t.ppf(1 - alpha / 2, df)
+        if 1 - ss.nct.cdf(tc, df, ncp) + ss.nct.cdf(-tc, df, ncp) >= power:
+            return n

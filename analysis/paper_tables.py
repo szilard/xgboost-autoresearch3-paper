@@ -8,7 +8,7 @@ import itertools
 import statistics as st
 import numpy as np
 from scipy import stats as ss
-from common import BASE_EVAL, BASE_HOLDOUT, BTS_INFORMED, MODELS, PAPER_ROOT, PRICES, RESULTS, SHORT, load_runs, md_table, runs_repo
+from common import PAIRS, runs_per_arm, BASE_EVAL, BASE_HOLDOUT, BTS_INFORMED, MODELS, PAPER_ROOT, PRICES, RESULTS, SHORT, load_runs, md_table, runs_repo
 from best_of_k import dist, quantile
 from time_course import course
 from appendix_tables import note
@@ -77,13 +77,14 @@ save("per_model", ["LLM", "n", "mean", "sd", "95% CI of the mean", "min", "10th 
      "Holdout AUC of each run's final model, 20 runs per LLM. The starter model scores 0.6725. sd is the sample standard deviation; the interval uses the t distribution; the 10th and 90th percentiles are the 3rd-lowest and 3rd-highest of the 20 runs; the range is the best run minus the worst.")
 
 # Table: head to head
-rows = []
-for a, b in itertools.combinations(MODELS, 2):
+by_pair = {}
+for a, b in itertools.combinations(MODELS, 2):  # the bootstrap draws in this order (seeded), as in results/table_pairwise.md
     A = [r["holdout_auc"] for r in model_runs(runs, a)]; B = [r["holdout_auc"] for r in model_runs(runs, b)]
     p, lo, hi = win(A, B)
-    rows.append([f"{SHORT[a]} vs {SHORT[b]}", pct(p), f"{pct(lo)}–{pct(hi)}", f"{np.mean(A)-np.mean(B):+.4f}"])
+    by_pair[(a, b)] = [f"{SHORT[a]} vs {SHORT[b]}", pct(p), f"{pct(lo)}–{pct(hi)}", f"{np.mean(A)-np.mean(B):+.4f}"]
+rows = [by_pair[pair] for pair in PAIRS]  # shown in the order of Figure 2
 save("pairwise", ["pair", "P(first LLM's run wins)", "95% bootstrap interval", "difference of means"], rows,
-     "Head to head: the probability that a randomly chosen run of the first LLM has a higher holdout AUC than a randomly chosen run of the second, over all 400 pairs of runs, ties counted half. Bootstrap: runs resampled within each LLM, 10,000 resamples.")
+     "Head to head: the probability that a randomly chosen run of the first LLM has a higher holdout AUC than a randomly chosen run of the second, over all 400 pairs of runs, ties counted half. Bootstrap: runs resampled within each LLM, 10,000 resamples. The difference of means is computed before rounding, so it can differ by 0.0001 from the difference of the means in Table 2.")
 
 # Table: time course
 C = {r["run"]: course(r) for r in runs}
@@ -114,9 +115,9 @@ for m in MODELS:
     rr = model_runs(runs, m); a = [aud[r["run"]] for r in rr]
     kept = [r["holdout_auc"] for r, x in zip(rr, a) if x["dom_cat"] == "1"]; dropped = [r["holdout_auc"] for r, x in zip(rr, a) if x["dom_cat"] == "0"]
     rows.append([SHORT[m], len(dropped), sum(x["doy"] == "1" for x in a), sum(x["holiday"] == "1" for x in a), sum(x["month_cat"] == "0" for x in a),
-                 f"{st.mean(dropped):.4f}" if dropped else "-", f"{st.mean(kept):.4f}" if kept else "-", f"{float(f'{st.mean(dropped):.4f}') - float(f'{st.mean(kept):.4f}'):+.4f}" if kept and dropped else "-"])
+                 f"{st.mean(dropped):.4f}" if dropped else "-", f"{st.mean(kept):.4f}" if kept else "-", f"{st.mean(dropped) - st.mean(kept):+.4f}" if kept and dropped else "-"])
 save("calendar", ["LLM", "dropped the day-of-month category", "numeric day-of-year-like feature", "holiday features", "dropped the month category", "mean holdout, dropped", "mean holdout, kept", "difference"], rows,
-     "How the 20 final models of each LLM handle the calendar, from an audit of their train.py. Day-of-year-like: day, week or fortnight of the year as a number. Means are holdout AUCs of the runs that dropped or kept the day-of-month category (Astra kept it in one run); the difference is that of the means shown.")
+     "How the 20 final models of each LLM handle the calendar, from an audit of their train.py. Day-of-year-like: day, week or fortnight of the year as a number. Means are holdout AUCs of the runs that dropped or kept the day-of-month category (Astra kept it in one run); the difference is computed before rounding, as in Table 3.")
 
 # Table: eval-holdout gap
 rows = []
@@ -136,14 +137,14 @@ save("best_of_k", ["LLM"] + [f"k = {k}" for k in KS] + ["k = 3, 5th percentile",
 
 # Appendix: tests
 rows = []
-for a, b in itertools.combinations(MODELS, 2):
+for a, b in PAIRS:
     A = [r["holdout_auc"] for r in model_runs(runs, a)]; B = [r["holdout_auc"] for r in model_runs(runs, b)]
     t = ss.ttest_ind(A, B, equal_var=False); u = ss.mannwhitneyu(A, B, alternative="two-sided")
     gap = abs(np.mean(A) - np.mean(B)); sd = np.sqrt((np.var(A, ddof=1) + np.var(B, ddof=1)) / 2)
-    rows.append([f"{SHORT[a]} vs {SHORT[b]}", f"{t.statistic:.1f}", f"{t.pvalue:.0e}", f"{u.statistic:.0f}", f"{u.pvalue:.0e}", str(math.ceil(16 * sd**2 / gap**2))])
+    rows.append([f"{SHORT[a]} vs {SHORT[b]}", f"{t.statistic:.1f}", f"{t.pvalue:.0e}", f"{u.statistic:.0f}", f"{u.pvalue:.0e}", str(runs_per_arm(gap, sd))])
 f = ss.f_oneway(*[[r["holdout_auc"] for r in model_runs(runs, m)] for m in MODELS]); kw = ss.kruskal(*[[r["holdout_auc"] for r in model_runs(runs, m)] for m in MODELS])
 save("tests", ["pair", "Welch t", "p", "Mann-Whitney U", "p", "runs per arm to detect the observed gap"], rows,
-     f"Two-sided tests between LLMs and, post hoc, the runs per arm, rounded up, that the approximation 16 sd^2^ / gap^2^ gives for 80% power at the 5% level with the observed gap and pooled sd. One-way ANOVA: F = {f.statistic:.1f}, p = {f.pvalue:.0e}; Kruskal-Wallis: H = {kw.statistic:.1f}, p = {kw.pvalue:.0e}.")
+     f"Two-sided tests between LLMs and, post hoc, the runs per arm a two-sided t-test at the 5% level needs for 80% power at the observed gap and pooled sd, computed exactly (noncentral t). One-way ANOVA: F = {f.statistic:.1f}, p = {f.pvalue:.0e}; Kruskal-Wallis: H = {kw.statistic:.1f}, p = {kw.pvalue:.0e}.")
 
 # Appendix: sensitivity
 subsets = [("all 60 runs", runs), ("without the 10 caveat runs", [r for r in runs if r["valid"] == "yes"]),
@@ -160,7 +161,7 @@ save("sensitivity", ["runs", "n (Astra, Sol, Luna)", "mean Astra", "mean Sol", "
 rows = [[r["run"], r["integrity_flags"] if r["integrity_flags"] != "none" else "", r["flags"], note(r)]
         for r in runs if r["integrity_flags"] != "none" or r["valid"] == "caveat"]
 save("flags", ["run", "integrity flag (cleared)", "caveat", "resolution"], rows,
-     "The runs with an integrity flag, the leak check included (all false alarms on review), or a protocol caveat. No run was excluded.")
+     "The runs with an integrity flag, the leak check included (all false alarms on review), or a protocol caveat. No run was excluded. Integrity flags: artifact_outside_clock, an artifact without a matching timing row of the clock; train_py_review, a pattern in train.py that may read other files or the network; leak_check_hit, a line of a forbidden file found in the session log. Caveats: keep_rule, a commit kept at a tie without simpler or faster code; turn_retries, retry waits above two minutes.")
 
 # Appendix: operations
 rows = []
@@ -191,7 +192,7 @@ for m in MODELS:
         rows.append([r["run"], r["experiments"], r["n_keep"], f"{r['best_eval_auc']:.4f}", f"{r['holdout_auc']:.4f}", f"{r['gap']:+.4f}",
                      f"{r['clock_elapsed_s']//60}m{r['clock_elapsed_s']%60:02d}s", f"{rnd(r['ai_share_pct'])}%", r["flags"] or ""])
 save("per_run", ["run", "experiments", "kept", "eval AUC", "holdout AUC", "gap", "clock", "agent's share", "caveat"], rows,
-     "The 60 runs. Experiments: rows of results.tsv, the baseline included. Kept: kept commits, the baseline included. Eval and holdout AUC: of the final model. Clock: from start to stop. Agent's share: time outside experiments.")
+     "The 60 runs. Experiments: rows of results.tsv, the baseline included. Kept: kept commits, the baseline included. Eval and holdout AUC: of the final model. Clock: from start to stop. Agent's share: time outside experiments. Caveat: keep_rule, a commit kept at a tie without simpler or faster code; turn_retries, retry waits above two minutes.")
 
 # Appendix: the example run's kept commits
 ex = next(r for r in runs if r["run"] == "astra6_n20-1")
