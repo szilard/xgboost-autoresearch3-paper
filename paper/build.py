@@ -33,6 +33,7 @@ bib = (HERE / "refs.bib").read_text()
 bib = re.sub(r"^\s*note\s*=\s*\{(?:[^{}]|\{[^{}]*\})*\},?\n", "", bib, flags=re.M)
 (BUILD / "refs.bib").write_text(bib)
 shutil.copy(HERE / "header.tex", BUILD / "header.tex")
+shutil.copy(HERE / "plainnat-sf.bst", BUILD / "plainnat-sf.bst")  # authors surname first
 cmd = ["pandoc", "paper.md", "--from", "markdown+smart", "--to", "latex", "--standalone", "--natbib",
        "--include-in-header", "header.tex", "--number-sections", "--output", "main.tex"]
 subprocess.run(cmd, cwd=BUILD, check=True)
