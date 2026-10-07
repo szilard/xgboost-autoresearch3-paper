@@ -19,9 +19,9 @@
 | 13 | Pandoc Markdown toolchain (option A). |
 | 14 | arXiv categories: decided at submission; nothing in the manuscript depends on it. |
 | 15 | Paper repo public from the start: `github.com/szilard/xgboost-autoresearch3-paper`. |
-| 16 | Machine: AWS m8i.2xlarge (8 vCPUs, 32 GB), all 60 runs on the same host (confirmed by the authors). |
-| 17 | Example run in the appendix: astra6_n20-1 (holdout 0.6880, 6th of 20, just above the median 0.6871). |
-| 18 | Length: 10 to 14 pages of main text. |
+| 16 | Machine: AWS m8i.2xlarge (8 vCPUs, 32 GB) for all 60 runs; runs sequential within a group, the groups partly at the same time on separate instances (confirmed by the authors 2026-10-07, matching the run timestamps). |
+| 17 | Example run in the appendix: astra6_n20-1 (holdout 0.6880, 6th of 20, above the median 0.6871). |
+| 18 | Length: no upper limit; a longer main text is welcome (authors, 2026-10-07). The draft's main text is about 20 pages and is not to be cut for length. |
 
 Defaults applied without a separate decision: analysis scripts in this repo under `analysis/`; the runs repo pinned by commit hash, not a submodule; the agent described as "Codex CLI 0.160.0 on a ChatGPT subscription" without naming the tier; the disclosure names Claude Code's role in orchestration, run review and drafting, as the runs repo README does.
 

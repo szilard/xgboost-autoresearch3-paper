@@ -1,6 +1,6 @@
 # 02. Section-by-section outline
 
-Target: 10 to 14 pages of main text in a single-column arXiv preprint, plus appendix. Write in
+Length: no upper limit (decision 18 in 08); the per-section page counts below were the first draft's guide, not caps. Single-column arXiv preprint, plus appendix. Write in
 this order: Methods, Results, Related work, Introduction, Discussion, Conclusion, Abstract.
 
 ## Abstract (150 to 200 words)
