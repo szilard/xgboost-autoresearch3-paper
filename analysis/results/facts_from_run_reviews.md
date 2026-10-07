@@ -13,3 +13,4 @@
 | Context compactions | 11 Astra, 2 Sol, 12 Luna runs; 25 in all | runs.csv (compactions column) |
 | Runs that ended their wrap-up after the budget | 4 Astra, 2 Sol, 0 Luna | runs.csv (clock_remaining_s < 0) |
 | Runs with service errors resumed by the driver | astra6_n20-4, sol6_n20-4, sol6_n20-16, sol6_n20-17, sol6_n20-20 | runs.csv (failed_turns) |
+| Gap thresholds of the run review (holdout minus eval AUC of the final model): overfit below, recheck above | -0.006 / +0.003; set 2026-10-04 (runs repo commit cc132e5), unchanged during the runs, no run crossed either | .claude/skills/xgb-multi/SKILL.md in the runs repo; run-multi/{luna6_n20,sol6_n20,astra6_n20}/results_summary.md, "Gaps" |
