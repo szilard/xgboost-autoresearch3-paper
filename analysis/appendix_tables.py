@@ -5,17 +5,22 @@ from common import MODELS, SHORT, load_runs, md_table, runs_repo, write
 INTEGRITY_NOTES = {  # from the groups' results_summary.md and the runs' run.md
     "train_py_review": "false match: the check's pattern `glob` matches the word `global` in a variable name (e.g. `global_target_rate`)",
     "artifact_outside_clock": "explained: the artifact is from a harness run inside the clock that left no timing row of its own",
+    "leak_check_hit": "false match: the leak check's content search matched a line that the agent had written itself",
 }
 SPECIAL = {"astra6_n20-15": "explained: a read of `data/train.csv` written differently from the starter, in a discarded commit",
            "astra6_n20-4": "explained: the last experiment, started inside the clock with 1m53s left, was cut off during evaluation when the turn failed",
-           "astra6_n20-16": "explained: a discarded run whose timing row got the wrong commit after a bookkeeping slip by the agent"}
-def note(r):
-    if r["caveat_text"]:
-        return r["caveat_text"]
-    if r["run"] in SPECIAL:
-        return SPECIAL[r["run"]]
-    return "; ".join(INTEGRITY_NOTES.get(f, f) for f in r["integrity_flags"].split())
+           "astra6_n20-16": "explained: the agent reset the repository before the evaluation of a discarded commit had finished, so its timing row carries the wrong commit",
+           "astra6_n20-6": "false match: the leak check matched the end of a column list that the agent printed in its own setup check",
+           "astra6_n20-8": "false match: the leak check matched a call to the harness's own artifact loader in the agent's final check"}
 
+
+def note(r):
+    parts = []
+    if r["integrity_flags"] != "none":
+        parts.append(SPECIAL.get(r["run"]) or "; ".join(INTEGRITY_NOTES.get(f, f) for f in r["integrity_flags"].split()))
+    if r["caveat_text"]:
+        parts.append(r["caveat_text"])
+    return "; ".join(parts)
 
 def main():
     repo = runs_repo()

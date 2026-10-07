@@ -14,12 +14,37 @@ from time_course import course
 from appendix_tables import note
 import csv
 import re
+from decimal import Decimal, ROUND_HALF_UP
 
 repo = runs_repo()
 runs = load_runs(repo)
 OUT = PAPER_ROOT / "paper" / "tables"
 OUT.mkdir(parents=True, exist_ok=True)
 rng = np.random.default_rng(1)
+
+
+def rnd(x, nd=0):
+    """Round half up (Python's own formatting rounds exact halves to even: 0.925 -> 92%, 2.25 -> 2.2)."""
+    return Decimal(f"{float(x):.{nd + 6}f}").quantize(Decimal(1).scaleb(-nd), rounding=ROUND_HALF_UP)
+
+
+def pct(x, nd=0):
+    return f"{rnd(100 * x, nd)}%"
+
+
+def f1(x):
+    return str(rnd(x, 1))
+
+
+def xgb_seconds(r):
+    """Mean duration of one experiment (training plus evaluation) in a run, from the harness timing rows."""
+    v = []
+    for x in csv.DictReader(open(r["dir"] / "timing" / "runs.tsv"), delimiter="\t"):
+        try:
+            v.append(float(x["train_s"]) + float(x["eval_s"]))
+        except (ValueError, KeyError, TypeError):
+            pass
+    return st.mean(v)
 
 
 def save(name, headers, rows, caption):
@@ -55,7 +80,7 @@ rows = []
 for a, b in itertools.combinations(MODELS, 2):
     A = [r["holdout_auc"] for r in model_runs(runs, a)]; B = [r["holdout_auc"] for r in model_runs(runs, b)]
     p, lo, hi = win(A, B)
-    rows.append([f"{SHORT[a]} vs {SHORT[b]}", f"{p:.0%}", f"{lo:.0%}–{hi:.0%}", f"{np.mean(A)-np.mean(B):+.4f}"])
+    rows.append([f"{SHORT[a]} vs {SHORT[b]}", pct(p), f"{pct(lo)}–{pct(hi)}", f"{np.mean(A)-np.mean(B):+.4f}"])
 save("pairwise", ["pair", "P(first LLM's run wins)", "95% bootstrap interval", "difference of means"], rows,
      "Head to head: the probability that a randomly chosen run of the first LLM has a higher holdout AUC than a randomly chosen run of the second, over all 400 pairs of runs, ties counted half. Bootstrap: runs resampled within each LLM, 10,000 resamples.")
 
@@ -65,19 +90,19 @@ rows = []
 for m in MODELS:
     rr = model_runs(runs, m); cs = [C[r["run"]] for r in rr]
     med = lambda k: st.median([c[k] for c in cs if c[k] is not None])
-    rows.append([SHORT[m], f"{med('first'):.1f}", f"{med('h15'):.4f}", f"{med('h30'):.4f}", f"{med('h45'):.4f}", f"{med('h60'):.4f}",
-                 f"{st.mean(r['experiments'] for r in rr):.0f}", f"{st.mean(r['n_keep'] for r in rr):.1f}", f"{st.mean(r['ai_share_pct'] for r in rr):.0f}%",
-                 f"{med('plateau'):.0f}", sum(c["plateau"] >= 20 for c in cs), f"{st.mean(c['downs'] for c in cs):.1f}"])
-save("time_course", ["LLM", "first gain, min", "holdout at 15 min", "30 min", "45 min", "60 min", "experiments", "kept", "agent's share of the hour",
+    rows.append([SHORT[m], f"{med('h15'):.4f}", f"{med('h30'):.4f}", f"{med('h45'):.4f}", f"{med('h60'):.4f}",
+                 f"{st.mean(r['experiments'] for r in rr):.0f}", f1(st.mean(r['n_keep'] for r in rr)), str(rnd(st.mean(xgb_seconds(r) for r in rr))),
+                 f"{rnd(st.mean(r['ai_share_pct'] for r in rr))}%", str(rnd(med('plateau'))), sum(c["plateau"] >= 20 for c in cs), f1(st.mean(c['downs'] for c in cs))])
+save("time_course", ["LLM", "holdout at 15 min", "30 min", "45 min", "60 min", "experiments", "kept", "XGBoost run, s", "agent's share of the hour",
                      "longest plateau, min", "runs with a plateau of 20 min or more", "steps down per run"], rows,
-     "The hour, per LLM. First gain: median minute of the first kept commit whose holdout AUC exceeds the starter's by more than 0.0005. Holdout at t: median over runs of the holdout AUC of the model kept at minute t. Experiments and kept commits: means per run. Agent's share: time outside XGBoost runs. Plateau: longest interval without a kept commit (median over runs). Steps down: kept commits whose holdout AUC is below the previous kept commit's (mean per run).")
+     "The hour, per LLM. Holdout at t: median over runs of the holdout AUC of the model kept at minute t. Experiments and kept commits: means per run, the baseline counted as a kept commit. XGBoost run: mean duration of one experiment, training and evaluation, in seconds. Agent's share: time outside XGBoost runs. Plateau: longest interval without a kept commit (median over runs). Steps down: kept commits whose holdout AUC is below the previous kept commit's (mean per run).")
 
 # Table: first kept depth change
 rows = []
 for m in MODELS:
     fds = [C[r["run"]]["first_depth"] for r in model_runs(runs, m)]; fds = [x for x in fds if x]
     fks = [C[r["run"]]["first_keep"] for r in model_runs(runs, m)]; fks = [x for x in fks if x]
-    rows.append([SHORT[m], f"{st.median(x[0] for x in fks):.1f}", f"{st.median(x[1] for x in fks):.4f}", len(fds), f"{st.median(x[0] for x in fds):.1f}", f"{st.median(x[1] for x in fds):.4f}"])
+    rows.append([SHORT[m], f1(st.median(x[0] for x in fks)), f"{st.median(x[1] for x in fks):.4f}", len(fds), f1(st.median(x[0] for x in fds)), f"{st.median(x[1] for x in fds):.4f}"])
 save("first_move", ["LLM", "first kept improvement, min", "holdout after it", "runs with a kept change to tree depth or leaves", "its minute", "holdout after it"], rows,
      "The first moves, medians over runs. A kept improvement is a kept commit with a higher eval AUC than the baseline's; a depth change is one whose description mentions depth, leaves or shallower trees.")
 
@@ -114,7 +139,7 @@ for a, b in itertools.combinations(MODELS, 2):
     A = [r["holdout_auc"] for r in model_runs(runs, a)]; B = [r["holdout_auc"] for r in model_runs(runs, b)]
     t = ss.ttest_ind(A, B, equal_var=False); u = ss.mannwhitneyu(A, B, alternative="two-sided")
     gap = abs(np.mean(A) - np.mean(B)); sd = np.sqrt((np.var(A, ddof=1) + np.var(B, ddof=1)) / 2)
-    rows.append([f"{SHORT[a]} vs {SHORT[b]}", f"{t.statistic:.1f}", f"{t.pvalue:.0e}", f"{u.statistic:.0f}", f"{u.pvalue:.0e}", f"{16*sd**2/gap**2:.0f}"])
+    rows.append([f"{SHORT[a]} vs {SHORT[b]}", f"{t.statistic:.1f}", f"{t.pvalue:.0e}", f"{u.statistic:.0f}", f"{u.pvalue:.0e}", str(rnd(16 * sd**2 / gap**2))])
 f = ss.f_oneway(*[[r["holdout_auc"] for r in model_runs(runs, m)] for m in MODELS]); kw = ss.kruskal(*[[r["holdout_auc"] for r in model_runs(runs, m)] for m in MODELS])
 save("tests", ["pair", "Welch t", "p", "Mann-Whitney U", "p", "runs per arm to detect the observed gap"], rows,
      f"Two-sided tests between LLMs and, post hoc, the runs per arm that the approximation 16 sd^2^ / gap^2^ gives for 80% power at the 5% level with the observed gap and pooled sd. One-way ANOVA: F = {f.statistic:.1f}, p = {f.pvalue:.0e}; Kruskal-Wallis: H = {kw.statistic:.1f}, p = {kw.pvalue:.0e}.")
@@ -125,7 +150,7 @@ subsets = [("all 60 runs", runs), ("without the 10 caveat runs", [r for r in run
 rows = []
 for name, rs in subsets:
     means = [f"{np.mean([r['holdout_auc'] for r in model_runs(rs, m)]):.4f}" for m in MODELS]
-    ps = [f"{win([r['holdout_auc'] for r in model_runs(rs, a)], [r['holdout_auc'] for r in model_runs(rs, b)])[0]:.0%}" for a, b in itertools.combinations(MODELS, 2)]
+    ps = [pct(win([r['holdout_auc'] for r in model_runs(rs, a)], [r['holdout_auc'] for r in model_runs(rs, b)])[0]) for a, b in itertools.combinations(MODELS, 2)]
     rows.append([name, ", ".join(str(len(model_runs(rs, m))) for m in MODELS)] + means + ps)
 save("sensitivity", ["runs", "n (Astra, Sol, Luna)", "mean Astra", "mean Sol", "mean Luna", "P(Astra beats Sol)", "P(Astra beats Luna)", "P(Sol beats Luna)"], rows,
      "The headline statistics without the runs with a protocol caveat and without the runs that used BTS documentation about the evaluation year (Astra 7 and 12, Sol 11).")
@@ -134,7 +159,7 @@ save("sensitivity", ["runs", "n (Astra, Sol, Luna)", "mean Astra", "mean Sol", "
 rows = [[r["run"], r["integrity_flags"] if r["integrity_flags"] != "none" else "", r["flags"], note(r)]
         for r in runs if r["integrity_flags"] != "none" or r["valid"] == "caveat"]
 save("flags", ["run", "integrity flag (cleared)", "caveat", "resolution"], rows,
-     "The runs with an integrity flag from the automatic checks (all cleared on review) or a protocol caveat. No run was excluded.")
+     "The runs with an integrity flag from the automatic checks or a content hit in the leak check (all cleared on review), or a protocol caveat. No run was excluded.")
 
 # Appendix: operations
 rows = []
@@ -152,7 +177,7 @@ for m in MODELS:
     rr = model_runs(runs, m)
     cost = [((r["input_tokens"] - r["cached_input_tokens"]) * PRICES[m][0] + r["cached_input_tokens"] * PRICES[m][1] + r["output_tokens"] * PRICES[m][2]) / 1e6 for r in rr]
     rows.append([SHORT[m], f"{np.mean([r['input_tokens'] for r in rr])/1e6:.1f} ({min(r['input_tokens'] for r in rr)/1e6:.1f}–{max(r['input_tokens'] for r in rr)/1e6:.1f})",
-                 f"{np.mean([r['cached_input_tokens']/r['input_tokens'] for r in rr]):.1%}", f"{np.mean([r['output_tokens'] for r in rr])/1e3:.0f}",
+                 pct(np.mean([r['cached_input_tokens'] / r['input_tokens'] for r in rr]), 1), f"{np.mean([r['output_tokens'] for r in rr])/1e3:.0f}",
                  f"{np.mean([r['reasoning_output_tokens'] for r in rr])/1e3:.0f}", f"{np.mean([r['token_events'] for r in rr]):.0f}",
                  f"{np.mean(cost):.2f} ({min(cost):.2f}–{max(cost):.2f})"])
 save("tokens", ["LLM", "input tokens, millions (min–max)", "cached share", "output tokens, thousands", "of which reasoning", "API responses", "list-price projection, USD (min–max)"], rows,
@@ -163,15 +188,15 @@ rows = []
 for m in MODELS:
     for r in model_runs(runs, m):
         rows.append([r["run"], r["experiments"], r["n_keep"], f"{r['best_eval_auc']:.4f}", f"{r['holdout_auc']:.4f}", f"{r['gap']:+.4f}",
-                     f"{r['clock_elapsed_s']//60}m{r['clock_elapsed_s']%60:02d}s", f"{r['ai_share_pct']:.0f}%", r["flags"] or ""])
+                     f"{r['clock_elapsed_s']//60}m{r['clock_elapsed_s']%60:02d}s", f"{rnd(r['ai_share_pct'])}%", r["flags"] or ""])
 save("per_run", ["run", "experiments", "kept", "eval AUC", "holdout AUC", "gap", "clock", "agent's share", "caveat"], rows,
-     "The 60 runs. Experiments: rows of results.tsv, the baseline included. Kept: commits kept under the keep rule. Eval and holdout AUC: of the final model. Clock: from start to stop. Agent's share: time outside XGBoost runs.")
+     "The 60 runs. Experiments: rows of results.tsv, the baseline included. Kept: kept commits, the baseline included. Eval and holdout AUC: of the final model. Clock: from start to stop. Agent's share: time outside XGBoost runs.")
 
 # Appendix: the example run's kept commits
 ex = next(r for r in runs if r["run"] == "astra6_n20-1")
 rows = [[f"{m_:.0f}", d, f"{e:.4f}", f"{h:.4f}"] for m_, h, e, d in ex["path"]]
 save("example_run", ["minute", "the agent's description of the kept commit", "eval AUC", "holdout AUC"], rows,
-     f"The {len(ex['path'])} kept commits of run {ex['run']}, in order, with the minute of the clock at which each was kept.")
+     f"The baseline and the {len(ex['path']) - 1} kept changes of run {ex['run']}, in order, with the minute of the clock at which each was kept.")
 
 # Appendix: the rules given to the agent, from program.md of the minimal3 repo at the pinned commit
 m3 = PAPER_ROOT.parent / "xgboost-autoresearch-minimal3" / "program.md"
@@ -203,8 +228,8 @@ for m in MODELS:
     for r in model_runs(runs, m):
         a = aud[r["run"]]
         yn = lambda k: "yes" if a[k] == "1" else ""
-        depth = a["max_depth"] or (f"{a['max_leaves']} leaves" if a["max_leaves"] else "")
+        depth = f"{a['max_leaves']}\\ leaves" if a["max_leaves"] and a["max_depth"] in ("", "0") else ("lossguide" if a["max_depth"] == "0" else a["max_depth"])
         rows.append([r["run"], f"{r['holdout_auc']:.4f}", yn("dom_cat"), yn("month_cat"), yn("doy"), yn("holiday"), depth, a["n_estimators"], a["learning_rate"],
                      yn("ensemble"), a["verified"] or "pending"])
 save("audit_per_run", ["run", "holdout AUC", "day-of-month category", "month category", "day of year", "holiday features", "depth", "trees", "learning rate", "ensemble", "checked by hand"], rows,
-     "The final model of every run, from the scripted audit of its train.py. Depth: max_depth, or the leaf limit for lossguide trees; trees and learning rate as set in the file (the last assignment); ensemble: more than one model, seed averaging or a blend.")
+     "The final model of every run, from the scripted audit of its train.py. Depth: max_depth, or the leaf limit for lossguide trees (lossguide alone where the script could not read the limit); trees and learning rate as set in the file (the last assignment); ensemble: more than one model, seed averaging or a blend.")

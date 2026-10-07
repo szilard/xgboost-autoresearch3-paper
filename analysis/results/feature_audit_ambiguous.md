@@ -1,10 +1,10 @@
 <!-- analysis/feature_audit.py -->
-<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ b2841ab; generated 2026-10-07 11:47Z -->
+<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ b2841ab; generated 2026-10-07 16:11Z -->
 
 ## Files to read by hand first
 
 | run | flags |
-|---|---|
+|--------------------|--------------------------------|
 | astra6_n20-11 | dom_in_prepare_unclear |
 | astra6_n20-16 | dom_in_prepare_unclear |
 | sol6_n20-2 | dom_both |

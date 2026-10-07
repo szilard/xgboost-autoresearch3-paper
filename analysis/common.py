@@ -70,15 +70,20 @@ def utc(ts):
 
 
 def md_table(headers, rows, min_width=4):
-    """Pipe table; the separator's dash counts follow the longest word per column (header words wrap),
-    which pandoc turns into relative column widths when a row is wider than its line length."""
+    """Pipe table; the separator's dash counts set pandoc's relative column widths when a row is wider than
+    the line length. A column needs room for its longest unbreakable piece (a header word, or a whole cell
+    when the column's cells contain no spaces) plus the cell padding; the n // 3 covers digits and capitals,
+    which are wider than the average letter."""
+    def need(n):
+        return n + 2 + n // 3
     cells = [[str(c) for c in r] for r in rows]
     widths = []
     for j, h in enumerate(headers):
-        longest_word = max([len(w) for w in str(h).split()] + [1])
-        body = max([len(r[j]) for r in cells if j < len(r)] + [1])
-        no_space = all(" " not in r[j] for r in cells if j < len(r))
-        widths.append(max(min_width, longest_word, body + 3 if no_space else min(body, 50)))
+        longest_word = max([len(w) for w in re.split(r"[\s-]+", str(h))] + [1])
+        col = [r[j] for r in cells if j < len(r)]
+        body = max([len(c) for c in col] + [1])
+        no_space = all(" " not in c.replace("\\ ", "") for c in col)  # "\ " is pandoc's non-breaking space
+        widths.append(max(min_width, need(longest_word), need(body) + 1 if no_space else min(body, 50)))
     out = ["| " + " | ".join(str(h) for h in headers) + " |", "|" + "|".join("-" * w for w in widths) + "|"]
     out += ["| " + " | ".join(r) + " |" for r in cells]
     return "\n".join(out) + "\n"
@@ -154,6 +159,11 @@ def load_runs(repo, with_session=True):
             path, end_min, clock = keep_path(rd)
             best_kept = max(h for _, h, _, _ in path)
             drv = (rd / "driver.log").read_text(errors="replace").splitlines()
+            leak = re.search(r"^CONTENT HITS: (\d+)", (rd / "leak_check.txt").read_text(errors="replace"), re.M)
+            leak_hits = int(leak.group(1)) if leak else -1
+            integrity = ds["integrity_flags"]  # run_checks.py; a content hit of the leak check is added as a flag of its own
+            if leak_hits > 0:
+                integrity = "leak_check_hit" if integrity == "none" else integrity + " leak_check_hit"
             d = dict(
                 group=g, run=r["run"], model=model, short=SHORT[model], effort=ds["effort"],
                 codex_version=ds["codex_version"], driver_start=drv[0][:20], driver_end=drv[-1][:20],
@@ -164,7 +174,7 @@ def load_runs(repo, with_session=True):
                 best_eval_auc=float(r["eval_auc"]), holdout_auc=float(r["holdout_auc"]), gap=float(r["gap"]),
                 best_kept_holdout=best_kept, final_below_best=int(float(r["holdout_auc"]) < best_kept - 1e-9),
                 ai_share_pct=ai, xgb_share_pct=xg, valid=r["valid"], flags=r["flags"], caveat_text=cav.get(r["run"], ""),
-                integrity_flags=ds["integrity_flags"], protocol_flags=ds["protocol_flags"],
+                integrity_flags=integrity, protocol_flags=ds["protocol_flags"], leak_content_hits=leak_hits,
                 turns_sent=len(ds["turns"]), failed_turns=ds["failed_turns"], retry_wait_s=ds["retry_wait_s"],
                 clock_stopped_by=ds["clock_stopped_by"], memory_peak_gib=round(int(ds["memory_peak_bytes"]) / 2**30, 1),
                 oom_kills=int(ds["oom_kills"]), path=path, end_min=end_min, dir=rd,

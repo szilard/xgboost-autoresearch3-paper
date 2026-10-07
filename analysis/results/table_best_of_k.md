@@ -1,10 +1,10 @@
 <!-- analysis/best_of_k.py -->
-<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ b2841ab; generated 2026-10-07 12:12Z -->
+<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ b2841ab; generated 2026-10-07 16:11Z -->
 
 ## Best of k attempts, chosen on eval AUC, holdout AUC of the chosen run (exact over the 20 observed runs per LLM)
 
 | LLM | k | median | mean | 5th percentile | 95th percentile | oracle (chosen on holdout) median | oracle mean − chosen mean |
-|--------|-----|--------------------------------------------------|---------|----------|----------|---------|----------|
+|---------|-----|--------------------------------------------------|-----------|---------------|---------------|------------|------------|
 | Astra | 1 | 0.6870 | 0.6866 | 0.6815 | 0.6888 | 0.6870 | +0.0000 |
 | Astra | 2 | 0.6878 | 0.6877 | 0.6846 | 0.6906 | 0.6880 | +0.0001 |
 | Astra | 3 | 0.6881 | 0.6882 | 0.6856 | 0.6906 | 0.6881 | +0.0001 |
@@ -32,7 +32,7 @@ Draws are with replacement from the observed runs, so the ceiling is the best ob
 ## Simulation check (20,000 draws, seed 1)
 
 | LLM | k | median | mean |
-|--------|-----|---------|---------|
+|---------|-----|-----------|-----------|
 | Astra | 1 | 0.6872 | 0.6866 |
 | Astra | 2 | 0.6878 | 0.6877 |
 | Astra | 3 | 0.6881 | 0.6882 |

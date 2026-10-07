@@ -1,5 +1,5 @@
 | minute | the agent's description of the kept commit | eval AUC | holdout AUC |
-|------|--------------------------------------------------|---------|---------|
+|----------|--------------------------------------------------|-----------|-----------|
 | 1 | baseline | 0.6743 | 0.6725 |
 | 2 | simplify prepare; same features and faster evaluation | 0.6743 | 0.6725 |
 | 3 | depth 4; 400 trees; stronger leaf and L2 regularization | 0.6800 | 0.6784 |
@@ -20,4 +20,4 @@
 | 54 | remove route-time offset from holiday ensemble | 0.6881 | 0.6857 |
 | 55 | remove monthly weighting after adding holiday features | 0.6900 | 0.6880 |
 
-Table: The 19 kept commits of run astra6_n20-1, in order, with the minute of the clock at which each was kept.
+Table: The baseline and the 18 kept changes of run astra6_n20-1, in order, with the minute of the clock at which each was kept.
