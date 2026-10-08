@@ -17,7 +17,7 @@
 | 11 | Test runs: omitted. |
 | 12 | Author-year citations with natbib. |
 | 13 | Pandoc Markdown toolchain (option A). |
-| 14 | arXiv categories: decided at submission; nothing in the manuscript depends on it. |
+| 14 | arXiv categories: primary cs.SE, cross-listed to cs.LG (decided 2026-10-08). License CC BY 4.0; comments field "40 pages, 9 figures, 16 tables. Code and data: github.com/szilard/xgboost-autoresearch-minimal3-runs"; abstract field = the paper's abstract as plain text. All in `paper/ARXIV.md`. No endorsement needed. |
 | 15 | Paper repo public from the start: `github.com/szilard/xgboost-autoresearch3-paper`. |
 | 16 | Machine: AWS m8i.2xlarge (8 vCPUs, 32 GB) for all 60 runs; runs sequential within a group, the groups partly at the same time on separate instances (confirmed by the authors 2026-10-07, matching the run timestamps). |
 | 17 | Example run in the appendix: astra6_n20-1 (holdout 0.6880, 6th of 20, above the median 0.6871). |
@@ -31,6 +31,7 @@
 | 25 | Reference list: author-year (natbib), sorted by first author's surname; authors printed surname first ("Agarwal, Rishabh") with `paper/plainnat-sf.bst`, a renamed copy of plainnat that changes only the author-name format, so the alphabetical order is visible. Grouped citations oldest first, or in the order of a list the sentence names. |
 | 26 | Abstract kept high-level (option B, 225 words): no absolute AUCs, years or setup details; keeps the relative finding (spread vs gap) and "one time in five"; the confirmation step of the selection recipe stays in the body. |
 | 27 | Independent read by an author (plan 06, consistency pass): done by Szilard Pafka, who read the full paper (2026-10-08). |
+| 28 | Before submission (2026-10-08): the draft-notes comment removed from paper.md; PDF author metadata set to the two names; the AI disclosure kept as it is; the paper repository is tagged by the authors at the submitted commit. |
 
 Defaults applied without a separate decision: analysis scripts in this repo under `analysis/`; the runs repo pinned by commit hash, not a submodule; the agent described as "Codex CLI 0.160.0 on a ChatGPT subscription" without naming the tier; the disclosure names Claude Code's role in orchestration, run review and drafting, as the runs repo README does.
 
