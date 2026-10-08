@@ -29,6 +29,7 @@
 | 23 | Manual feature audit: done 2026-10-07 by Claude agents under written rules, the flagged and disputed files settled by the orchestrating session; the authors did not take part (their choice), so the paper says "read in full", not "by hand", and the disclosure covers it (`analysis/audit/`). 40 files confirmed, 20 corrected; no day-of-month verdict changed. |
 | 24 | Reasoning effort: one sentence in Section 5.3 citing OpenAI's o1 report (`openai2024o1`) that reasoning models do better when allowed to think longer, so results at "ultra" could differ. |
 | 25 | Reference list: author-year (natbib), sorted by first author's surname; authors printed surname first ("Agarwal, Rishabh") with `paper/plainnat-sf.bst`, a renamed copy of plainnat that changes only the author-name format, so the alphabetical order is visible. Grouped citations oldest first, or in the order of a list the sentence names. |
+| 26 | Abstract kept high-level (option B, 225 words): no absolute AUCs, years or setup details; keeps the relative finding (spread vs gap) and "one time in five"; the confirmation step of the selection recipe stays in the body. |
 
 Defaults applied without a separate decision: analysis scripts in this repo under `analysis/`; the runs repo pinned by commit hash, not a submodule; the agent described as "Codex CLI 0.160.0 on a ChatGPT subscription" without naming the tier; the disclosure names Claude Code's role in orchestration, run review and drafting, as the runs repo README does.
 
