@@ -7,9 +7,9 @@
 | astra6_n20-12 |  | keep_rule | `d4bd0fc` (`max_bin` 64) kept at a tie as "faster" by 1.1 s in one timing, within noise, not simpler; it stayed in the final model |
 | astra6_n20-15 | train_py_review |  | explained: a read of `data/train.csv` written differently from the starter, in a discarded commit |
 | astra6_n20-16 | artifact_outside_clock |  | explained: the agent reset the repository before the evaluation of a discarded commit had finished, so its timing row carries the wrong commit |
-| sol6_n20-8 |  | keep_rule | `83775c5` (DART `rate_drop` 0.2) kept at a tie as "faster" by 1.0 s, within noise, not simpler; it is the final model |
+| sol6_n20-8 |  | keep_rule | `83775c5` (`rate_drop` 0.2 for DART, the dropout booster of XGBoost) kept at a tie as "faster" by 1.0 s, within noise, not simpler; it is the final model |
 | sol6_n20-12 | train_py_review |  | false match: the check's pattern `glob` matches the word `global` in the variable name `global_delay_rate` |
-| sol6_n20-16 |  | turn_retries | 7 failed turns, all 'model at capacity'; retry waits of 216 s |
+| sol6_n20-16 |  | turn_retries | 7 failed turns, all "model at capacity"; retry waits of 216 s |
 | sol6_n20-19 |  | keep_rule | `f833740` (lossguide tree growth) kept at a tie as "faster" by 1.0 s, within noise, not simpler; lossguide stayed in the final model |
 | luna6_n20-1 | train_py_review |  | false match: the check's pattern `glob` matches the word `global` in the variable name `global_target_rate` |
 | luna6_n20-6 |  | keep_rule | `bd192f4` (gamma 0.1) kept at a tie as "faster" by 0.6 s, within noise, not simpler; it changed neither the eval nor the holdout AUC |

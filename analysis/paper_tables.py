@@ -105,7 +105,7 @@ for m in MODELS:
     fds = [C[r["run"]]["first_depth"] for r in model_runs(runs, m)]; fds = [x for x in fds if x]
     fks = [C[r["run"]]["first_keep"] for r in model_runs(runs, m)]; fks = [x for x in fks if x]
     rows.append([SHORT[m], f1(st.median(x[0] for x in fks)), f"{st.median(x[1] for x in fks):.4f}", len(fds), f1(st.median(x[0] for x in fds)), f"{st.median(x[1] for x in fds):.4f}"])
-save("first_move", ["LLM", "first kept improvement, min", "holdout after it", "runs with a kept change to tree depth or leaves", "its minute", "holdout after it"], rows,
+save("first_move", ["LLM", "first kept improvement, min", "holdout after the first kept improvement", "runs with a kept change to tree depth or leaves", "minute of the depth change", "holdout after the depth change"], rows,
      "The first moves: medians over runs, except the count of runs with a depth change. A kept improvement is a kept commit with a higher eval AUC than the baseline's; a depth change is one whose description mentions depth, leaves or shallower trees.")
 
 # Table: calendar audit
@@ -171,7 +171,7 @@ for m in MODELS:
                  sum(r["clock_remaining_s"] < 0 for r in rr), "–".join(f"{t//60}m{t%60:02d}s" for t in (min(r['clock_elapsed_s'] for r in rr), max(r['clock_elapsed_s'] for r in rr))),
                  sum(r["compactions"] > 0 for r in rr), f"{min(r['memory_peak_gib'] for r in rr)}–{max(r['memory_peak_gib'] for r in rr)}"])
 save("operations", ["LLM", "dates (UTC)", "failed turns", "runs with retry waits", "runs stopped after the budget", "clock, shortest to longest", "runs with a context compaction", "peak memory, GiB"], rows,
-     "Operational summary. Failed turns ended with the service error 'model at capacity' and were retried; the clock kept running. Every run's agent stopped the clock itself; the clock could exceed the hour when the agent's wrap-up came after its last status check. Nothing was killed at the 24 GiB memory cap.")
+     "Operational summary. Failed turns ended with the service error \"model at capacity\" and were retried; the clock kept running. Every run's agent stopped the clock itself; the clock could exceed the hour when the agent's wrap-up came after its last status check. Nothing was killed at the 24 GiB memory cap.")
 
 # Appendix: tokens
 rows = []

@@ -1,5 +1,5 @@
 <!-- analysis/appendix_tables.py -->
-<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-08 05:46Z -->
+<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-08 06:25Z -->
 
 ## The 60 runs
 

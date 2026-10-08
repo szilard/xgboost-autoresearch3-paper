@@ -1,5 +1,5 @@
 <!-- analysis/appendix_tables.py -->
-<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-08 05:46Z -->
+<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-08 06:25Z -->
 
 ## Runs with integrity flags (all cleared on review) or protocol caveats
 
@@ -12,9 +12,9 @@
 | astra6_n20-12 | none | none | caveat | keep_rule | `d4bd0fc` (`max_bin` 64) kept at a tie as "faster" by 1.1 s in one timing, within noise, not simpler; it stayed in the final model |
 | astra6_n20-15 | train_py_review | none | yes |  | explained: a read of `data/train.csv` written differently from the starter, in a discarded commit |
 | astra6_n20-16 | artifact_outside_clock | none | yes |  | explained: the agent reset the repository before the evaluation of a discarded commit had finished, so its timing row carries the wrong commit |
-| sol6_n20-8 | none | none | caveat | keep_rule | `83775c5` (DART `rate_drop` 0.2) kept at a tie as "faster" by 1.0 s, within noise, not simpler; it is the final model |
+| sol6_n20-8 | none | none | caveat | keep_rule | `83775c5` (`rate_drop` 0.2 for DART, the dropout booster of XGBoost) kept at a tie as "faster" by 1.0 s, within noise, not simpler; it is the final model |
 | sol6_n20-12 | train_py_review | none | yes |  | false match: the check's pattern `glob` matches the word `global` in the variable name `global_delay_rate` |
-| sol6_n20-16 | none | none | caveat | turn_retries | 7 failed turns, all 'model at capacity'; retry waits of 216 s |
+| sol6_n20-16 | none | none | caveat | turn_retries | 7 failed turns, all "model at capacity"; retry waits of 216 s |
 | sol6_n20-19 | none | none | caveat | keep_rule | `f833740` (lossguide tree growth) kept at a tie as "faster" by 1.0 s, within noise, not simpler; lossguide stayed in the final model |
 | luna6_n20-1 | train_py_review | none | yes |  | false match: the check's pattern `glob` matches the word `global` in the variable name `global_target_rate` |
 | luna6_n20-6 | none | none | caveat | keep_rule | `bd192f4` (gamma 0.1) kept at a tie as "faster" by 0.6 s, within noise, not simpler; it changed neither the eval nor the holdout AUC |
