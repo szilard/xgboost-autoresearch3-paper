@@ -1,6 +1,6 @@
 | run | integrity flag (cleared) | caveat | resolution |
 |----------------------|----------------------------------|---------------------|--------------------------------------------------|
-| astra6_n20-4 | artifact_outside_clock |  | explained: the last experiment, started inside the clock with 1m53s left, was cut off during evaluation when the turn failed |
+| astra6_n20-4 | artifact_outside_clock |  | explained: the last experiment, started inside the clock with 1m53s left (against the rule to stop with less than two minutes left, which no check enforces), was cut off during evaluation when the turn failed |
 | astra6_n20-5 |  | keep_rule | `7b7712f` (gamma 5) kept at a tie as "faster" by 0.8 s, within noise, not simpler; it stayed in the final model |
 | astra6_n20-6 | leak_check_hit |  | false match: the leak check matched the end of a column list that the agent printed in its own setup check |
 | astra6_n20-8 | leak_check_hit | keep_rule | false match: the leak check matched a call to the harness's own artifact loader in the agent's final check; `e5e4a2b` (`max_cat_threshold` 16) kept at a tie as "faster" by 0.2 s, within noise, not simpler; it stayed in the final model |

@@ -1,5 +1,5 @@
 <!-- analysis/gap.py -->
-<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-07 21:21Z -->
+<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-08 05:45Z -->
 
 ## Eval and holdout AUC of the final models
 

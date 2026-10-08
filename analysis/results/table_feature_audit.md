@@ -1,5 +1,5 @@
 <!-- analysis/feature_audit.py -->
-<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-07 21:21Z -->
+<!-- runs repo: /home/ubuntu/xgb_ar3/xgboost-autoresearch-minimal3-runs @ c34a051; generated 2026-10-08 05:45Z -->
 
 ## Final models by LLM (scripted audit, every file then read and the verdicts confirmed or corrected)
 

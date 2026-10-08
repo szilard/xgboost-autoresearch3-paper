@@ -11,7 +11,7 @@ INTEGRITY_NOTES = {  # from the groups' results_summary.md and the runs' run.md
 GLOB_VARIABLE = {"sol6_n20-12": "global_delay_rate", "luna6_n20-1": "global_target_rate", "luna6_n20-7": "global_mean",
                  "luna6_n20-11": "global_delay_rate", "luna6_n20-15": "global_delay_rate"}  # from each run's checks.txt
 SPECIAL = {"astra6_n20-15": "explained: a read of `data/train.csv` written differently from the starter, in a discarded commit",
-           "astra6_n20-4": "explained: the last experiment, started inside the clock with 1m53s left, was cut off during evaluation when the turn failed",
+           "astra6_n20-4": "explained: the last experiment, started inside the clock with 1m53s left (against the rule to stop with less than two minutes left, which no check enforces), was cut off during evaluation when the turn failed",
            "astra6_n20-16": "explained: the agent reset the repository before the evaluation of a discarded commit had finished, so its timing row carries the wrong commit",
            "astra6_n20-6": "false match: the leak check matched the end of a column list that the agent printed in its own setup check",
            "astra6_n20-8": "false match: the leak check matched a call to the harness's own artifact loader in the agent's final check"}

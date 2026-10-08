@@ -74,7 +74,7 @@ for m in MODELS:
     rows.append([SHORT[m], n, f"{x.mean():.4f}", f"{x.std(ddof=1):.4f}", f"{x.mean()-half:.4f}–{x.mean()+half:.4f}", f"{x.min():.4f}", f"{p10:.4f}",
                  f"{np.median(x):.4f}", f"{p90:.4f}", f"{x.max():.4f}", f"{x.mean()-BASE_HOLDOUT:+.4f}", f"{x.max()-x.min():.4f}"])
 save("per_model", ["LLM", "n", "mean", "sd", "95% CI of the mean", "min", "10th pct.", "median", "90th pct.", "max", "mean gain over starter", "range"], rows,
-     "Holdout AUC of each run's final model, 20 runs per LLM. The starter model scores 0.6725. sd is the sample standard deviation; the interval uses the t distribution; the 10th and 90th percentiles are the 3rd-lowest and 3rd-highest of the 20 runs; the range is the best run minus the worst.")
+     "Holdout AUC of each run's final model, 20 runs per LLM. The starter model scores 0.6725. sd is the sample standard deviation; the interval uses the t distribution and describes the variation between runs on this holdout set, not the sampling of the holdout set itself; the 10th and 90th percentiles are the 3rd-lowest and 3rd-highest of the 20 runs; the range is the best run minus the worst.")
 
 # Table: head to head
 by_pair = {}
@@ -152,9 +152,9 @@ subsets = [("all 60 runs", runs), ("without the 10 caveat runs", [r for r in run
 rows = []
 for name, rs in subsets:
     means = [f"{np.mean([r['holdout_auc'] for r in model_runs(rs, m)]):.4f}" for m in MODELS]
-    ps = [pct(win([r['holdout_auc'] for r in model_runs(rs, a)], [r['holdout_auc'] for r in model_runs(rs, b)])[0]) for a, b in itertools.combinations(MODELS, 2)]
+    ps = [pct(win([r['holdout_auc'] for r in model_runs(rs, a)], [r['holdout_auc'] for r in model_runs(rs, b)])[0]) for a, b in PAIRS]
     rows.append([name, ", ".join(str(len(model_runs(rs, m))) for m in MODELS)] + means + ps)
-save("sensitivity", ["runs", "n (Astra, Sol, Luna)", "mean Astra", "mean Sol", "mean Luna", "P(Astra beats Sol)", "P(Astra beats Luna)", "P(Sol beats Luna)"], rows,
+save("sensitivity", ["runs", "n (Astra, Sol, Luna)", "mean Astra", "mean Sol", "mean Luna", "P(Astra beats Luna)", "P(Sol beats Luna)", "P(Astra beats Sol)"], rows,
      "The headline statistics without the runs with a protocol caveat and without the runs that used BTS documentation about the evaluation year (astra6_n20-7, astra6_n20-12 and sol6_n20-11).")
 
 # Appendix: flags and caveats
@@ -168,9 +168,9 @@ rows = []
 for m in MODELS:
     rr = model_runs(runs, m)
     rows.append([SHORT[m], f"{min(r['driver_start'][:10] for r in rr)} to {max(r['driver_end'][:10] for r in rr)}", sum(r["failed_turns"] for r in rr), sum(r["retry_wait_s"] > 0 for r in rr),
-                 sum(r["clock_remaining_s"] < 0 for r in rr), "–".join(f"{t//60}:{t%60:02d}" for t in (min(r['clock_elapsed_s'] for r in rr), max(r['clock_elapsed_s'] for r in rr))),
+                 sum(r["clock_remaining_s"] < 0 for r in rr), "–".join(f"{t//60}m{t%60:02d}s" for t in (min(r['clock_elapsed_s'] for r in rr), max(r['clock_elapsed_s'] for r in rr))),
                  sum(r["compactions"] > 0 for r in rr), f"{min(r['memory_peak_gib'] for r in rr)}–{max(r['memory_peak_gib'] for r in rr)}"])
-save("operations", ["LLM", "dates (UTC)", "failed turns", "runs with retry waits", "runs stopped after the budget", "clock, min:s, shortest to longest", "runs with a context compaction", "peak memory, GiB"], rows,
+save("operations", ["LLM", "dates (UTC)", "failed turns", "runs with retry waits", "runs stopped after the budget", "clock, shortest to longest", "runs with a context compaction", "peak memory, GiB"], rows,
      "Operational summary. Failed turns ended with the service error 'model at capacity' and were retried; the clock kept running. Every run's agent stopped the clock itself; the clock could exceed the hour when the agent's wrap-up came after its last status check. Nothing was killed at the 24 GiB memory cap.")
 
 # Appendix: tokens
