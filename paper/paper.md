@@ -31,7 +31,7 @@ geometry: margin=1in
 
 # Introduction
 
-In an earlier project we showed that AI coding agents can automate much of a data scientist's trial-and-error work [@pafka2026autoresearch]: given a working XGBoost model and a time budget, an agent researches ideas on the web, engineers features, tunes hyperparameters, and keeps what improves the model on an evaluation set. The results we presented came from single runs of a single agent. AI agents are not deterministic, though. Given the same task twice, the same agent tries different ideas, in a different order, and ends up with a different model. A single run is therefore one sample from a range of possible outcomes, and on its own it says little about how good a setup is, or whether one large language model (LLM) is better than another.
+In an earlier project we showed that an AI coding agent can take over much of the trial and error in a data scientist's work [@pafka2026autoresearch]: given a working XGBoost model and a time budget, it researches ideas on the web, engineers features, tunes hyperparameters, and keeps what improves the model on an evaluation set. The results we presented came from single runs of a single agent. AI agents are not deterministic, though. Run twice on the same task, an agent explores a different path and finishes with a different model, so a single run is one sample from a range of possible outcomes; on its own it says little about how good a setup is, or whether one large language model (LLM) is better than another.
 
 That LLM outputs vary between identical calls is well documented, down to the batch-size dependence of inference kernels [@ouyang2024nondeterminism; @atil2025nondeterminism; @he2025defeating], and so is the variation between repeated runs of agents on benchmarks of pass-or-fail tasks [@yao2024taubench; @bjarnason2026randomness; @rabanser2026reliability]. What a data scientist deciding between agents, LLMs or prompts needs is something more specific: the size of that variation on a continuous measure of the model an agent delivers, on a realistic task, under a protocol that guards against shortcuts, and for LLMs of clearly different strength, so that the spread within an LLM can be set against the gaps between LLMs. This paper measures that.
 
@@ -165,7 +165,7 @@ Figure 1 shows the holdout AUC of each run's final model, Table 2 the statistics
 
 {{table:per_model}}
 
-## The runs of one LLM vary as much as the LLMs differ
+## The runs of one LLM vary about as much as the LLMs differ
 
 The runs of each LLM are spread widely. From worst to best run, Luna spans 0.0071, Sol 0.0068 and Astra 0.0091. For each LLM, that range is more than half of its average improvement over the starter model (87%, 58% and 65% of it), and larger than the 0.0059 between the means of the best and the worst LLM. The range grows with the number of runs, so a steadier measure of the spread is the standard deviation: 0.0018 to 0.0022 within an LLM, against 0.0024 between the means of the two closest LLMs. The ranges also overlap: Luna's two best runs (0.6844) beat half of Sol's 20 runs and the two worst of Astra's, and Sol's best run (0.6871) beats half of Astra's. A single run can therefore land almost anywhere within an interval that covers more than one LLM's typical results.
 
